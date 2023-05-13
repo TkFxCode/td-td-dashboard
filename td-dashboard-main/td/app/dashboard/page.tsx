@@ -65,7 +65,7 @@ function Dashboard() {
     <DashboardLayout sidebarOpen={sidebarOpen}>
       <div className="mb-4 flex flex-col space-y-4 lg:space-y-0 lg:flex-row ">
         <Tabs defaultValue="tradingOverview" className=" w-full">
-          <TabsList className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2  min-h-[300px] lg:min-h-0">
+          <TabsList className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2  min-h-[350px] lg:min-h-0">
             <ToggleSidebar
               sidebarOpen={sidebarOpen}
               toggleSidebar={toggleSidebar}

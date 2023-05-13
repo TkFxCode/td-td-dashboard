@@ -95,7 +95,7 @@ export default function GPTQueryForm() {
             Please wait
           </Button>
         ) : (
-          <Button>Upload Data</Button>
+          <Button>Submit Query</Button>
         )}
       </form>
       <div>

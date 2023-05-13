@@ -30,9 +30,9 @@ const MarketWhispererTab = () => {
     <div className="flex flex-col justify-center gap-6 mt-10 md:flex-row md:justify-center md:gap-10">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <h3 className=" text-2xl font-semibold tracking-tight text-center m-5">
+          <h1 className=" scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
             MarketWhisperer Data Input
-          </h3>
+          </h1>
         </CardHeader>
         <CardContent>
           <TextInputForm />
@@ -40,9 +40,9 @@ const MarketWhispererTab = () => {
       </Card>
       <Card className="w-full max-w-md">
         <CardHeader>
-          <h3 className=" text-2xl font-semibold tracking-tight text-center m-5">
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
             MarketWhisperer Query Input
-          </h3>
+          </h1>
         </CardHeader>
         <CardContent>
           <GPTQueryForm />

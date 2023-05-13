@@ -1,0 +1,17 @@
+/* navbar.module.css */
+.navItems {
+  display: none;
+}
+
+.dropdownMenu {
+  display: block;
+}
+
+@media (min-width: 979px) {
+  .navItems {
+    display: flex;
+  }
+  .dropdownMenu {
+    display: none;
+  }
+}

@@ -6,6 +6,7 @@ import { Card, CardContent, CardTitle } from '../ui/card';
 import { Button } from '@/app/components/ui/button';
 import { Textarea } from '@/app/components/ui/textarea';
 import { Loader2 } from 'lucide-react';
+import { Label } from '@/app/components/ui/label';
 
 export default function GPTQueryForm() {
   const [query, setQuery] = useState('');
@@ -74,9 +75,12 @@ export default function GPTQueryForm() {
   return (
     <div>
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-        <label htmlFor="queryInput" className="text-lg mb-2">
+        <Label
+          htmlFor="queryInput"
+          className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+        >
           Enter your query:
-        </label>
+        </Label>
 
         <Textarea
           id="queryInput"
@@ -102,9 +106,9 @@ export default function GPTQueryForm() {
             </h3>
           </CardTitle>
           <CardContent>
-            <blockquote className="mt-6 border-l-2 pl-6 italic">
+            <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
               {response}
-            </blockquote>
+            </code>
           </CardContent>
         </Card>
       </div>

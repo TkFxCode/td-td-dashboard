@@ -4,6 +4,7 @@ import { Textarea } from '@/app/components/ui/textarea';
 import { supabase } from './supabase-client';
 import { Configuration, OpenAIApi } from 'openai';
 import { Loader2 } from 'lucide-react';
+import { Label } from '@/app/components/ui/label';
 
 export default function VectorDBInputForm() {
   const [text, setText] = useState('');
@@ -43,9 +44,12 @@ export default function VectorDBInputForm() {
   return (
     <div>
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-        <label htmlFor="uploadInput" className="text-lg mb-2">
+        <Label
+          htmlFor="uploadInput"
+          className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+        >
           Enter your data:
-        </label>
+        </Label>
         <Textarea
           id="uploadInput"
           placeholder="Enter your content to add to the database here."

@@ -1,12 +1,17 @@
 import { useState } from 'react';
+import { Button } from '@/app/components/ui/button';
+import { Textarea } from '@/app/components/ui/textarea';
 import { supabase } from './supabase-client';
 import { Configuration, OpenAIApi } from 'openai';
+import { Loader2 } from 'lucide-react';
 
 export default function VectorDBInputForm() {
   const [text, setText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const configuration = new Configuration({
       apiKey: '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',
@@ -32,26 +37,31 @@ export default function VectorDBInputForm() {
     }
 
     setText('');
+    setIsLoading(false);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-      <label htmlFor="textInput" className="text-lg mb-2">
-        Enter your text:
-      </label>
-      <textarea
-        id="textInput"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        className="border rounded-lg p-2 mb-4 resize-none"
-        rows={10}
-      />
-      <button
-        type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-      >
-        Submit
-      </button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+        <label htmlFor="uploadInput" className="text-lg mb-2">
+          Enter your data:
+        </label>
+        <Textarea
+          id="uploadInput"
+          placeholder="Enter your content to add to the database here."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+
+        {isLoading ? ( // Conditionally render the loading button
+          <Button disabled>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Please wait
+          </Button>
+        ) : (
+          <Button>Upload Data</Button>
+        )}
+      </form>
+    </div>
   );
 }

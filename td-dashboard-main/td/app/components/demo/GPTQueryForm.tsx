@@ -3,13 +3,18 @@ import { supabase } from './supabase-client';
 import { Configuration, OpenAIApi } from 'openai';
 import GPT3Tokenizer from 'gpt3-tokenizer';
 import { Card, CardContent, CardTitle } from '../ui/card';
+import { Button } from '@/app/components/ui/button';
+import { Textarea } from '@/app/components/ui/textarea';
+import { Loader2 } from 'lucide-react';
 
 export default function GPTQueryForm() {
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const configuration = new Configuration({
       apiKey: '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',
@@ -63,6 +68,7 @@ export default function GPTQueryForm() {
     } = completionResponse.data;
 
     setResponse(text ?? '');
+    setIsLoading(false);
   };
 
   return (
@@ -71,19 +77,22 @@ export default function GPTQueryForm() {
         <label htmlFor="queryInput" className="text-lg mb-2">
           Enter your query:
         </label>
-        <textarea
+
+        <Textarea
           id="queryInput"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="border rounded-lg p-2 mb-4 resize-none"
-          rows={10}
+          placeholder="Type your message here."
         />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Submit
-        </button>
+
+        {isLoading ? ( // Conditionally render the loading button
+          <Button disabled>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Please wait
+          </Button>
+        ) : (
+          <Button>Upload Data</Button>
+        )}
       </form>
       <div>
         <Card className="m-5">

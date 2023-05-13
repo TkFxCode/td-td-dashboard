@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { supabase } from './supabase-client';
 import { Configuration, OpenAIApi } from 'openai';
 import GPT3Tokenizer from 'gpt3-tokenizer';
+import { Card, CardContent, CardTitle } from '../ui/card';
 
 export default function GPTQueryForm() {
   const [query, setQuery] = useState('');
@@ -85,8 +86,18 @@ export default function GPTQueryForm() {
         </button>
       </form>
       <div>
-        <h2>Response:</h2>
-        <p>{response}</p>
+        <Card className="m-5">
+          <CardTitle>
+            <h3 className=" text-2xl font-semibold tracking-tight text-center m-5">
+              Response
+            </h3>
+          </CardTitle>
+          <CardContent>
+            <blockquote className="mt-6 border-l-2 pl-6 italic">
+              {response}
+            </blockquote>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

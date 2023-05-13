@@ -37,6 +37,9 @@ const NewsTab = React.lazy(() => import('@/app/components/tabs/NewsTab'));
 const DailyLogsTab = React.lazy(
   () => import('@/app/components/tabs/DailyLogsTab')
 );
+const MarketWhisperer = React.lazy(
+  () => import('@/app/components/tabs/MarketWhispererTab')
+);
 
 function Dashboard() {
   const { user, logout, getUserDocument } = useUser();
@@ -85,7 +88,7 @@ function Dashboard() {
             <TabsTrigger value="news" className="w-full lg:w-auto ">
               News
             </TabsTrigger>
-            <TabsTrigger value="news" className="w-full lg:w-auto ">
+            <TabsTrigger value="marketwhisperer" className="w-full lg:w-auto ">
               MarketWhisperer
             </TabsTrigger>
           </TabsList>
@@ -153,6 +156,17 @@ function Dashboard() {
               }
             >
               <NewsTab />
+            </React.Suspense>
+          </TabsContent>
+          <TabsContent value="marketwhisperer" className="space-y-4 w-full">
+            <React.Suspense
+              fallback={
+                <div>
+                  <LoadingScreen />
+                </div>
+              }
+            >
+              <MarketWhisperer />
             </React.Suspense>
           </TabsContent>
         </Tabs>

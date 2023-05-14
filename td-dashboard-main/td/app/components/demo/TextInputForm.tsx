@@ -19,10 +19,10 @@ export default function VectorDBInputForm() {
     });
     const openAi = new OpenAIApi(configuration);
 
-    // Split the input into chunks of approximately 150 words
+    // Split the input into chunks of approximately 100 words
     const words = text.split(' ');
-    for (let i = 0; i < words.length; i += 150) {
-      const chunk = words.slice(i, i + 150).join(' ');
+    for (let i = 0; i < words.length; i += 100) {
+      const chunk = words.slice(i, i + 100).join(' ');
 
       const embeddingResponse = await openAi.createEmbedding({
         model: 'text-embedding-ada-002',

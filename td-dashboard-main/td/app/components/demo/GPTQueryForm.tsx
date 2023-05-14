@@ -2,16 +2,18 @@ import { useState } from 'react';
 import { supabase } from './supabase-client';
 import { Configuration, OpenAIApi } from 'openai';
 import GPT3Tokenizer from 'gpt3-tokenizer';
-import { Card, CardContent, CardTitle } from '../ui/card';
+import { Card, CardContent, CardFooter, CardTitle } from '../ui/card';
 import { Button } from '@/app/components/ui/button';
 import { Textarea } from '@/app/components/ui/textarea';
 import { Loader2 } from 'lucide-react';
 import { Label } from '@/app/components/ui/label';
+import { Separator } from '@/app/components/ui/separator';
 
 export default function GPTQueryForm() {
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [contextText, setContextText] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,6 +56,7 @@ export default function GPTQueryForm() {
 
       contextText += `${content.trim()}\n---\n`;
     }
+    setContextText(contextText);
 
     const prompt = `You are a very enthusiastic personal assistant who loves to help people! Given the following sections from the database, answer the question using only that information, outputted in normal text format. If you are unsure and the answer is not explicitly written in the database, say "Sorry, I don't know how to help with that." Context sections: ${contextText} Question: "${query}" Answer as normal text:`;
 
@@ -109,6 +112,18 @@ export default function GPTQueryForm() {
           <CardContent>
             <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
               {response}
+            </code>
+          </CardContent>
+        </Card>
+        <Card className="m-5">
+          <CardTitle>
+            <h3 className=" text-2xl font-semibold tracking-tight text-center m-5">
+              Sources
+            </h3>
+          </CardTitle>
+          <CardContent>
+            <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+              {contextText}
             </code>
           </CardContent>
         </Card>

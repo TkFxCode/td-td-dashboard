@@ -57,19 +57,20 @@ export default function GPTQueryForm() {
 
     const prompt = `You are a very enthusiastic personal assistant who loves to help people! Given the following sections from the database, answer the question using only that information, outputted in normal text format. If you are unsure and the answer is not explicitly written in the database, say "Sorry, I don't know how to help with that." Context sections: ${contextText} Question: "${query}" Answer as normal text:`;
 
-    const completionResponse = await openAi.createCompletion({
-      model: 'text-davinci-003',
-      prompt,
-      max_tokens: 512,
-      temperature: 0,
+    const completionResponse = await openAi.createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: prompt }],
     });
 
-    const {
-      choices: [{ text }],
-    } = completionResponse.data;
+    const response =
+      completionResponse.data.choices[0].message?.content ??
+      'Sorry there was an error';
+    setResponse(response);
 
-    setResponse(text ?? '');
+    console.log(completionResponse);
+
     setIsLoading(false);
+    setQuery('');
   };
 
   return (

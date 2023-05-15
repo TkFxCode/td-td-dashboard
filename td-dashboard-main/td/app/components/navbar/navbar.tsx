@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/app/components/ui/dropdown-menu';
 import { useUser } from '@/app/appwrite/useUser'; // Import the useUser hook
+import { UserProfile } from '@/app/dashboard/components/userProfile';
 
 const Navbar = () => {
   const router = useRouter();
@@ -38,18 +39,19 @@ const Navbar = () => {
           Dashboard
         </a>
       </li>
-      <li>
+      {/* <li>
         <button
           onClick={handleSignOut}
           className={buttonVariants({ variant: 'ghost' })}
         >
           Sign Out
         </button>
-      </li>
+      </li> */}
       <li>
-        <a href="/profile" className={buttonVariants({ variant: 'ghost' })}>
+        {/* <a href="/profile" className={buttonVariants({ variant: 'ghost' })}>
           Profile
-        </a>
+        </a> */}
+        <UserProfile />
       </li>
       <li>
         <ThemeToggle /> {/* Add the ThemeToggle component */}

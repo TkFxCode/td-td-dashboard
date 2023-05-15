@@ -11,6 +11,7 @@ import {
   Mail,
 } from 'lucide-react';
 import Link from 'next/link';
+import TeamSwitcher from '@/app/dashboard/components/teamSwitcher';
 
 const Sidebar = () => {
   interface SidebarButtonProps {
@@ -38,6 +39,17 @@ const Sidebar = () => {
   return (
     <nav className="p-4 h-[850px]">
       <ul className="flex flex-col space-y-4">
+        <li>
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+            Your Pojects and Teams
+          </h2>
+          <TeamSwitcher />
+        </li>
+        <li>
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+            Navigation
+          </h2>
+        </li>
         <li>
           <SidebarButton icon={<Home />} label="Home" href="/dashboard" />
         </li>

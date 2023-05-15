@@ -138,7 +138,6 @@ const DailyJournal = () => {
           </TabsContent>
         </Tabs>
       </div>
-      <Card>Hi</Card>
     </DashboardLayout>
   );
 };

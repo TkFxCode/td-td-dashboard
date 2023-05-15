@@ -9,6 +9,7 @@ import {
   CardTitle,
   CardFooter,
 } from '@/app/components/ui/card';
+import BookmarksTab from '../demo/BookmarksTab';
 
 const CalendarTab = () => {
   const { user, logout, getUserDocument } = useUser();
@@ -26,9 +27,15 @@ const CalendarTab = () => {
   }, [user, getUserDocument]);
   return (
     <div className="w-full h-full">
-      <Card className="flex flex-col h-screen w-full ">
-        <CardHeader>{user?.name}</CardHeader>
-        <CardContent>Calendar</CardContent>
+      <Card className="flex flex-col h-full w-full ">
+        <CardHeader>
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+            Bookmark Manager
+          </h1>
+        </CardHeader>
+        <CardContent>
+          <BookmarksTab />
+        </CardContent>
         <CardFooter>Calendar</CardFooter>
       </Card>
     </div>

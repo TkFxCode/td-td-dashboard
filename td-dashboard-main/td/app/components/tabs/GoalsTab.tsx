@@ -9,7 +9,7 @@ import {
   CardTitle,
   CardFooter,
 } from '@/app/components/ui/card';
-import TextInputForm from '../demo/TextInputForm';
+import TextInputFormNoChunkSplit from '../demo/TextInputFormNoChunkSplit';
 
 const GoalsTab = () => {
   const { user, logout, getUserDocument } = useUser();
@@ -31,7 +31,7 @@ const GoalsTab = () => {
         <CardHeader>{user?.name}</CardHeader>
         <CardContent>Goals</CardContent>
         <CardFooter>
-          <TextInputForm />
+          <TextInputFormNoChunkSplit />
         </CardFooter>
       </Card>
     </div>

@@ -18,6 +18,7 @@
     "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^1.0.6",
+    "@radix-ui/react-alert-dialog": "^1.0.3",
     "@radix-ui/react-avatar": "^1.0.2",
     "@radix-ui/react-checkbox": "^1.0.3",
     "@radix-ui/react-dialog": "^1.0.3",
@@ -51,6 +52,7 @@
     "firebase": "^9.21.0",
     "framer-motion": "^10.12.10",
     "gpt3-tokenizer": "^1.1.5",
+    "he": "^1.2.0",
     "langchain": "^0.0.75",
     "lucide-react": "^0.206.0",
     "marked": "^5.0.1",
@@ -68,5 +70,8 @@
     "tailwindcss": "3.3.2",
     "tailwindcss-animate": "^1.0.5",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/he": "^1.2.0"
   }
 }

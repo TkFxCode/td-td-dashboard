@@ -87,12 +87,12 @@ export function UserProfile() {
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <LogOut className="mr-2 h-4 w-4" />
-          <Button
+          <button
             onClick={handleSignOut}
             className={buttonVariants({ variant: 'ghost' })}
           >
             Sign Out
-          </Button>
+          </button>
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>

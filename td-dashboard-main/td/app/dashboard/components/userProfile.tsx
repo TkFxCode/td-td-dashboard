@@ -19,6 +19,7 @@ import {
 import { useUser } from '@/app/appwrite/useUser';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export function UserProfile() {
   const router = useRouter();
@@ -65,35 +66,63 @@ export function UserProfile() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+            <Link href="/dashboard/profile" className="w-full">
+              <div className="flex justify-between items-center w-full">
+                <div className="flex items-center">
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Profile</span>
+                </div>
+                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+              </div>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <span>Billing</span>
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+            <Link href="/dashboard/billing" className="w-full">
+              <div className="flex justify-between items-center w-full">
+                <div className="flex items-center">
+                  <CreditCard className="mr-2 h-4 w-4" />
+                  <span>Billing</span>
+                </div>
+                <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+              </div>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+            <Link href="/dashboard/settings" className="w-full">
+              <div className="flex justify-between items-center w-full">
+                <div className="flex items-center">
+                  <Settings className="mr-2 h-4 w-4" />
+                  <span>Settings</span>
+                </div>
+                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+              </div>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <PlusCircle className="mr-2 h-4 w-4" />
-            <span>New Team</span>
+            <Link href="/dashboard/new-team" className="w-full">
+              <div className="flex justify-between items-center w-full">
+                <div className="flex items-center">
+                  <PlusCircle className="mr-2 h-4 w-4" />
+                  <span>New Team</span>
+                </div>
+              </div>
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <LogOut className="mr-2 h-4 w-4" />
           <button
             onClick={handleSignOut}
-            className={buttonVariants({ variant: 'ghost' })}
+            className={`${buttonVariants({ variant: 'ghost' })} w-full`}
           >
-            Sign Out
+            <div className="w-full flex flex-row items-center justify-between">
+              <div className="flex items-center">
+                <LogOut className="mr-2 h-4 w-4" />
+                <span className="text-center">Sign Out</span>
+              </div>
+              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+            </div>
           </button>
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

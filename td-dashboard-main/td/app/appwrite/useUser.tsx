@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useContext, useEffect, useState } from 'react';
-
+import axios from 'axios';
 import { account, databases } from './appwrite';
 import { useRouter } from 'next/navigation';
 
@@ -8,8 +8,15 @@ import { useRouter } from 'next/navigation';
 const createUserDocument = async (
   userId: string,
   email: string,
-  name: string,
-  username: string
+  firstName: string,
+  lastName: string,
+  username: string,
+  avatarUrl: string,
+  phoneNumber: string,
+  bio: string,
+  country: string,
+  cityState: string,
+  postalCode: string
 ) => {
   try {
     const response = await databases.createDocument(
@@ -19,8 +26,15 @@ const createUserDocument = async (
       {
         userId: userId,
         email: email,
-        name: name,
+        firstName: firstName,
+        lastName: lastName,
         username: username,
+        avatarUrl: avatarUrl,
+        phoneNumber: phoneNumber,
+        bio: bio,
+        country: country,
+        cityState: cityState,
+        postalCode: postalCode,
       }
     );
     // console.log('User document created:', response);
@@ -216,6 +230,130 @@ export const editTask = async (
   }
 };
 
+//TradingAccounts
+export const getallTradingAccountDocument = async (userId: string) => {
+  try {
+    const response = await databases.getDocument(
+      '6456b05eb0764a873d05',
+      '646f2225aa07cd89f076',
+      userId
+    );
+    const accounts = [
+      ...response['personal-accounts'],
+      ...response['FTMO'],
+      ...response['MyForexFunds'],
+      ...response['MyFundedFx'],
+      ...response['BespokeFunding'],
+      ...response['TrueForexFunds'],
+    ];
+    return accounts;
+  } catch (error) {
+    console.error('Failed to fetch trading account document:', error);
+    return [];
+  }
+};
+
+// Add a helper function to fetch the user document by user ID
+export const getTradingAccountDocument = async (userId: string) => {
+  try {
+    const response = await databases.getDocument(
+      '6456b05eb0764a873d05',
+      '646f2225aa07cd89f076',
+      userId
+    );
+    return response;
+  } catch (error) {
+    console.error('Failed to fetch trading account document:', error);
+    return null;
+  }
+};
+
+const createTradingAccountDocument = async (userId: string) => {
+  try {
+    const response = await databases.createDocument(
+      '6456b05eb0764a873d05',
+      '646f2225aa07cd89f076',
+      `${userId}`,
+      {
+        UserId: userId,
+        'personal-accounts': [],
+        FTMO: [],
+        MyForexFunds: [],
+        MyFundedFx: [],
+        BespokeFunding: [],
+        TrueForexFunds: [],
+      }
+    );
+    console.log('Trading account document created:', response);
+    return response;
+  } catch (error) {
+    console.error('Trading account document creation failed:', error);
+    return null;
+  }
+};
+
+export const addTradingAccount = async (
+  userId: string,
+  propFirm: string,
+  accountSize: string,
+  accountPhase: string,
+  shareURL: string
+) => {
+  try {
+    let userDoc = await getTradingAccountDocument(userId);
+
+    if (!userDoc) {
+      userDoc = await createTradingAccountDocument(userId);
+    }
+
+    if (!userDoc) {
+      console.error('Failed to fetch or create trading account document');
+      return;
+    }
+
+    const updatedPropFirm = userDoc[propFirm] || [];
+    updatedPropFirm.push(
+      JSON.stringify({
+        propFirm,
+        shareURL,
+        accountSize,
+        accountPhase,
+      })
+    );
+
+    const response = await databases.updateDocument(
+      '6456b05eb0764a873d05',
+      '646f2225aa07cd89f076',
+      userId,
+      {
+        [propFirm]: updatedPropFirm,
+      }
+    );
+    console.log('Trading account added:', response);
+
+    // Extract the apiKey from the shareURL
+    const apiKey = shareURL.split('https://app.trueforexfunds.com/share/')[1];
+
+    // Call /api/trades/[apiKey] endpoint
+    const apiResponse = await axios.get(`/api/trades/${apiKey}`);
+    const tradingHistory = apiResponse.data;
+    const tradingHistoryString = JSON.stringify(tradingHistory);
+
+    // Create a new document with the response data
+
+    const document = await databases.createDocument(
+      '6456b05eb0764a873d05',
+      '646fba38d877c98f969c',
+      'unique()',
+      { AccountKey: apiKey, TradingHistory: tradingHistoryString }
+    );
+
+    console.log('New document created:', document);
+  } catch (error) {
+    console.error('Trading account addition failed:', error);
+  }
+};
+
 interface UserContextProps {
   user: any;
   loading: boolean;
@@ -224,9 +362,17 @@ interface UserContextProps {
   signup: (
     email: string,
     password: string,
-    name: string,
-    username: string
+    firstName: string,
+    lastName: string,
+    username: string,
+    avatarUrl: string,
+    phoneNumber: string,
+    bio: string,
+    country: string,
+    cityState: string,
+    postalCode: string
   ) => Promise<void>;
+
   getUserDocument: (userId: string) => Promise<any>;
   editTask: (
     userId: string,
@@ -307,8 +453,15 @@ export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const signup = async (
     email: string,
     password: string,
-    name: string,
-    username: string
+    firstName: string,
+    lastName: string,
+    username: string,
+    avatarUrl: string,
+    phoneNumber: string,
+    bio: string,
+    country: string,
+    cityState: string,
+    postalCode: string
   ) => {
     setLoading(true);
     try {
@@ -316,11 +469,23 @@ export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({
         'unique()',
         email,
         password,
-        name
+        `${firstName} ${lastName}`
       );
       const userId = createResponse.$id;
       await login(email, password);
-      await createUserDocument(userId, email, name, username);
+      await createUserDocument(
+        userId,
+        email,
+        firstName,
+        lastName,
+        username,
+        avatarUrl,
+        phoneNumber,
+        bio,
+        country,
+        cityState,
+        postalCode
+      );
     } catch (error: any) {
       console.error('Signup failed:', error.message);
     } finally {

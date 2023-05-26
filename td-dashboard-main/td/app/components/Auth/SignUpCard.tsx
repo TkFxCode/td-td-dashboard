@@ -12,6 +12,7 @@ import { Button } from '@/app/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/app/appwrite/useUser';
 import LoadingScreen from '@/app/components/loading/LoadingScreen'; // Import LoadingScreen component
+import { CountryCombobox } from './test';
 
 export function SignupCard() {
   const [firstName, setFirstName] = useState('');
@@ -22,6 +23,12 @@ export function SignupCard() {
   const [loading, setLoading] = useState(false); // Add loading state
   const router = useRouter();
   const { signup } = useUser(); // Get the signup function from useUser hook
+  const avatarUrl = 'https://i.ibb.co/rxFMRry/profile-1.png';
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [bio, setBio] = useState('');
+  const [country, setCountry] = useState('');
+  const [cityState, setCityState] = useState('');
+  const [postalCode, setPostalCode] = useState('');
 
   const isFormValid = () => {
     return (
@@ -29,7 +36,11 @@ export function SignupCard() {
       lastName.trim() !== '' &&
       email.trim() !== '' &&
       username.trim() !== '' &&
-      password.trim() !== ''
+      password.trim() !== '' &&
+      phoneNumber.trim() !== '' &&
+      country.trim() !== '' &&
+      cityState.trim() !== '' &&
+      postalCode.trim() !== ''
     );
   };
 
@@ -42,12 +53,20 @@ export function SignupCard() {
 
     setLoading(true); // Set loading to true when starting sign up process
 
-    // Combine first and last name into a single name
-    const name = `${firstName} ${lastName}`;
-
     try {
-      await signup(email, password, name, username);
-      // TODO: Add code to store additional user data (e.g. username) if required
+      await signup(
+        email,
+        password,
+        firstName,
+        lastName,
+        username,
+        avatarUrl,
+        phoneNumber,
+        bio,
+        country,
+        cityState,
+        postalCode
+      );
       router.push('/dashboard');
     } catch (error: any) {
       setLoading(false); // Set loading to false when sign up process fails
@@ -55,7 +74,6 @@ export function SignupCard() {
     }
   };
 
-  // Show LoadingScreen component when loading is true
   if (loading) {
     return <LoadingScreen />;
   }
@@ -67,6 +85,7 @@ export function SignupCard() {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSignUp}>
+          <h2 className="text-lg font-semibold mb-2">Personal Information</h2>
           <div className="space-y-4">
             <Input
               id="firstName"
@@ -102,6 +121,38 @@ export function SignupCard() {
               placeholder="********"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+            />
+            <Input
+              id="phoneNumber"
+              type="text"
+              placeholder="Phone Number"
+              value={phoneNumber}
+              onChange={(event) => setPhoneNumber(event.target.value)}
+            />
+            <Input
+              id="bio"
+              type="text"
+              placeholder="Bio"
+              value={bio}
+              onChange={(event) => setBio(event.target.value)}
+            />
+          </div>
+          <h2 className="text-lg font-semibold mt-4 mb-2">Address</h2>
+          <div className="space-y-4">
+            <CountryCombobox setCountry={setCountry} />
+            <Input
+              id="cityState"
+              type="text"
+              placeholder="City/State"
+              value={cityState}
+              onChange={(event) => setCityState(event.target.value)}
+            />
+            <Input
+              id="postalCode"
+              type="text"
+              placeholder="Postal Code"
+              value={postalCode}
+              onChange={(event) => setPostalCode(event.target.value)}
             />
           </div>
           <Button className="mt-4 w-full" type="submit">

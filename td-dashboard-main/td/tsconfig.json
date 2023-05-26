@@ -30,7 +30,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/middleware/withAuth.tsx",
-    "app/api/openai/route.ts"
+    "app/api/openai/route.ts",
+    "app/api/scrape/trade/route.js"
   ],
   "exclude": ["node_modules"]
 }

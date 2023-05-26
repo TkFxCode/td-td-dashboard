@@ -23,6 +23,15 @@ export const columns: ColumnDef<Trade>[] = [
   {
     accessorKey: 'tradeType',
     header: 'Trade Type',
+    cell: ({ row }) => {
+      const tradeType = row.getValue('tradeType');
+
+      // Check the value of tradeType and return the appropriate formatted value
+      const formattedTradeType =
+        tradeType === 'DEAL_TYPE_BUY' ? 'Buy Trade' : 'Sell Trade';
+
+      return <div>{formattedTradeType}</div>;
+    },
   },
   {
     accessorKey: 'volume',
@@ -38,15 +47,42 @@ export const columns: ColumnDef<Trade>[] = [
   },
   {
     accessorKey: 'commission',
-    header: 'Commission',
+    header: () => <div className="text-right">Commission</div>,
+    cell: ({ row }) => {
+      const commission = parseFloat(row.getValue('commission'));
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(commission);
+
+      return <div className="text-right font-medium">{formatted}</div>;
+    },
   },
   {
     accessorKey: 'swap',
-    header: 'Swap',
+    header: () => <div className="text-right">Swap</div>,
+    cell: ({ row }) => {
+      const swap = parseFloat(row.getValue('swap'));
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(swap);
+
+      return <div className="text-right font-medium">{formatted}</div>;
+    },
   },
   {
     accessorKey: 'profit',
-    header: 'Profit',
+    header: () => <div className="text-right">Profit</div>,
+    cell: ({ row }) => {
+      const profit = parseFloat(row.getValue('profit'));
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(profit);
+
+      return <div className="text-right font-medium">{formatted}</div>;
+    },
   },
   {
     accessorKey: 'partials',

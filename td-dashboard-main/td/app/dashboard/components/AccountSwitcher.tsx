@@ -101,6 +101,7 @@ export default function AccountSwitcher() {
   const [selectedAccount, setSelectedAccount] = React.useState<Account>(
     accountGroups[0].accounts[0]
   );
+  const [selectedAccounts, setSelectedAccounts] = useState([]);
   const { user, getUserDocument } = useUser();
   const [userData, setUserData] = useState<any>(null);
   type AccountDetail = {
@@ -198,16 +199,16 @@ export default function AccountSwitcher() {
   };
   return (
     <>
-      <div className="flex flex-row justify-center items-center">
+      <div className="flex flex-row justify-center items-start">
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
-              variant="ghost"
+              variant="secondary"
               size="sm"
               role="combobox"
               aria-expanded={open}
               aria-label="Select an account"
-              className={cn('w-full mt-5 mb-5 justify-between')}
+              className={cn('w-full mt-1 h-10 mb-5 justify-between ')}
             >
               {selectedAccount.label}
               <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
@@ -403,7 +404,9 @@ export default function AccountSwitcher() {
         </Popover>
         <HoverCard>
           <HoverCardTrigger asChild>
-            <Button variant="link">Trading Accounts</Button>
+            <Button variant="secondary" className="ml-1 mt-1">
+              Trading Accounts
+            </Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-80">
             <div className="space-y-1">

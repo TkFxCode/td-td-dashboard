@@ -18,33 +18,6 @@ import {
   FormMessage,
 } from '@/app/dashboard/profile/components/form';
 
-const items = [
-  {
-    id: 'ftmoacc1',
-    label: 'FTMO 25k Account Phase 1',
-  },
-  {
-    id: 'ftmoacc2',
-    label: 'FTMO 50k Account Phase 2',
-  },
-  {
-    id: 'ftmoacc3',
-    label: 'FTMO 100k Account Live',
-  },
-  {
-    id: 'mffacc1',
-    label: 'MyForexFunds 50k Account Phase 1 ',
-  },
-  {
-    id: 'mffacc2',
-    label: 'MyForexFunds 100k Account Phase 2',
-  },
-  {
-    id: 'mffacc3',
-    label: 'MyForexFunds 300k Account Live',
-  },
-] as const;
-
 const FormSchema = z.object({
   items: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: 'You have to select at least one item.',

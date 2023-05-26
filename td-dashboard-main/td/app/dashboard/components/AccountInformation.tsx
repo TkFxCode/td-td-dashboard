@@ -13,23 +13,20 @@ import {
   CreditCard,
   DollarSign,
   Download,
+  Star,
   Users,
 } from 'lucide-react';
 import { Overview } from '@/app/components/demo/overviewChart';
 import { Trade, columns } from './tables/columns';
 import { DataTable } from './tables/data-table';
+import { listTradeHistory } from '@/app/appwrite/useUser';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from '@/app/components/ui/hover-card';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/app/components/ui/avatar';
 import { Button } from '@/app/components/ui/button';
-import { CalendarDays } from 'lucide-react';
+import { ScrollArea } from '@/app/components/ui/scroll-area';
 
 interface SelectedAccountType {
   label: string;
@@ -42,6 +39,11 @@ interface SelectedAccountType {
   }[];
   // Add other properties as needed
 }
+interface ResponseType {
+  documents?: {
+    TradingHistory: string;
+  }[];
+}
 
 const AccountInformation = ({
   selectedAccount,
@@ -51,6 +53,12 @@ const AccountInformation = ({
   const { user, getUserDocument } = useUser();
   const [userData, setUserData] = useState<any>(null);
 
+  interface TradeHistory {
+    apiKey: string;
+    trades: any[];
+  }
+  const [tradeHistories, setTradeHistories] = useState<TradeHistory[]>([]);
+
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
@@ -59,10 +67,35 @@ const AccountInformation = ({
       }
     };
 
-    fetchData();
-  }, [user, getUserDocument]);
-  console.log(selectedAccount);
+    // Fetching the trade history for each account
+    const fetchTradeHistories = async () => {
+      if (selectedAccount.accountDetails) {
+        const allHistories = await Promise.all(
+          selectedAccount.accountDetails.map(async (account) => {
+            const apiKey = account.shareURL.split('/').pop() || '';
+            const response = await listTradeHistory(user.$id, apiKey);
 
+            let trades = [];
+            if (response?.documents && response.documents.length > 0) {
+              const tradingHistoryJson = JSON.parse(
+                response?.documents[0].TradingHistory
+              );
+              trades = tradingHistoryJson.trades;
+              console.log(tradingHistoryJson);
+            }
+
+            return { apiKey, trades };
+          })
+        );
+        setTradeHistories(allHistories);
+      }
+    };
+
+    fetchTradeHistories();
+    fetchData();
+  }, [user, getUserDocument, selectedAccount.accountDetails]);
+  // console.log(selectedAccount);
+  // console.log(tradeHistory);
   const data = [
     {
       symbol: 'US100.cash',
@@ -148,19 +181,12 @@ const AccountInformation = ({
         <h2 className="text-foreground text-center">
           Only logged in users can view this Dashboard {userData?.username}
         </h2>
-        {/* <h3 className="text-foreground mt-6 text-center">
-          Selected Account Details
-        </h3>
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <Button variant="link">Trading Accounts</Button>
-          </HoverCardTrigger>
-          <HoverCardContent className="w-80">
-            <div className="flex justify-between space-x-4">
-              <Avatar>
-                <AvatarImage src="https://github.com/vercel.png" />
-                <AvatarFallback>VC</AvatarFallback>
-              </Avatar>
+        <h3 className="text-foreground mt-6 text-center">
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <Button variant="link">Trading Accounts</Button>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-80">
               <div className="space-y-1">
                 <h4 className="text-sm font-semibold">Trading Accounts</h4>
                 <p className="text-sm">
@@ -170,19 +196,20 @@ const AccountInformation = ({
                         <p>PropFirm: {account.propFirm}</p>
                         <p>AccountSize: {account.accountSize}</p>
                         <p>AccountPhase: {account.accountPhase}</p>
+                        <p>AccountPhase: {account.shareURL}</p>
                       </Card>
                     ))}
                 </p>
                 <div className="flex items-center pt-2">
-                  <CalendarDays className="mr-2 h-4 w-4 opacity-70" />{' '}
+                  <Star className="mr-2 h-4 w-4 opacity-70" />{' '}
                   <span className="text-xs text-muted-foreground">
-                    Joined December 2021
+                    TheTradingDashboard
                   </span>
                 </div>
               </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard> */}
+            </HoverCardContent>
+          </HoverCard>
+        </h3>
         <p className="text-foreground text-center">
           ETH/USD: $3,500 | 0.25 ETH | 12:35:20 PM
         </p>
@@ -196,7 +223,16 @@ const AccountInformation = ({
       </CardContent>
       <CardFooter>
         <div className="container mx-auto py-10">
-          <DataTable columns={columns} data={data} />
+          {tradeHistories.map((history, index) => (
+            <div key={index}>
+              <h3 className="text-foreground text-center">
+                Trade History for {history.apiKey}
+              </h3>
+              <ScrollArea className="h-[450px]  rounded-md border p-4">
+                <DataTable columns={columns} data={history.trades} />
+              </ScrollArea>
+            </div>
+          ))}
         </div>
       </CardFooter>
       <Card>

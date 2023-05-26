@@ -21,21 +21,29 @@ import { Overview } from '@/app/components/demo/overviewChart';
 import Image from 'next/image';
 import { AspectRatio } from '../ui/aspect-ratio';
 import AccountSwitcher from '@/app/dashboard/components/AccountSwitcher';
+import LoadingScreen from '../loading/LoadingScreen';
 
 const HomeTab = () => {
   const { user, getUserDocument } = useUser();
   const [userData, setUserData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       if (user) {
         const document = await getUserDocument(user.$id);
         setUserData(document);
       }
+      setIsLoading(false);
     };
 
     fetchData();
   }, [user, getUserDocument]);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="w-full h-auto">

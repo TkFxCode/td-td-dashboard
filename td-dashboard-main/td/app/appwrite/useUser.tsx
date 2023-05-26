@@ -1,7 +1,7 @@
 'use client';
 import { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { account, databases } from './appwrite';
+import { account, databases, Query } from './appwrite';
 import { useRouter } from 'next/navigation';
 
 // Add a helper function to create the user document
@@ -231,6 +231,22 @@ export const editTask = async (
 };
 
 //TradingAccounts
+export const listTradeHistory = async (userId: string, apiKey: string) => {
+  try {
+    const response = await databases.listDocuments(
+      '6456b05eb0764a873d05',
+      '646fba38d877c98f969c',
+      [Query.equal('AccountKey', apiKey)]
+    );
+    console.log(response);
+
+    return response;
+  } catch (error) {
+    console.error('Failed to fetch trading account document:', error);
+    return null;
+  }
+};
+
 export const getallTradingAccountDocument = async (userId: string) => {
   try {
     const response = await databases.getDocument(

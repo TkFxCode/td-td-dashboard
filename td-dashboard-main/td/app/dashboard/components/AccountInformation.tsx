@@ -16,10 +16,33 @@ import {
   Users,
 } from 'lucide-react';
 import { Overview } from '@/app/components/demo/overviewChart';
+import { Trade, columns } from './tables/columns';
+import { DataTable } from './tables/data-table';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/app/components/ui/hover-card';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/app/components/ui/avatar';
+import { Button } from '@/app/components/ui/button';
+import { CalendarDays } from 'lucide-react';
+
 interface SelectedAccountType {
   label: string;
+  value: string;
+  accountDetails: {
+    propFirm: string;
+    shareURL: string;
+    accountSize: string;
+    accountPhase: string;
+  }[];
   // Add other properties as needed
 }
+
 const AccountInformation = ({
   selectedAccount,
 }: {
@@ -39,6 +62,20 @@ const AccountInformation = ({
     fetchData();
   }, [user, getUserDocument]);
   console.log(selectedAccount);
+
+  const data = [
+    {
+      symbol: 'US100.cash',
+      tradeType: 'DEAL_TYPE_SELL',
+      volume: 1.75,
+      entryPrice: 11943.7,
+      exitPrice: 11949,
+      commission: -0.2,
+      swap: 0,
+      profit: -9.479999999999999,
+      partials: 2,
+    },
+  ];
   return (
     <Card className="flex flex-col  w-full ">
       <CardHeader>
@@ -111,7 +148,41 @@ const AccountInformation = ({
         <h2 className="text-foreground text-center">
           Only logged in users can view this Dashboard {userData?.username}
         </h2>
-        <h3 className="text-foreground mt-6 text-center">Latest Trades</h3>
+        {/* <h3 className="text-foreground mt-6 text-center">
+          Selected Account Details
+        </h3>
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <Button variant="link">Trading Accounts</Button>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-80">
+            <div className="flex justify-between space-x-4">
+              <Avatar>
+                <AvatarImage src="https://github.com/vercel.png" />
+                <AvatarFallback>VC</AvatarFallback>
+              </Avatar>
+              <div className="space-y-1">
+                <h4 className="text-sm font-semibold">Trading Accounts</h4>
+                <p className="text-sm">
+                  {selectedAccount.accountDetails &&
+                    selectedAccount.accountDetails.map((account, index) => (
+                      <Card key={index} className="p-2 m-2">
+                        <p>PropFirm: {account.propFirm}</p>
+                        <p>AccountSize: {account.accountSize}</p>
+                        <p>AccountPhase: {account.accountPhase}</p>
+                      </Card>
+                    ))}
+                </p>
+                <div className="flex items-center pt-2">
+                  <CalendarDays className="mr-2 h-4 w-4 opacity-70" />{' '}
+                  <span className="text-xs text-muted-foreground">
+                    Joined December 2021
+                  </span>
+                </div>
+              </div>
+            </div>
+          </HoverCardContent>
+        </HoverCard> */}
         <p className="text-foreground text-center">
           ETH/USD: $3,500 | 0.25 ETH | 12:35:20 PM
         </p>
@@ -123,7 +194,11 @@ const AccountInformation = ({
         </p>
         <p className="text-foreground text-center"></p>
       </CardContent>
-      <CardFooter></CardFooter>
+      <CardFooter>
+        <div className="container mx-auto py-10">
+          <DataTable columns={columns} data={data} />
+        </div>
+      </CardFooter>
       <Card>
         <CardHeader>
           <h2 className="text-3xl font-bold tracking-tight">Chart</h2>

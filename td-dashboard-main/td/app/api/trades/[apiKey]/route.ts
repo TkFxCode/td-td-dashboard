@@ -15,6 +15,7 @@ interface Trade {
   commission: number;
   swap: number;
   profit: number;
+  time: string;
 }
 
 interface GroupedTrade {
@@ -27,6 +28,8 @@ interface GroupedTrade {
   swap: number;
   profit: number;
   partials: number;
+  entryTime: string; // add entryTime
+  exitTime: string; // add exitTime
 }
 
 export async function GET(
@@ -55,7 +58,7 @@ export async function GET(
 
       if (id) {
         if (!groupedTrades[id]) {
-          totalTrades += 1; // Moved this line
+          totalTrades += 1;
           groupedTrades[id] = {
             symbol: trade.symbol,
             tradeType: '',
@@ -66,6 +69,8 @@ export async function GET(
             swap: 0,
             profit: 0,
             partials: 0,
+            entryTime: '', // add entryTime
+            exitTime: '', // add exitTime
           };
         }
 
@@ -73,10 +78,12 @@ export async function GET(
           groupedTrades[id].tradeType = trade.type;
           groupedTrades[id].volume += trade.volume;
           groupedTrades[id].entryPrice = trade.price;
+          groupedTrades[id].entryTime = trade.time; // set entryTime
         }
 
         if (trade.entryType === 'DEAL_ENTRY_OUT') {
           groupedTrades[id].exitPrice = trade.price;
+          groupedTrades[id].exitTime = trade.time; // update exitTime
         }
 
         groupedTrades[id].commission += trade.commission;
@@ -87,7 +94,6 @@ export async function GET(
       }
     }
 
-    // Return the grouped trades as the response
     return new Response(
       JSON.stringify({
         status: 'success',

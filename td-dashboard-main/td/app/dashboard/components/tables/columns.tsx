@@ -21,6 +21,16 @@ export const columns: ColumnDef<Trade>[] = [
     header: 'Symbol',
   },
   {
+    accessorKey: 'entryTime',
+    header: 'Entry Time',
+    cell: ({ row }) => {
+      const entryTime = new Date(row.getValue('entryTime'));
+      const formattedEntryTime = entryTime.toLocaleString('en-US');
+
+      return <div>{formattedEntryTime}</div>;
+    },
+  },
+  {
     accessorKey: 'tradeType',
     header: 'Trade Type',
     cell: ({ row }) => {
@@ -87,5 +97,16 @@ export const columns: ColumnDef<Trade>[] = [
   {
     accessorKey: 'partials',
     header: 'Partials',
+  },
+
+  {
+    accessorKey: 'exitTime',
+    header: 'Exit Time',
+    cell: ({ row }) => {
+      const exitTime = new Date(row.getValue('exitTime'));
+      const formattedExitTime = exitTime.toLocaleString('en-US');
+
+      return <div>{formattedExitTime}</div>;
+    },
   },
 ];

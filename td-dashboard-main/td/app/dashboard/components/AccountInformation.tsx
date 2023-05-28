@@ -8,14 +8,7 @@ import {
   CardTitle,
   CardFooter,
 } from '@/app/components/ui/card';
-import {
-  Activity,
-  CreditCard,
-  DollarSign,
-  Download,
-  Star,
-  Users,
-} from 'lucide-react';
+import { Activity, CreditCard, Banknote, Star, LineChart } from 'lucide-react';
 import { Overview } from '@/app/components/demo/overviewChart';
 import { Trade, columns } from './tables/columns';
 import { DataTable } from './tables/data-table';
@@ -27,7 +20,12 @@ import {
 } from '@/app/components/ui/hover-card';
 import { Button } from '@/app/components/ui/button';
 import { ScrollArea } from '@/app/components/ui/scroll-area';
-
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/app/components/ui/tabs';
 interface SelectedAccountType {
   label: string;
   value: string;
@@ -56,7 +54,13 @@ const AccountInformation = ({
   interface TradeHistory {
     apiKey: string;
     trades: any[];
+    accountDetails: {
+      propFirm: string;
+      accountSize: string;
+      accountPhase: string;
+    };
   }
+
   const [tradeHistories, setTradeHistories] = useState<TradeHistory[]>([]);
 
   useEffect(() => {
@@ -84,7 +88,8 @@ const AccountInformation = ({
               console.log(tradingHistoryJson);
             }
 
-            return { apiKey, trades };
+            // Here we are combining account details with trade history
+            return { apiKey, trades, accountDetails: account };
           })
         );
         setTradeHistories(allHistories);
@@ -109,6 +114,107 @@ const AccountInformation = ({
       partials: 2,
     },
   ];
+
+  const calculateTotalProfitLoss = (tradeHistories: TradeHistory[]) => {
+    let totalProfitLoss = 0;
+
+    tradeHistories.forEach((tradeHistory) => {
+      tradeHistory.trades.forEach((trade) => {
+        totalProfitLoss += trade.profit;
+      });
+    });
+
+    return totalProfitLoss.toFixed(2);
+  };
+  const totalProfitLoss = calculateTotalProfitLoss(tradeHistories);
+
+  const calculateWinRate = (tradeHistories: TradeHistory[]) => {
+    let totalTrades = 0;
+    let winningTrades = 0;
+
+    tradeHistories.forEach((tradeHistory) => {
+      tradeHistory.trades.forEach((trade) => {
+        totalTrades += 1;
+        if (trade.profit > 0) {
+          winningTrades += 1;
+        }
+      });
+    });
+
+    const winRate = totalTrades > 0 ? (winningTrades / totalTrades) * 100 : 0;
+
+    return winRate.toFixed(2);
+  };
+
+  const calculateAverageProfitPerWinningTrade = (
+    tradeHistories: TradeHistory[]
+  ) => {
+    let winningTradesCount = 0;
+    let totalProfitFromWinningTrades = 0;
+
+    tradeHistories.forEach((tradeHistory) => {
+      tradeHistory.trades.forEach((trade) => {
+        if (trade.profit > 0) {
+          winningTradesCount += 1;
+          totalProfitFromWinningTrades += trade.profit;
+        }
+      });
+    });
+
+    const averageProfitPerWinningTrade =
+      winningTradesCount > 0
+        ? (totalProfitFromWinningTrades / winningTradesCount).toFixed(2)
+        : '0'; // Here is the change
+
+    return averageProfitPerWinningTrade;
+  };
+
+  const calculateAverageLossPerLosingTrade = (
+    tradeHistories: TradeHistory[]
+  ) => {
+    let losingTradesCount = 0;
+    let totalLossFromLosingTrades = 0;
+
+    tradeHistories.forEach((tradeHistory) => {
+      tradeHistory.trades.forEach((trade) => {
+        if (trade.profit < 0) {
+          losingTradesCount += 1;
+          totalLossFromLosingTrades += Math.abs(trade.profit); // abs to make loss positive for calculation
+        }
+      });
+    });
+
+    const averageLossPerLosingTrade =
+      losingTradesCount > 0
+        ? (totalLossFromLosingTrades / losingTradesCount).toFixed(2)
+        : '0'; // Here is the change
+
+    return averageLossPerLosingTrade;
+  };
+
+  const calculateRiskToRewardRatio = (
+    averageProfitPerWinningTrade: number,
+    averageLossPerLosingTrade: number
+  ) => {
+    const riskToRewardRatio =
+      averageLossPerLosingTrade > 0
+        ? (averageProfitPerWinningTrade / averageLossPerLosingTrade).toFixed(2)
+        : 'N/A';
+
+    return riskToRewardRatio;
+  };
+
+  const averageProfitPerWinningTrade =
+    calculateAverageProfitPerWinningTrade(tradeHistories);
+
+  const averageLossPerLosingTrade =
+    calculateAverageLossPerLosingTrade(tradeHistories);
+
+  const riskToRewardRatio = calculateRiskToRewardRatio(
+    parseFloat(averageProfitPerWinningTrade),
+    parseFloat(averageLossPerLosingTrade)
+  );
+
   return (
     <Card className="flex flex-col  w-full ">
       <CardHeader>
@@ -116,12 +222,12 @@ const AccountInformation = ({
           <Card className="hover:bg-gray-200 dark:hover:bg-slate-700">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Total Revenue
+                Total Profit/Loss
               </CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <Banknote className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$45,231.89</div>
+              <div className="text-2xl font-bold">$ {totalProfitLoss}</div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
               </p>
@@ -129,13 +235,13 @@ const AccountInformation = ({
           </Card>
           <Card className="hover:bg-gray-200 dark:hover:bg-slate-700">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Subscriptions
-              </CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Win Rate</CardTitle>
+              <LineChart className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+2350</div>
+              <div className="text-2xl font-bold">
+                {calculateWinRate(tradeHistories)} %
+              </div>
               <p className="text-xs text-muted-foreground">
                 +180.1% from last month
               </p>
@@ -143,11 +249,15 @@ const AccountInformation = ({
           </Card>
           <Card className="hover:bg-gray-200 dark:hover:bg-slate-700">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Sales</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Average Profit Per Trade
+              </CardTitle>
               <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+12,234</div>
+              <div className="text-2xl font-bold">
+                $ {averageProfitPerWinningTrade}
+              </div>
               <p className="text-xs text-muted-foreground">
                 +19% from last month
               </p>
@@ -155,11 +265,13 @@ const AccountInformation = ({
           </Card>
           <Card className="hover:bg-gray-200 dark:hover:bg-slate-700 ">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Now</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Average Risk to Reward
+              </CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+573</div>
+              <div className="text-2xl font-bold">{riskToRewardRatio} RR</div>
               <p className="text-xs text-muted-foreground">
                 +201 since last hour
               </p>
@@ -221,20 +333,100 @@ const AccountInformation = ({
         </p>
         <p className="text-foreground text-center"></p>
       </CardContent>
+
       <CardFooter>
-        <div className="container mx-auto py-10">
-          {tradeHistories.map((history, index) => (
-            <div key={index}>
-              <h3 className="text-foreground text-center">
-                Trade History for {history.apiKey}
-              </h3>
-              <ScrollArea className="h-[450px]  rounded-md border p-4">
-                <DataTable columns={columns} data={history.trades} />
-              </ScrollArea>
-            </div>
-          ))}
-        </div>
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle>
+              <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-center">
+                All Trade History
+              </h2>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Tabs className="w-full">
+              <TabsList>
+                {[
+                  ...new Set(
+                    tradeHistories.map(
+                      (history) => history.accountDetails.propFirm
+                    )
+                  ),
+                ].map((propFirm, index) => (
+                  <TabsTrigger key={index} value={propFirm}>
+                    {propFirm}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              {[
+                ...new Set(
+                  tradeHistories.map(
+                    (history) => history.accountDetails.propFirm
+                  )
+                ),
+              ].map((propFirm, index) => (
+                <TabsContent key={index} value={propFirm}>
+                  <Tabs className="w-full">
+                    <TabsList>
+                      {[
+                        ...new Set(
+                          tradeHistories
+                            .filter(
+                              (history) =>
+                                history.accountDetails.propFirm === propFirm
+                            )
+                            .map(
+                              (filteredHistory) =>
+                                `${filteredHistory.accountDetails.accountSize}${filteredHistory.accountDetails.accountPhase}`
+                            )
+                        ),
+                      ].map((accountDetail, aIndex) => (
+                        <TabsTrigger key={aIndex} value={accountDetail}>
+                          {accountDetail}
+                        </TabsTrigger>
+                      ))}
+                    </TabsList>
+                    {[
+                      ...new Set(
+                        tradeHistories
+                          .filter(
+                            (history) =>
+                              history.accountDetails.propFirm === propFirm
+                          )
+                          .map(
+                            (filteredHistory) =>
+                              `${filteredHistory.accountDetails.accountSize}${filteredHistory.accountDetails.accountPhase}`
+                          )
+                      ),
+                    ].map((accountDetail, aIndex) => (
+                      <TabsContent key={aIndex} value={accountDetail}>
+                        <h3 className="text-foreground text-center">
+                          Trade History for {propFirm} {accountDetail}
+                        </h3>
+                        <ScrollArea className="h-[450px] rounded-md border p-4">
+                          <DataTable
+                            columns={columns}
+                            data={
+                              tradeHistories.filter(
+                                (history) =>
+                                  `${history.accountDetails.accountSize}${history.accountDetails.accountPhase}` ===
+                                    accountDetail &&
+                                  history.accountDetails.propFirm === propFirm
+                              )[0].trades
+                            }
+                          />
+                        </ScrollArea>
+                      </TabsContent>
+                    ))}
+                  </Tabs>
+                </TabsContent>
+              ))}
+            </Tabs>
+          </CardContent>
+          <CardFooter></CardFooter>
+        </Card>
       </CardFooter>
+
       <Card>
         <CardHeader>
           <h2 className="text-3xl font-bold tracking-tight">Chart</h2>

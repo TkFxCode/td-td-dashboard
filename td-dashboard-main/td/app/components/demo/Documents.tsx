@@ -70,10 +70,10 @@ export default function DocumentList() {
   };
 
   useEffect(() => {
-    // Fetch user's documents on component mount
+    
     const fetchDocuments = async () => {
       setIsLoading(true);
-      const fetchedDocuments = await getAllMDXDocuments(user.$id); // replace 'userId' with actual user ID
+      const fetchedDocuments = await getAllMDXDocuments(user.$id); 
       setDocuments(fetchedDocuments);
       setIsLoading(false);
     };
@@ -88,7 +88,7 @@ export default function DocumentList() {
       ``
     );
 
-    const fetchedDocuments = await getAllMDXDocuments(user.$id); // replace 'userId' with actual user ID
+    const fetchedDocuments = await getAllMDXDocuments(user.$id); 
     setDocuments(fetchedDocuments);
   };
 

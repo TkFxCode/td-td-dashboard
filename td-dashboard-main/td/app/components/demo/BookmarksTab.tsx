@@ -34,7 +34,6 @@ const BookmarksTab = () => {
     string
   > | null>(null);
 
-  // Add this function to handle changes in the popover inputs
   const handleEditChange = (key: string, value: string) => {
     setEditMetaData((prevMetaData) => ({ ...prevMetaData, [key]: value }));
   };
@@ -57,7 +56,6 @@ const BookmarksTab = () => {
             image: result.value.image || '',
           };
         } else {
-          // Display failure for the website
           console.error(
             `Error fetching metadata for URL: ${urls[index]}`,
             result.reason
@@ -203,10 +201,10 @@ const BookmarksTab = () => {
                               <Label htmlFor={key}>{key}</Label>
                               <Input
                                 id={key}
-                                value={value} // Use value instead of defaultValue
+                                value={value} 
                                 onChange={(e) =>
                                   handleEditChange(key, e.target.value)
-                                } // Handle changes here
+                                } 
                                 className="col-span-2 h-8 w-auto"
                               />
                             </div>
@@ -219,7 +217,7 @@ const BookmarksTab = () => {
                               mdIndex === index ? editMetaData : md
                             )
                           );
-                          setEditMetaData(null); // Reset the editMetaData state after saving
+                          setEditMetaData(null); 
                         }}
                       >
                         Save

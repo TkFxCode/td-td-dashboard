@@ -13,7 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/app/components/ui/popover';
-import countries from './countries.json'; // Assumes you put the countries JSON in the /data directory
+import countries from './countries.json';
 import { cn } from '@/lib/utils';
 
 export const CountryCombobox = ({ setCountry }) => {
@@ -44,8 +44,8 @@ export const CountryCombobox = ({ setCountry }) => {
               <CommandItem
                 key={country.value}
                 onSelect={(currentValue) => {
-                  setCountry(currentValue); // directly set the selected country
-                  setValue(currentValue); // set the value for displaying selected country in the combobox
+                  setCountry(currentValue);
+                  setValue(currentValue);
                   setOpen(false);
                 }}
               >

@@ -28,8 +28,8 @@ interface GroupedTrade {
   swap: number;
   profit: number;
   partials: number;
-  entryTime: string; // add entryTime
-  exitTime: string; // add exitTime
+  entryTime: string;
+  exitTime: string;
 }
 
 export async function GET(
@@ -69,8 +69,8 @@ export async function GET(
             swap: 0,
             profit: 0,
             partials: 0,
-            entryTime: '', // add entryTime
-            exitTime: '', // add exitTime
+            entryTime: '',
+            exitTime: '',
           };
         }
 
@@ -78,7 +78,7 @@ export async function GET(
           groupedTrades[id].tradeType = trade.type;
           groupedTrades[id].volume += trade.volume;
           groupedTrades[id].entryPrice = trade.price;
-          groupedTrades[id].entryTime = trade.time; // set entryTime
+          groupedTrades[id].entryTime = trade.time;
         }
 
         if (trade.entryType === 'DEAL_ENTRY_OUT') {

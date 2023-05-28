@@ -11,14 +11,14 @@ import LoadingScreen from './components/loading/LoadingScreen';
 export default function Home() {
   const { user, loading } = useUser();
   const router = useRouter();
-  const [loadings, setLoadings] = useState(false); // Add loading state
+  const [loadings, setLoadings] = useState(false);
 
   useEffect(() => {
-    setLoadings(true); // Set loading to true when starting sign up process
+    setLoadings(true);
     if (!loading && user) {
       router.push('/dashboard');
     }
-    setLoadings(false); // Set loading to false when sign up process fails
+    setLoadings(false);
   }, [loading, user, router]);
 
   if (loadings) {

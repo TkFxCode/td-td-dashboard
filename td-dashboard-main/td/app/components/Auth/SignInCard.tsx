@@ -15,7 +15,7 @@ import { Separator } from '@/app/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from '@/app/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
 import { useUser } from '@/app/appwrite/useUser';
-import LoadingScreen from '@/app/components/loading/LoadingScreen'; // Import LoadingScreen component
+import LoadingScreen from '@/app/components/loading/LoadingScreen'; 
 
 export function SigninCard() {
   const [email, setEmail] = useState('');
@@ -23,26 +23,26 @@ export function SigninCard() {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const router = useRouter();
   const { login } = useUser();
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false); 
 
   const handleSignin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setShowErrorAlert(false);
 
-    setLoading(true); // Set loading to true when starting sign up process
+    setLoading(true); 
 
     login(email, password)
       .then(() => {
         router.push('/dashboard');
       })
       .catch((error) => {
-        setLoading(false); // Set loading to false when sign up process fails
+        setLoading(false); 
         console.log(error);
         setShowErrorAlert(true);
       });
   };
 
-  // Show LoadingScreen component when loading is true
+  
   if (loading) {
     return <LoadingScreen />;
   }

@@ -4,7 +4,7 @@ import cheerio from 'cheerio';
 
 const extractMeta = async (url: string) => {
   const META: Record<string, string> = {
-    url: url, // Include the URL in the extracted metadata
+    url: url,
   };
 
   let html;

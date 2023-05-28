@@ -13,7 +13,6 @@ import {
   type Icon as LucideIcon,
 } from 'lucide-react';
 
-// Add a new prop called fullWidth with a default value of false
 export function ThemeToggle({ fullWidth = false }) {
   const { setTheme, theme } = useTheme();
 
@@ -22,7 +21,7 @@ export function ThemeToggle({ fullWidth = false }) {
       variant="ghost"
       size="sm"
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-      className={fullWidth ? 'w-full' : ''} // Apply w-full class if fullWidth is true
+      className={fullWidth ? 'w-full' : ''}
     >
       <SunMedium className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
       <Moon className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />

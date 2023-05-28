@@ -4,7 +4,6 @@ import axios from 'axios';
 import { account, databases, Query } from './appwrite';
 import { useRouter } from 'next/navigation';
 
-// Add a helper function to create the user document
 const createUserDocument = async (
   userId: string,
   email: string,
@@ -37,7 +36,6 @@ const createUserDocument = async (
         postalCode: postalCode,
       }
     );
-    // console.log('User document created:', response);
   } catch (error) {
     console.error('User document creation failed:', error);
   }
@@ -51,13 +49,11 @@ export const createTask = async (
   taskDate: string
 ) => {
   try {
-    // Fetch the user document
     const userDoc = await getUserDocument(userId);
     const tasks = userDoc?.tasks || [];
 
-    // Create a new task object and stringify it
     const newTask = JSON.stringify({
-      id: `task-${Date.now()}`, // Generate a unique ID for the task based on the current timestamp
+      id: `task-${Date.now()}`,
       userId: userId,
       taskName: taskName,
       taskDescription: taskDescription,
@@ -65,10 +61,8 @@ export const createTask = async (
       taskDate: taskDate,
     });
 
-    // Add the new task to the tasks array
     tasks.push(newTask);
 
-    // Update the user document with the modified tasks array
     const response = await databases.updateDocument(
       '6456b05eb0764a873d05',
       '6456b066929fbb0247d3',
@@ -83,7 +77,6 @@ export const createTask = async (
   }
 };
 
-// Add a helper function to fetch the user document by user ID
 const getUserDocument = async (userId: string) => {
   try {
     const response = await databases.getDocument(
@@ -97,8 +90,6 @@ const getUserDocument = async (userId: string) => {
   }
 };
 
-//Demo
-//Demo
 export const createNewMDXDocument = async (
   userId: string,
   title: string,
@@ -126,7 +117,6 @@ export const createNewMDXDocument = async (
   }
 };
 
-// Add a helper function to fetch all documents MDX by user ID TESTESTETST
 export const getAllMDXDocuments = async (userId: string) => {
   try {
     const response = await databases.listDocuments(
@@ -134,7 +124,6 @@ export const getAllMDXDocuments = async (userId: string) => {
       '645c420225d6302464fe'
     );
 
-    // map the response to fit the Document interface
     const documents = response.documents.map((doc) => ({
       userId: doc.userId,
       documentId: doc.$id,
@@ -148,11 +137,10 @@ export const getAllMDXDocuments = async (userId: string) => {
     return documents;
   } catch (error) {
     console.error('Failed to fetch all documents:', error);
-    return []; // return an empty array in case of an error
+    return [];
   }
 };
 
-// Add a helper function to fetchh a single MDX document by document ID
 export const fetchSingleMDXDocument = async (documentId: string) => {
   try {
     const response = await databases.getDocument(
@@ -348,8 +336,9 @@ export const addTradingAccount = async (
     console.log('Trading account added:', response);
 
     // Extract the apiKey from the shareURL
-    const apiKey = shareURL.split('https://app.trueforexfunds.com/share/')[1];
-
+    console.log(shareURL);
+    const apiKey = shareURL.split('share/')[1];
+    console.log(apiKey);
     // Call /api/trades/[apiKey] endpoint
     const apiResponse = await axios.get(`/api/trades/${apiKey}`);
     const tradingHistory = apiResponse.data;
@@ -361,7 +350,7 @@ export const addTradingAccount = async (
       '6456b05eb0764a873d05',
       '646fba38d877c98f969c',
       'unique()',
-      { AccountKey: apiKey, TradingHistory: tradingHistoryString }
+      { AccountKey: `${apiKey}`, TradingHistory: `${tradingHistoryString}` }
     );
 
     console.log('New document created:', document);

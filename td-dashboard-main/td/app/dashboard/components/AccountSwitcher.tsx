@@ -68,6 +68,7 @@ type AccountDetail = {
   shareURL: string;
   accountSize: string;
   accountPhase: string;
+  accountNumber: string;
 };
 
 type Account = {
@@ -105,12 +106,9 @@ export default function AccountSwitcher() {
   const [selectedAccounts, setSelectedAccounts] = useState([]);
   const { user, getUserDocument } = useUser();
   const [userData, setUserData] = useState<any>(null);
-  type AccountDetail = {
-    propFirm: string;
-    shareURL: string;
-    accountSize: string;
-    accountPhase: string;
-  };
+  const [useURL, setUseURL] = useState(true);
+  const [csvData, setCsvData] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -182,10 +180,16 @@ export default function AccountSwitcher() {
       propFirm,
       accountSize,
       accountPhase,
-      shareURL
+      accountNumber,
+      useURL ? shareURL : '',
+      !useURL ? csvData : ''
     );
     setShowNewAccountDialog(false);
   };
+  const handleAccountNumberChange = (value: string) => {
+    setAccountNumber(value);
+  };
+
   const [accountSize, setAccountSize] = useState('');
   const handleAccountSizeChange = (value: string) => {
     setAccountSize(value);
@@ -305,6 +309,27 @@ export default function AccountSwitcher() {
                           Add a new account to your trading portfolio.
                         </DialogDescription>
                       </DialogHeader>
+                      <div className="space-y-2">
+                        <Label htmlFor="inputSwitch">
+                          {useURL ? (
+                            <div className="space-y-2">
+                              <Label htmlFor="shareURL">
+                                Account Share URL
+                              </Label>
+                            </div>
+                          ) : (
+                            <div className="space-y-2">
+                              <Label htmlFor="csvUpload">Upload CSV</Label>
+                            </div>
+                          )}
+                        </Label>
+                        <Switch
+                          id="inputSwitch"
+                          checked={useURL}
+                          onCheckedChange={setUseURL}
+                        />
+                      </div>
+
                       <div>
                         <div className="space-y-4 py-2 pb-4">
                           <div className="space-y-2">
@@ -333,6 +358,19 @@ export default function AccountSwitcher() {
                               </SelectContent>
                             </Select>
                           </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="accountNumber">
+                              Account Number
+                            </Label>
+                            <Input
+                              id="accountNumber"
+                              placeholder="Enter Account Number"
+                              onChange={(e) =>
+                                handleAccountNumberChange(e.target.value)
+                              }
+                            />
+                          </div>
+
                           <div className="space-y-2">
                             <Label htmlFor="accountSize">Account Size</Label>
                             <Select onValueChange={handleAccountSizeChange}>
@@ -375,14 +413,37 @@ export default function AccountSwitcher() {
                             </Select>
                           </div>
 
-                          <div className="space-y-2">
-                            <Label htmlFor="shareURL">Account Share URL</Label>
-                            <Input
-                              id="shareURL"
-                              placeholder="https://shareUrl@PropFirm.com"
-                              onChange={(e) => setShareURL(e.target.value)}
-                            />
-                          </div>
+                          {useURL ? (
+                            <div className="space-y-2">
+                              <Label htmlFor="shareURL">
+                                Account Share URL
+                              </Label>
+                              <Input
+                                id="shareURL"
+                                placeholder="https://shareUrl@PropFirm.com"
+                                onChange={(e) => setShareURL(e.target.value)}
+                              />
+                            </div>
+                          ) : (
+                            <div className="space-y-2">
+                              <Label htmlFor="csvUpload">Upload CSV</Label>
+                              <Input
+                                type="file"
+                                id="csvUpload"
+                                onChange={(e) => {
+                                  if (e.target.files) {
+                                    // Check if files are not null
+                                    const file = e.target.files[0];
+                                    const reader = new FileReader();
+                                    reader.onload = (evt) => {
+                                      setCsvData(evt.target?.result as string);
+                                    };
+                                    reader.readAsText(file);
+                                  }
+                                }}
+                              />
+                            </div>
+                          )}
                         </div>
                       </div>
                       <DialogFooter>
@@ -419,6 +480,7 @@ export default function AccountSwitcher() {
                       <p>PropFirm: {account.propFirm}</p>
                       <p>AccountSize: {account.accountSize}</p>
                       <p>AccountPhase: {account.accountPhase}</p>
+                      <p>AccountNumber: {account.accountNumber}</p>
                     </Card>
                   ))}
               </p>

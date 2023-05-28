@@ -62,6 +62,7 @@ import {
 } from '@/app/components/ui/hover-card';
 import { Card } from '@/app/components/ui/card';
 import { CalendarDays } from 'lucide-react';
+import { Switch } from '@/app/components/ui/switch';
 type AccountDetail = {
   propFirm: string;
   shareURL: string;

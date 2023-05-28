@@ -34,6 +34,7 @@ interface SelectedAccountType {
     shareURL: string;
     accountSize: string;
     accountPhase: string;
+    accountNumber: string;
   }[];
   // Add other properties as needed
 }
@@ -58,6 +59,7 @@ const AccountInformation = ({
       propFirm: string;
       accountSize: string;
       accountPhase: string;
+      accountNumber: string;
     };
   }
 
@@ -309,6 +311,7 @@ const AccountInformation = ({
                         <p>AccountSize: {account.accountSize}</p>
                         <p>AccountPhase: {account.accountPhase}</p>
                         <p>AccountPhase: {account.shareURL}</p>
+                        <p>AccountNumber: {account.accountNumber}</p>
                       </Card>
                     ))}
                 </p>
@@ -377,7 +380,7 @@ const AccountInformation = ({
                             )
                             .map(
                               (filteredHistory) =>
-                                `${filteredHistory.accountDetails.accountSize}${filteredHistory.accountDetails.accountPhase}`
+                                `Acc No: ${filteredHistory.accountDetails.accountNumber} ${filteredHistory.accountDetails.accountSize} ${filteredHistory.accountDetails.accountPhase}`
                             )
                         ),
                       ].map((accountDetail, aIndex) => (
@@ -395,7 +398,7 @@ const AccountInformation = ({
                           )
                           .map(
                             (filteredHistory) =>
-                              `${filteredHistory.accountDetails.accountSize}${filteredHistory.accountDetails.accountPhase}`
+                              `Acc No: ${filteredHistory.accountDetails.accountNumber} ${filteredHistory.accountDetails.accountSize} ${filteredHistory.accountDetails.accountPhase}`
                           )
                       ),
                     ].map((accountDetail, aIndex) => (
@@ -409,7 +412,7 @@ const AccountInformation = ({
                             data={
                               tradeHistories.filter(
                                 (history) =>
-                                  `${history.accountDetails.accountSize}${history.accountDetails.accountPhase}` ===
+                                  `Acc No: ${history.accountDetails.accountNumber} ${history.accountDetails.accountSize} ${history.accountDetails.accountPhase}` ===
                                     accountDetail &&
                                   history.accountDetails.propFirm === propFirm
                               )[0].trades

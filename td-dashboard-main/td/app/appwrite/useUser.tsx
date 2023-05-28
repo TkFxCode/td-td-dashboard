@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { account, databases, Query } from './appwrite';
 import { useRouter } from 'next/navigation';
+import csvtojson from 'csvtojson';
 
 const createUserDocument = async (
   userId: string,
@@ -301,9 +302,48 @@ export const addTradingAccount = async (
   propFirm: string,
   accountSize: string,
   accountPhase: string,
-  shareURL: string
+  accountNumber: string,
+  shareURL: string,
+  csvData: string
 ) => {
   try {
+    const processCSVData = async (csv: string) => {
+      const jsonArray = await csvtojson({ delimiter: ';' }).fromString(csv);
+      return jsonArray.map(
+        ({
+          Ticket,
+          Open,
+          Type,
+          Volume,
+          Symbol,
+          OpenPrice,
+          SL,
+          TP,
+          Close,
+          ClosePrice,
+          Swap,
+          Commissions,
+          Profit,
+          Pips,
+          'Trade duration in seconds': duration,
+          Partials = '0',
+        }) => ({
+          symbol: Symbol,
+          tradeType:
+            Type.toLowerCase() === 'buy' ? 'DEAL_TYPE_BUY' : 'DEAL_TYPE_SELL',
+          volume: parseFloat(Volume),
+          entryPrice: parseFloat(OpenPrice),
+          exitPrice: parseFloat(ClosePrice),
+          commission: parseFloat(Commissions),
+          swap: parseFloat(Swap),
+          profit: parseFloat(Profit),
+          partials: parseInt(Partials),
+          entryTime: Open,
+          exitTime: Close,
+        })
+      );
+    };
+
     let userDoc = await getTradingAccountDocument(userId);
 
     if (!userDoc) {
@@ -315,45 +355,89 @@ export const addTradingAccount = async (
       return;
     }
 
-    const updatedPropFirm = userDoc[propFirm] || [];
-    updatedPropFirm.push(
-      JSON.stringify({
-        propFirm,
-        shareURL,
-        accountSize,
-        accountPhase,
-      })
-    );
+    let tradingHistoryString = '';
+    if (shareURL) {
+      const updatedPropFirm = userDoc[propFirm] || [];
+      updatedPropFirm.push(
+        JSON.stringify({
+          propFirm,
+          shareURL,
+          accountSize,
+          accountPhase,
+          accountNumber,
+        })
+      );
 
-    const response = await databases.updateDocument(
-      '6456b05eb0764a873d05',
-      '646f2225aa07cd89f076',
-      userId,
-      {
-        [propFirm]: updatedPropFirm,
-      }
-    );
-    console.log('Trading account added:', response);
+      const response = await databases.updateDocument(
+        '6456b05eb0764a873d05',
+        '646f2225aa07cd89f076',
+        userId,
+        {
+          [propFirm]: updatedPropFirm,
+        }
+      );
+      console.log('Trading account added:', response);
+      // Extract the apiKey from the shareURL
+      console.log(shareURL);
+      const apiKey = shareURL.split('share/')[1];
+      console.log(apiKey);
+      // Call /api/trades/[apiKey] endpoint
+      const apiResponse = await axios.get(`/api/trades/${apiKey}`);
+      const tradingHistory = apiResponse.data;
+      tradingHistoryString = JSON.stringify(tradingHistory);
 
-    // Extract the apiKey from the shareURL
-    console.log(shareURL);
-    const apiKey = shareURL.split('share/')[1];
-    console.log(apiKey);
-    // Call /api/trades/[apiKey] endpoint
-    const apiResponse = await axios.get(`/api/trades/${apiKey}`);
-    const tradingHistory = apiResponse.data;
-    const tradingHistoryString = JSON.stringify(tradingHistory);
+      const document = await databases.createDocument(
+        '6456b05eb0764a873d05',
+        '646fba38d877c98f969c',
+        'unique()',
+        { AccountKey: `${apiKey}`, TradingHistory: `${tradingHistoryString}` }
+      );
+      console.log('New document created:', document);
+    }
 
     // Create a new document with the response data
+    else if (csvData) {
+      const shareURL = '39847232910847';
+      const updatedPropFirm = userDoc[propFirm] || [];
+      updatedPropFirm.push(
+        JSON.stringify({
+          propFirm,
+          shareURL,
+          accountSize,
+          accountPhase,
+          accountNumber,
+        })
+      );
 
-    const document = await databases.createDocument(
-      '6456b05eb0764a873d05',
-      '646fba38d877c98f969c',
-      'unique()',
-      { AccountKey: `${apiKey}`, TradingHistory: `${tradingHistoryString}` }
-    );
+      const response = await databases.updateDocument(
+        '6456b05eb0764a873d05',
+        '646f2225aa07cd89f076',
+        userId,
+        {
+          [propFirm]: updatedPropFirm,
+        }
+      );
+      console.log('Trading account added:', response);
+      const tradesData = await processCSVData(csvData);
 
-    console.log('New document created:', document);
+      // Construct the trading history object
+      const tradingHistory = {
+        status: 'success',
+        startingBalance: 10000, // replace with the actual starting balance if available
+        totalTrades: tradesData.length,
+        trades: tradesData,
+      };
+
+      tradingHistoryString = JSON.stringify(tradingHistory);
+
+      const document = await databases.createDocument(
+        '6456b05eb0764a873d05',
+        '646fba38d877c98f969c',
+        'unique()',
+        { AccountKey: `${shareURL}`, TradingHistory: `${tradingHistoryString}` }
+      );
+      console.log('New document created:', document);
+    }
   } catch (error) {
     console.error('Trading account addition failed:', error);
   }

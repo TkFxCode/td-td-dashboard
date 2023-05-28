@@ -60,6 +60,8 @@
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
     "countries-list": "^2.6.1",
+    "csvtojson": "^2.0.10",
+    "d3-dsv": "^2.0.0",
     "date-fns": "^2.30.0",
     "eslint": "8.39.0",
     "eslint-config-next": "13.4.0",
@@ -97,6 +99,7 @@
     "@editorjs/quote": "^2.5.0",
     "@editorjs/raw": "^2.4.0",
     "@editorjs/simple-image": "^1.5.1",
-    "@types/he": "^1.2.0"
+    "@types/he": "^1.2.0",
+    "@types/papaparse": "^5.3.7"
   }
 }

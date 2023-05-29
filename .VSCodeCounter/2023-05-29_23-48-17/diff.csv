@@ -1,0 +1,37 @@
+"filename", "language", "TypeScript JSX", "CSS", "TypeScript", "JSON with Comments", "Markdown", "JavaScript", "JSON", "XML", "comment", "blank", "total"
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\.eslintrc.json", "JSON with Comments", 0, 0, 0, -3, 0, 0, 0, 0, 0, -1, -4
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\README.md", "Markdown", 0, 0, 0, 0, -21, 0, 0, 0, 0, -14, -35
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\api\scrape\route.ts", "TypeScript", 0, 0, -29, 0, 0, 0, 0, 0, 0, -3, -32
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\api\trades\[apiKey]\route.ts", "TypeScript", 0, 0, 37, 0, 0, 0, 0, 0, -1, 3, 39
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\appwrite\useUser.tsx", "TypeScript JSX", 96, 0, 0, 0, 0, 0, 0, 0, -11, 4, 89
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\Auth\SignInCard.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, -1, 1, 0
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\BookmarksTab.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, -2
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\Documents.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, -1, 1, 0
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\WebScrapeComponent.tsx", "TypeScript JSX", -36, 0, 0, 0, 0, 0, 0, 0, -1, -6, -43
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\tabs\HomeTab.tsx", "TypeScript JSX", -103, 0, 0, 0, 0, 0, 0, 0, 0, 1, -102
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\themeToggle.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\accordion.tsx", "TypeScript JSX", 53, 0, 0, 0, 0, 0, 0, 0, 0, 8, 61
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\progress.tsx", "TypeScript JSX", 24, 0, 0, 0, 0, 0, 0, 0, 0, 5, 29
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\scroll-area.tsx", "TypeScript JSX", 43, 0, 0, 0, 0, 0, 0, 0, 0, 6, 49
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation.module.css", "CSS", 0, 31, 0, 0, 0, 0, 0, 0, 0, 5, 36
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation.tsx", "TypeScript JSX", 474, 0, 0, 0, 0, 0, 0, 0, 5, 35, 514
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\AccountSummary.tsx", "TypeScript JSX", 161, 0, 0, 0, 0, 0, 0, 0, 0, 10, 171
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\ChallengeLiveAcc.tsx", "TypeScript JSX", 137, 0, 0, 0, 0, 0, 0, 0, 0, 7, 144
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\DemoChallengeCard.tsx", "TypeScript JSX", 161, 0, 0, 0, 0, 0, 0, 0, 0, 11, 172
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\DemoLiveCard.tsx", "TypeScript JSX", 57, 0, 0, 0, 0, 0, 0, 0, 0, 3, 60
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\NegativeProgress.tsx", "TypeScript JSX", 24, 0, 0, 0, 0, 0, 0, 0, 0, 5, 29
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\ProfitLossCard.tsx", "TypeScript JSX", 33, 0, 0, 0, 0, 0, 0, 0, 3, 7, 43
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\dynamicDemoChallengeCard.tsx", "TypeScript JSX", 161, 0, 0, 0, 0, 0, 0, 0, 1, 10, 172
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountSwitcher.tsx", "TypeScript JSX", 137, 0, 0, 0, 0, 0, 0, 0, 5, 7, 149
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\CheckboxReactHookFormMultiple.tsx", "TypeScript JSX", -23, 0, 0, 0, 0, 0, 0, 0, 0, -1, -24
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\tables\columns.tsx", "TypeScript JSX", 99, 0, 0, 0, 0, 0, 0, 0, 2, 12, 113
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\tables\data-table.tsx", "TypeScript JSX", 75, 0, 0, 0, 0, 0, 0, 0, 0, 6, 81
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\lib\utils.ts", "TypeScript", 0, 0, -5, 0, 0, 0, 0, 0, 0, -2, -7
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\next.config.js", "JavaScript", 0, 0, 0, 0, 0, -7, 0, 0, -1, -2, -10
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\package-lock.json", "JSON", 0, 0, 0, 0, 0, 0, -23033, 0, 0, -1, -23034
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\package.json", "JSON", 0, 0, 0, 0, 0, 0, -98, 0, 0, -1, -99
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\postcss.config.js", "JavaScript", 0, 0, 0, 0, 0, -6, 0, 0, 0, -1, -7
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\public\trading-icon.svg", "XML", 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\tailwind.config.js", "JavaScript", 0, 0, 0, 0, 0, -78, 0, 0, -1, -2, -81
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\tsconfig.json", "JSON with Comments", 0, 0, 0, -33, 0, 0, 0, 0, -4, -1, -38
+"Total", "-", 1573, 31, 3, -36, -21, -91, -23131, -1, -8, 112, -21569

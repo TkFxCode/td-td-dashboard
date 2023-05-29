@@ -1,0 +1,35 @@
+.gridcontainer {
+  display: grid;
+  grid-template-areas:
+    'a a b b c c d d'
+    'e e e e e e f f'
+    'e e e e e e f f'
+    'e e e e e e f f'
+    'e e e e e e f f'
+    'g g g g g g g g';
+}
+
+.grida {
+  grid-area: a;
+}
+
+.gridb {
+  grid-area: b;
+}
+
+.gridc {
+  grid-area: c;
+}
+
+.gridd {
+  grid-area: d;
+}
+.gride {
+  grid-area: e;
+}
+.gridf {
+  grid-area: f;
+}
+.gridg {
+  grid-area: g;
+}

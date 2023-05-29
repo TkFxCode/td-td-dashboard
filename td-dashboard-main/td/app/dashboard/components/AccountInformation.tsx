@@ -8,7 +8,49 @@ import {
   CardTitle,
   CardFooter,
 } from '@/app/components/ui/card';
-import { Activity, CreditCard, Banknote, Star, LineChart } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from '@/app/components/ui/command';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/app/components/ui/dialog';
+import { Input } from '@/app/components/ui/input';
+import { Label } from '@/app/components/ui/label';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/app/components/ui/popover';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectGroup,
+  SelectLabel,
+} from '@/app/components/ui/select';
+import {
+  Activity,
+  CreditCard,
+  Banknote,
+  Star,
+  LineChart,
+  ChevronsUpDown,
+} from 'lucide-react';
 import { Overview } from '@/app/components/demo/overviewChart';
 import { Trade, columns } from './tables/columns';
 import { DataTable } from './tables/data-table';
@@ -26,6 +68,13 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/app/components/ui/tabs';
+import AccountDetails from './AccountInformation/AccountSummary';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/app/components/ui/accordion';
 interface SelectedAccountType {
   label: string;
   value: string;
@@ -36,7 +85,6 @@ interface SelectedAccountType {
     accountPhase: string;
     accountNumber: string;
   }[];
-  // Add other properties as needed
 }
 interface ResponseType {
   documents?: {
@@ -44,6 +92,10 @@ interface ResponseType {
   }[];
 }
 
+interface SelectedContent {
+  label: string;
+  component: React.ReactNode | null;
+}
 const AccountInformation = ({
   selectedAccount,
 }: {
@@ -51,6 +103,15 @@ const AccountInformation = ({
 }) => {
   const { user, getUserDocument } = useUser();
   const [userData, setUserData] = useState<any>(null);
+
+  const [selectedContent, setSelectedContent] = React.useState<SelectedContent>(
+    {
+      label: 'Select content',
+      component: null,
+    }
+  );
+
+  const [open, setOpen] = React.useState(false);
 
   interface TradeHistory {
     apiKey: string;
@@ -78,7 +139,18 @@ const AccountInformation = ({
       if (selectedAccount.accountDetails) {
         const allHistories = await Promise.all(
           selectedAccount.accountDetails.map(async (account) => {
-            const apiKey = account.shareURL.split('/').pop() || '';
+            let apiKey = '';
+
+            if (account.shareURL.includes('/')) {
+              let splitUrl = account.shareURL.split('/');
+              apiKey =
+                splitUrl.length > 0
+                  ? (splitUrl.pop() as string)
+                  : account.shareURL;
+            } else {
+              apiKey = account.shareURL;
+            }
+
             const response = await listTradeHistory(user.$id, apiKey);
 
             let trades = [];
@@ -282,7 +354,182 @@ const AccountInformation = ({
         </div>
       </CardHeader>
       <CardContent>
-        {' '}
+        <Card className="">
+          <CardHeader>
+            <CardTitle>Account summaries</CardTitle>
+          </CardHeader>
+          <CardContent className="m-0 p-0">
+            <div className="flex flex-col md:flex-row">
+              <div className="flex-1 md:flex-1">
+                <Card className="p-3 pt-5 md:min-h-full">
+                  <CardTitle>
+                    <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-center">
+                      All Trade History
+                    </h2>
+                  </CardTitle>
+                  <CardContent className="m-2 p-2">
+                    <Tabs className="w-full">
+                      <TabsList>
+                        {[
+                          ...new Set(
+                            tradeHistories.map(
+                              (history) => history.accountDetails.propFirm
+                            )
+                          ),
+                        ].map((propFirm, index) => (
+                          <TabsTrigger key={index} value={propFirm}>
+                            {propFirm}
+                          </TabsTrigger>
+                        ))}
+                      </TabsList>
+                      {[
+                        ...new Set(
+                          tradeHistories.map(
+                            (history) => history.accountDetails.propFirm
+                          )
+                        ),
+                      ].map((propFirm, index) => (
+                        <TabsContent key={index} value={propFirm}>
+                          <Tabs className="w-full">
+                            <TabsList>
+                              {[
+                                ...new Set(
+                                  tradeHistories
+                                    .filter(
+                                      (history) =>
+                                        history.accountDetails.propFirm ===
+                                        propFirm
+                                    )
+                                    .map(
+                                      (filteredHistory) =>
+                                        `Acc No: ${filteredHistory.accountDetails.accountNumber} ${filteredHistory.accountDetails.accountSize} ${filteredHistory.accountDetails.accountPhase}`
+                                    )
+                                ),
+                              ].map((accountDetail, aIndex) => (
+                                <TabsTrigger key={aIndex} value={accountDetail}>
+                                  {accountDetail}
+                                </TabsTrigger>
+                              ))}
+                            </TabsList>
+                            {[
+                              ...new Set(
+                                tradeHistories
+                                  .filter(
+                                    (history) =>
+                                      history.accountDetails.propFirm ===
+                                      propFirm
+                                  )
+                                  .map(
+                                    (filteredHistory) =>
+                                      `Acc No: ${filteredHistory.accountDetails.accountNumber} ${filteredHistory.accountDetails.accountSize} ${filteredHistory.accountDetails.accountPhase}`
+                                  )
+                              ),
+                            ].map((accountDetail, aIndex) => (
+                              <TabsContent key={aIndex} value={accountDetail}>
+                                <h3 className="text-foreground text-center">
+                                  Trade History for {propFirm} {accountDetail}
+                                </h3>
+                                <ScrollArea className="h-[450px] rounded-md border p-4">
+                                  <DataTable
+                                    columns={columns}
+                                    data={
+                                      tradeHistories.filter(
+                                        (history) =>
+                                          `Acc No: ${history.accountDetails.accountNumber} ${history.accountDetails.accountSize} ${history.accountDetails.accountPhase}` ===
+                                            accountDetail &&
+                                          history.accountDetails.propFirm ===
+                                            propFirm
+                                      )[0].trades
+                                    }
+                                  />
+                                </ScrollArea>
+                              </TabsContent>
+                            ))}
+                          </Tabs>
+                        </TabsContent>
+                      ))}
+                    </Tabs>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="flex-2">
+                <Card className="md:min-h-full lg:min-w-[250px]">
+                  <Popover open={open} onOpenChange={setOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        role="combobox"
+                        aria-expanded={open}
+                        aria-label="Select a content"
+                        className={cn(
+                          'w-full mt-1 mb-1 h-[55px] justify-between '
+                        )}
+                      >
+                        {selectedContent.label}
+                        <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full lg:w-[200px] p-0">
+                      <Command>
+                        <CommandList>
+                          <CommandItem
+                            onSelect={() => {
+                              setSelectedContent({
+                                label: 'All Accounts Summary',
+                                component: (
+                                  <AccountDetails account={selectedAccount} />
+                                ),
+                              });
+                              setOpen(false);
+                            }}
+                            className="text-sm"
+                          >
+                            All Accounts Summary
+                          </CommandItem>
+                          <CommandItem
+                            onSelect={() => {
+                              setSelectedContent({
+                                label: 'All Archived Accounts',
+                                component: (
+                                  <AccountDetails account={selectedAccount} />
+                                ),
+                              });
+                              setOpen(false);
+                            }}
+                            className="text-sm"
+                          >
+                            All Archived Accounts
+                          </CommandItem>
+                          <CommandItem
+                            onSelect={() => {
+                              setSelectedContent({
+                                label: 'All Recorded Payouts',
+                                component: (
+                                  <AccountDetails account={selectedAccount} />
+                                ),
+                              });
+                              setOpen(false);
+                            }}
+                            className="text-sm"
+                          >
+                            All Recorded Payouts
+                          </CommandItem>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  <ScrollArea className="h-[500px] w-full lg:h-[580px] lg:w-[500px] rounded-md border ">
+                    <CardContent className="w-full">
+                      {/* Display content based on selected item */}
+                      {selectedContent.component}
+                    </CardContent>
+                  </ScrollArea>
+                </Card>
+              </div>
+            </div>
+          </CardContent>
+        </Card>{' '}
         <h1 className="text-foreground text-center">
           Welcome to your trading dashboard, {user?.name}!
         </h1>
@@ -340,92 +587,9 @@ const AccountInformation = ({
       <CardFooter>
         <Card className="w-full">
           <CardHeader>
-            <CardTitle>
-              <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-center">
-                All Trade History
-              </h2>
-            </CardTitle>
+            <CardTitle></CardTitle>
           </CardHeader>
-          <CardContent>
-            <Tabs className="w-full">
-              <TabsList>
-                {[
-                  ...new Set(
-                    tradeHistories.map(
-                      (history) => history.accountDetails.propFirm
-                    )
-                  ),
-                ].map((propFirm, index) => (
-                  <TabsTrigger key={index} value={propFirm}>
-                    {propFirm}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-              {[
-                ...new Set(
-                  tradeHistories.map(
-                    (history) => history.accountDetails.propFirm
-                  )
-                ),
-              ].map((propFirm, index) => (
-                <TabsContent key={index} value={propFirm}>
-                  <Tabs className="w-full">
-                    <TabsList>
-                      {[
-                        ...new Set(
-                          tradeHistories
-                            .filter(
-                              (history) =>
-                                history.accountDetails.propFirm === propFirm
-                            )
-                            .map(
-                              (filteredHistory) =>
-                                `Acc No: ${filteredHistory.accountDetails.accountNumber} ${filteredHistory.accountDetails.accountSize} ${filteredHistory.accountDetails.accountPhase}`
-                            )
-                        ),
-                      ].map((accountDetail, aIndex) => (
-                        <TabsTrigger key={aIndex} value={accountDetail}>
-                          {accountDetail}
-                        </TabsTrigger>
-                      ))}
-                    </TabsList>
-                    {[
-                      ...new Set(
-                        tradeHistories
-                          .filter(
-                            (history) =>
-                              history.accountDetails.propFirm === propFirm
-                          )
-                          .map(
-                            (filteredHistory) =>
-                              `Acc No: ${filteredHistory.accountDetails.accountNumber} ${filteredHistory.accountDetails.accountSize} ${filteredHistory.accountDetails.accountPhase}`
-                          )
-                      ),
-                    ].map((accountDetail, aIndex) => (
-                      <TabsContent key={aIndex} value={accountDetail}>
-                        <h3 className="text-foreground text-center">
-                          Trade History for {propFirm} {accountDetail}
-                        </h3>
-                        <ScrollArea className="h-[450px] rounded-md border p-4">
-                          <DataTable
-                            columns={columns}
-                            data={
-                              tradeHistories.filter(
-                                (history) =>
-                                  `Acc No: ${history.accountDetails.accountNumber} ${history.accountDetails.accountSize} ${history.accountDetails.accountPhase}` ===
-                                    accountDetail &&
-                                  history.accountDetails.propFirm === propFirm
-                              )[0].trades
-                            }
-                          />
-                        </ScrollArea>
-                      </TabsContent>
-                    ))}
-                  </Tabs>
-                </TabsContent>
-              ))}
-            </Tabs>
-          </CardContent>
+          <CardContent></CardContent>
           <CardFooter></CardFooter>
         </Card>
       </CardFooter>

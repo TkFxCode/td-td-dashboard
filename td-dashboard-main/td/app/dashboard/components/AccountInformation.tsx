@@ -9,40 +9,12 @@ import {
   CardFooter,
 } from '@/app/components/ui/card';
 import { cn } from '@/lib/utils';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from '@/app/components/ui/command';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/app/components/ui/dialog';
-import { Input } from '@/app/components/ui/input';
-import { Label } from '@/app/components/ui/label';
+import { Command, CommandItem, CommandList } from '@/app/components/ui/command';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/app/components/ui/popover';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  SelectGroup,
-  SelectLabel,
-} from '@/app/components/ui/select';
 import {
   Activity,
   CreditCard,
@@ -69,12 +41,6 @@ import {
   TabsTrigger,
 } from '@/app/components/ui/tabs';
 import AccountDetails from './AccountInformation/AccountSummary';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/app/components/ui/accordion';
 interface SelectedAccountType {
   label: string;
   value: string;
@@ -169,10 +135,18 @@ const AccountInformation = ({
         setTradeHistories(allHistories);
       }
     };
+    // check if there's already a selected content
+    if (selectedContent.component !== null) {
+      // update the selected content
+      setSelectedContent({
+        label: selectedContent.label,
+        component: <AccountDetails account={selectedAccount} />,
+      });
+    }
 
     fetchTradeHistories();
     fetchData();
-  }, [user, getUserDocument, selectedAccount.accountDetails]);
+  }, [user, getUserDocument, selectedAccount, selectedAccount.accountDetails]);
   // console.log(selectedAccount);
   // console.log(tradeHistory);
   const data = [

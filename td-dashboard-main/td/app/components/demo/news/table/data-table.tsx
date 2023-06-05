@@ -42,7 +42,10 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [selectedColumn, setSelectedColumn] = React.useState('title');
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [rowSelection, setRowSelection] = React.useState<
+    Record<string, boolean>
+  >({});
+
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
@@ -67,7 +70,7 @@ export function DataTable<TData, TValue>({
   });
   const selectedRowData = Object.keys(rowSelection)
     .filter((k) => rowSelection[k])
-    .map((id) => data[id]);
+    .map((id) => data[parseInt(id)]);
 
   const handleOnSubmit = () => {
     console.log(selectedRowData);

@@ -5,6 +5,7 @@ import moment from 'moment';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { Badge } from '@/app/components/ui/badge';
+import { Checkbox } from '@/app/components/ui/checkbox';
 
 type BadgeClassKeys = 'High' | 'Medium' | 'Low' | 'Holiday';
 
@@ -46,6 +47,25 @@ function getCountryCode(currencyCode: string): string {
 }
 
 export const columns: ColumnDef<Event>[] = [
+  {
+    id: 'select',
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: 'title',
     header: 'Title',

@@ -50,7 +50,7 @@ const DailyHighImpact: React.FC<DailyHighImpactProps> = ({ data }) => {
   };
 
   return (
-    <Card className="w-full  ">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-center text-3xl font-bold py-2">
           High Impact by Day

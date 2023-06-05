@@ -42,7 +42,7 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [selectedColumn, setSelectedColumn] = React.useState('title');
-
+  const [rowSelection, setRowSelection] = React.useState({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
@@ -57,12 +57,22 @@ export function DataTable<TData, TValue>({
     onColumnVisibilityChange: setColumnVisibility,
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onRowSelectionChange: setRowSelection,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
+      rowSelection,
     },
   });
+  const selectedRowData = Object.keys(rowSelection)
+    .filter((k) => rowSelection[k])
+    .map((id) => data[id]);
+
+  const handleOnSubmit = () => {
+    console.log(selectedRowData);
+    setRowSelection({});
+  };
 
   return (
     <div className="">
@@ -140,6 +150,24 @@ export function DataTable<TData, TValue>({
           </div>
         </Card>
       </div>
+      {selectedRowData.length > 0 && (
+        <div className="flex flex-row justify-center ">
+          {/* Displaying number of selections */}
+          <div className="m-2 w-full ">
+            <p className="h-full flex justify-center items-center">
+              Number of selections: {selectedRowData.length}
+            </p>
+          </div>
+
+          {/* Button to submit selections to database */}
+          <Button
+            onClick={handleOnSubmit}
+            className="m-2 w-full flex justify-center"
+          >
+            Submit to Database
+          </Button>
+        </div>
+      )}
 
       <div className="rounded-md border ">
         <Table>

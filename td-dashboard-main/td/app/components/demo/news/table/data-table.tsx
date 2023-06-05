@@ -66,8 +66,8 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="">
-      <div className="flex flex-col lg:flex-row items-center p-4 ">
-        <Card className="flex  flex-col lg:flex-row ">
+      <div className="flex flex-col lg:flex-row items-center py-4">
+        <Card className="flex  flex-col lg:flex-row w-full">
           <Input
             placeholder={`Filter ${selectedColumn}...`}
             value={
@@ -79,11 +79,11 @@ export function DataTable<TData, TValue>({
                 .getColumn(selectedColumn)
                 ?.setFilterValue(event.target.value)
             }
-            className="max-w-sm"
+            className="w-auto lg:max-w-sm m-2 "
           />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="">
+              <Button variant="outline" className="m-2">
                 Filter Column
               </Button>
             </DropdownMenuTrigger>
@@ -107,34 +107,38 @@ export function DataTable<TData, TValue>({
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-        </Card>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className=" mt-5 lg:ml-auto ">
-              Edit Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+          <div className="lg:ml-auto">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div className=" flex justify-stretch">
+                  <Button variant="outline" className=" m-2  w-full">
+                    Edit Columns
+                  </Button>
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {table
+                  .getAllColumns()
+                  .filter((column) => column.getCanHide())
+                  .map((column) => {
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) =>
+                          column.toggleVisibility(!!value)
+                        }
+                      >
+                        {column.id}
+                      </DropdownMenuCheckboxItem>
+                    );
+                  })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </Card>
       </div>
 
       <div className="rounded-md border ">

@@ -80,7 +80,8 @@ const NewsComponent: React.FC<NewsComponentProps> = ({ data }) => {
 
         <CardContent>
           <TabsContent value="today">
-            <ScrollArea className="h-[450px] rounded-md border p-4  ">
+            <div className="overflow-x-auto  max-h-[450px]">
+              {/* <ScrollArea className=" rounded-md border p-4  "> */}
               <DataTable
                 columns={columns}
                 data={filterDataByDay(
@@ -90,7 +91,8 @@ const NewsComponent: React.FC<NewsComponentProps> = ({ data }) => {
                     .toLowerCase()
                 )}
               />
-            </ScrollArea>
+              {/* </ScrollArea> */}
+            </div>
           </TabsContent>
 
           <TabsContent value="monday">

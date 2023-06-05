@@ -65,9 +65,9 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
-      <div className="flex flex-col lg:flex-row items-center p-4">
-        <Card className="flex  flex-col lg:flex-row">
+    <div className="">
+      <div className="flex flex-col lg:flex-row items-center p-4 ">
+        <Card className="flex  flex-col lg:flex-row ">
           <Input
             placeholder={`Filter ${selectedColumn}...`}
             value={

@@ -31,7 +31,7 @@ const ParentComponent: React.FC = () => {
 
   return (
     <div>
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-col  xl:flex-row justify-between ">
         <DailyHighImpact data={data} />
         <CountryPieChart data={data} />
         <CountryPieChart data={data} />

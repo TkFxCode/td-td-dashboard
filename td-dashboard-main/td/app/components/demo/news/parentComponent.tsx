@@ -31,7 +31,7 @@ const ParentComponent: React.FC = () => {
 
   return (
     <div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-5">
         <DailyHighImpact data={data} />
         <CountryPieChart data={data} />
         <DailyHighImpact data={data} />

@@ -97,49 +97,61 @@ const NewsComponent: React.FC<NewsComponentProps> = ({ data }) => {
           </TabsContent>
 
           <TabsContent value="monday">
-            <ScrollArea className="h-[450px] rounded-md border p-4 ">
+            <div className="overflow-x-auto  max-h-[450px]">
+              {/* <ScrollArea className="h-[450px] rounded-md border p-4 "> */}
               <DataTable
                 columns={columns}
                 data={filterDataByDay(data, 'monday')}
               />
-            </ScrollArea>
+              {/* </ScrollArea> */}
+            </div>
           </TabsContent>
           <TabsContent value="tuesday">
-            <ScrollArea className="h-[450px] rounded-md border p-4 ">
+            <div className="overflow-x-auto  max-h-[450px]">
+              {/* <ScrollArea className="h-[450px] rounded-md border p-4 "> */}
               <DataTable
                 columns={columns}
                 data={filterDataByDay(data, 'tuesday')}
               />
-            </ScrollArea>
+              {/* </ScrollArea> */}
+            </div>
           </TabsContent>
           <TabsContent value="wednesday">
-            <ScrollArea className="h-[450px] rounded-md border p-4 ">
+            <div className="overflow-x-auto  max-h-[450px]">
+              {/* <ScrollArea className="h-[450px] rounded-md border p-4 "> */}
               <DataTable
                 columns={columns}
                 data={filterDataByDay(data, 'wednesday')}
               />
-            </ScrollArea>
+              {/* </ScrollArea> */}
+            </div>
           </TabsContent>
           <TabsContent value="thursday">
-            <ScrollArea className="h-[450px] rounded-md border p-4 ">
+            <div className="overflow-x-auto  max-h-[450px]">
+              {/* <ScrollArea className="h-[450px] rounded-md border p-4 "> */}
               <DataTable
                 columns={columns}
                 data={filterDataByDay(data, 'thursday')}
               />
-            </ScrollArea>
+              {/* </ScrollArea> */}
+            </div>
           </TabsContent>
           <TabsContent value="friday">
-            <ScrollArea className="h-[450px] rounded-md border p-4 ">
+            <div className="overflow-x-auto  max-h-[450px]">
+              {/* <ScrollArea className="h-[450px] rounded-md border p-4 "> */}
               <DataTable
                 columns={columns}
                 data={filterDataByDay(data, 'friday')}
               />
-            </ScrollArea>
+              {/* </ScrollArea> */}
+            </div>
           </TabsContent>
           <TabsContent value="all">
-            <ScrollArea className="h-[450px] rounded-md border p-4 ">
+            <div className="overflow-x-auto  max-h-[450px]">
+              {/* <ScrollArea className="h-[450px] rounded-md border p-4 "> */}
               <DataTable columns={columns} data={data} />
-            </ScrollArea>
+              {/* </ScrollArea> */}
+            </div>
           </TabsContent>
           {/* <ScrollArea className="h-[450px] rounded-md border p-4 ">
           <DataTable columns={columns} data={data} />

@@ -7,11 +7,6 @@ import {
   Star,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/app/components/ui/avatar';
 import { Button } from '@/app/components/ui/button';
 import {
   Command,
@@ -48,11 +43,11 @@ import {
   SelectLabel,
 } from '@/app/components/ui/select';
 import { CheckboxReactHookFormMultiple } from './CheckboxReactHookFormMultiple';
+import { useUser } from '@/app/appwrite/useUser';
 import {
-  useUser,
   addTradingAccount,
   getTradingAccountDocument,
-} from '@/app/appwrite/useUser';
+} from '@/app/appwrite/services/tradingAccountService';
 import { useState, useEffect } from 'react';
 import AccountInformation from './AccountInformation';
 import {
@@ -61,7 +56,6 @@ import {
   HoverCardTrigger,
 } from '@/app/components/ui/hover-card';
 import { Card } from '@/app/components/ui/card';
-import { CalendarDays } from 'lucide-react';
 import { Switch } from '@/app/components/ui/switch';
 type AccountDetail = {
   propFirm: string;
@@ -123,7 +117,6 @@ export default function AccountSwitcher() {
             'TrueForexFunds',
           ];
 
-          // Create an empty array for 'All Accounts'
           let allAccounts: AccountDetail[] = [];
 
           // Clear existing accounts before adding new ones
@@ -131,7 +124,7 @@ export default function AccountSwitcher() {
             {
               label: 'All Accounts',
               value: 'all',
-              accountDetails: allAccounts, // Link the allAccounts array to the accountDetails
+              accountDetails: allAccounts,
             },
           ];
 
@@ -154,7 +147,7 @@ export default function AccountSwitcher() {
               accountGroups[0].accounts.push({
                 label: `All ${type} Accounts (${document[type].length})`,
                 value: type.toLowerCase(),
-                accountDetails: parsedAccounts, // Store the parsed accounts' data here
+                accountDetails: parsedAccounts,
               });
             }
           });
@@ -275,11 +268,9 @@ export default function AccountSwitcher() {
                       </DialogHeader>
                       <div>
                         <div className="space-y-4 py-2 pb-4">
-                          {/* Add the checkbox for trading accounts */}
                           <div className="space-y-2">
                             <CheckboxReactHookFormMultiple userId={user.$id} />
                           </div>
-                          {/* Add any additional input fields as necessary */}
                         </div>
                       </div>
                       <DialogFooter></DialogFooter>
@@ -432,7 +423,7 @@ export default function AccountSwitcher() {
                                 id="csvUpload"
                                 onChange={(e) => {
                                   if (e.target.files) {
-                                    // Check if files are not null
+                                    
                                     const file = e.target.files[0];
                                     const reader = new FileReader();
                                     reader.onload = (evt) => {

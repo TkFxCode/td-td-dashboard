@@ -60,7 +60,7 @@ export function Overview() {
   const { theme } = useTheme();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   return (
-    <div className="w-full h-80 md:h-96">
+    <div className=" w-auto h-full">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data}>
           <XAxis

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check } from 'lucide-react';
-import { useUser, editTask } from '@/app/appwrite/useUser';
+import { useUser } from '@/app/appwrite/useUser';
+import { editTask } from '@/app/appwrite/services/taskService';
 import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
 import { cn } from '@/lib/utils';
 import { addDays, format } from 'date-fns';
@@ -37,7 +38,7 @@ interface Task {
 }
 
 const TaskList = ({ tasks }: { tasks: Task[] }) => {
-  const { user, editTask } = useUser();
+  const { user } = useUser();
   const [date, setDate] = useState<Date | undefined>(new Date());
   const router = useRouter();
 

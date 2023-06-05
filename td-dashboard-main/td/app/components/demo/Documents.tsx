@@ -21,14 +21,15 @@ import {
 } from '@/app/components/ui/hover-card';
 import { Skeleton } from '@/app/components/ui/skeleton';
 
+import { useUser } from '@/app/appwrite/useUser';
 import {
   fetchSingleMDXDocument,
   getAllMDXDocuments,
   createNewMDXDocument,
-  useUser,
-} from '@/app/appwrite/useUser';
+} from '@/app/appwrite/services/MDXDocumentService';
 import MarkdownEditor from './MarkdownEditor';
 import LoadingScreen from '../loading/LoadingScreen';
+import { Document } from 'cheerio';
 
 interface MDXDocument {
   userId: string;
@@ -37,11 +38,10 @@ interface MDXDocument {
   content: string;
   createdAt: string;
   updatedAt: string;
-  DocId: string;
 }
 
 export default function DocumentList() {
-  const { user, getAllMDXDocuments } = useUser();
+  const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const [documents, setDocuments] = useState<MDXDocument[]>([]);
   const [selectedDocument, setSelectedDocument] = useState<MDXDocument | null>(
@@ -52,16 +52,15 @@ export default function DocumentList() {
 
   const openDocument = async (doc: MDXDocument) => {
     setIsLoadingDocument(true);
-    const documentData = await fetchSingleMDXDocument(doc.documentId);
+    const fetchedDocuments = await getAllMDXDocuments(user.$id);
     console.log(doc.content);
     const parsedContent = doc.content;
     // console.log(doc.content);
     setSelectedDocument({
-      ...documentData,
+      ...fetchedDocuments,
       content: parsedContent,
-      DocId: doc.documentId,
+      documentId: doc.documentId,
       userId: '',
-      documentId: '',
       title: '',
       createdAt: '',
       updatedAt: '',
@@ -70,16 +69,16 @@ export default function DocumentList() {
   };
 
   useEffect(() => {
-    
     const fetchDocuments = async () => {
       setIsLoading(true);
-      const fetchedDocuments = await getAllMDXDocuments(user.$id); 
+      const fetchedDocuments = await getAllMDXDocuments(user.$id);
+      console.log(fetchedDocuments);
       setDocuments(fetchedDocuments);
       setIsLoading(false);
     };
 
     fetchDocuments();
-  }, [user, getAllMDXDocuments]);
+  }, [user]);
 
   const handleNewDocumentClick = async () => {
     const newDocumentId = await createNewMDXDocument(
@@ -88,7 +87,7 @@ export default function DocumentList() {
       ``
     );
 
-    const fetchedDocuments = await getAllMDXDocuments(user.$id); 
+    const fetchedDocuments = await getAllMDXDocuments(user.$id);
     setDocuments(fetchedDocuments);
   };
 

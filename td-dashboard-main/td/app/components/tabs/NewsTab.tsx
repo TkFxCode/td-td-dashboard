@@ -10,6 +10,9 @@ import {
   CardFooter,
 } from '@/app/components/ui/card';
 import GPTQueryForm from '../demo/GPTQueryForm';
+import NewsComponent from '../demo/news/NewsComponent';
+import DaysOfWeekNewsComponent from '../demo/news/DailyHighImpact';
+import ParentComponent from '../demo/news/parentComponent';
 
 const NewsTab = () => {
   const { user, logout, getUserDocument } = useUser();
@@ -26,13 +29,19 @@ const NewsTab = () => {
     fetchData();
   }, [user, getUserDocument]);
   return (
-    <div className="w-full h-full">
-      <Card className="flex flex-col h-screen w-full ">
-        <CardHeader>{user?.name}</CardHeader>
+    <div className="w-full ">
+      <Card className="flex flex-col  w-full ">
+        <CardHeader>
+          <h1 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+            News Dashboard
+          </h1>
+        </CardHeader>
         <CardContent>
-          <GPTQueryForm />
+          {/* <GPTQueryForm /> */}
+          {/* <NewsComponent />
+          <DaysOfWeekNewsComponent /> */}
+          <ParentComponent />
         </CardContent>
-        <CardFooter>News</CardFooter>
       </Card>
     </div>
   );

@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/app/components/ui/button';
 import { Checkbox } from '@/app/components/ui/checkbox';
 import { toast } from '@/app/components/ui/use-toast';
-import { getallTradingAccountDocument } from '@/app/appwrite/useUser';
+import { getallTradingAccountDocument } from '@/app/appwrite/services/tradingAccountService';
 import {
   Form,
   FormControl,

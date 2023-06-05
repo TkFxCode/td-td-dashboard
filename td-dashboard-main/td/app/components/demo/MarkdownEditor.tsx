@@ -22,7 +22,7 @@ import {
 } from '@/app/components/ui/card';
 import { Button } from '@/app/components/ui/button';
 import { useEffect } from 'react';
-import { updateMDXDocumentContent } from '@/app/appwrite/useUser';
+import { updateMDXDocumentContent } from '@/app/appwrite/services/MDXDocumentService';
 type ToolbarProps = {
   editor: BlockNoteEditor;
 };
@@ -33,7 +33,6 @@ interface MDXDocument {
   content: string;
   createdAt: string;
   updatedAt: string;
-  DocId: string;
 }
 type Props = {
   initialContents: string | null;
@@ -59,7 +58,7 @@ const MarkdownEditor: React.FC<Props> = ({
   const saveDocument = async () => {
     if (selectedDocument) {
       const contentString = JSON.stringify(editor.topLevelBlocks);
-      const DatabaseId = selectedDocument.DocId;
+      const DatabaseId = selectedDocument.documentId;
 
       // console.log(selectedDocument);
       await updateMDXDocumentContent(DatabaseId, contentString);

@@ -7,6 +7,7 @@ import {
   TabsTrigger,
 } from '@/app/components/ui/tabs';
 import DynamicDemoChallengeCard from './dynamicDemoChallengeCard';
+import DynamicLiveAccountCard from './dynamicDemoLiveCard';
 
 interface SelectedAccountType {
   label: string;
@@ -55,13 +56,13 @@ const AccountDetails = ({ account }: { account: SelectedAccountType }) => {
       <TabsList className="flex justify-around  min-h-[50px]">
         <TabsTrigger
           value="challenge"
-          className="w-full py-3 px-5 font-semibold text-center"
+          className="w-full py-3 px-5 sm:px-1 font-semibold text-center"
         >
           Challenge Accounts
         </TabsTrigger>
         <TabsTrigger
           value="live"
-          className="w-full py-3 px-5 font-semibold text-center"
+          className="w-full py-3 px-5 sm:px-1 font-semibold text-center"
         >
           Live Accounts
         </TabsTrigger>
@@ -81,13 +82,13 @@ const AccountDetails = ({ account }: { account: SelectedAccountType }) => {
                 <TabsList className="flex justify-around  min-h-[50px]">
                   <TabsTrigger
                     value="phase1"
-                    className="w-full py-3 px-5 font-semibold text-center"
+                    className="w-full py-3 px-5 sm:px-1 font-semibold text-center"
                   >
                     Phase 1
                   </TabsTrigger>
                   <TabsTrigger
                     value="phase2"
-                    className="w-full py-3 px-5 font-semibold text-center"
+                    className="w-full py-3 px-5 sm:px-1 font-semibold text-center"
                   >
                     Phase 2
                   </TabsTrigger>
@@ -165,6 +166,12 @@ const AccountDetails = ({ account }: { account: SelectedAccountType }) => {
             />
           ))
         )}
+        <DynamicLiveAccountCard
+          tradingAccountNumber="21345241"
+          startBalance={10000}
+          currentBalance={15000}
+          startDate="2023-05-01"
+        />
       </TabsContent>
     </Tabs>
   );

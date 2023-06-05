@@ -26,7 +26,7 @@ import {
 import { Overview } from '@/app/components/demo/overviewChart';
 import { Trade, columns } from './tables/columns';
 import { DataTable } from './tables/data-table';
-import { listTradeHistory } from '@/app/appwrite/useUser';
+import { listTradeHistory } from '@/app/appwrite/services/tradingAccountService';
 import {
   HoverCard,
   HoverCardContent,
@@ -41,6 +41,9 @@ import {
   TabsTrigger,
 } from '@/app/components/ui/tabs';
 import AccountDetails from './AccountInformation/AccountSummary';
+import AccountCard from './AccountInformation/LiveStatCard';
+import ProfitView from './AccountInformation/ProfitView';
+
 interface SelectedAccountType {
   label: string;
   value: string;
@@ -328,12 +331,29 @@ const AccountInformation = ({
         </div>
       </CardHeader>
       <CardContent>
+        <div className="grid gap-4 xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-5">
+          <div className="lg:col-span-1">
+            <ProfitView />
+          </div>
+          <div className="lg:col-span-1">
+            <ProfitView />
+          </div>
+
+          <div className="sm:col-span-1 md:col-span-2 lg:col-span-2">
+            <Card className="h-full w-auto">
+              <CardTitle className="m-5 text-center">Chart 2</CardTitle>
+              <CardContent className="h-full max-h-[610px]">
+                <Overview />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
         <Card className="">
           <CardHeader>
             <CardTitle>Account summaries</CardTitle>
           </CardHeader>
           <CardContent className="m-0 p-0">
-            <div className="flex flex-col md:flex-row">
+            <div className="flex flex-col 2xl:flex-row">
               <div className="flex-1 md:flex-1">
                 <Card className="p-3 pt-5 md:min-h-full">
                   <CardTitle>
@@ -403,7 +423,7 @@ const AccountInformation = ({
                                 <h3 className="text-foreground text-center">
                                   Trade History for {propFirm} {accountDetail}
                                 </h3>
-                                <ScrollArea className="h-[450px] rounded-md border p-4">
+                                <ScrollArea className="h-[450px] rounded-md border p-4 ">
                                   <DataTable
                                     columns={columns}
                                     data={
@@ -563,8 +583,12 @@ const AccountInformation = ({
           <CardHeader>
             <CardTitle></CardTitle>
           </CardHeader>
-          <CardContent></CardContent>
-          <CardFooter></CardFooter>
+          <CardContent>
+            <div>
+              <AccountCard />
+            </div>
+          </CardContent>
+          <CardFooter>{/* <ProfitView /> */}</CardFooter>
         </Card>
       </CardFooter>
 

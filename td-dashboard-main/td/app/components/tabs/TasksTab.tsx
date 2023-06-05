@@ -1,5 +1,6 @@
 import React from 'react';
-import { useUser, getAllMDXDocuments } from '@/app/appwrite/useUser';
+import { useUser } from '@/app/appwrite/useUser';
+import { getAllMDXDocuments } from '@/app/appwrite/services/MDXDocumentService';
 import { useState, useEffect } from 'react';
 import TaskCreate from '../demo/taskCreate';
 import TaskList from '@/app/components/reusable/TaskList/TaskList';

@@ -42,7 +42,8 @@ import { cn } from '@/lib/utils';
 import { addDays, format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { Terminal, Waves } from 'lucide-react';
-import { useUser, createTask } from '@/app/appwrite/useUser';
+import { useUser } from '@/app/appwrite/useUser';
+import { createTask } from '@/app/appwrite/services/taskService';
 import { Alert, AlertDescription, AlertTitle } from '@/app/components/ui/alert';
 import { useToast } from '../ui/use-toast';
 

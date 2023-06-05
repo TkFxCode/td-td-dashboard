@@ -2,14 +2,13 @@
 import React from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import moment from 'moment';
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { ArrowUpDown, Clock, MoreHorizontal, X } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { Badge } from '@/app/components/ui/badge';
 import { Checkbox } from '@/app/components/ui/checkbox';
 
 type BadgeClassKeys = 'High' | 'Medium' | 'Low' | 'Holiday';
 
-// This tells TypeScript that the keys of badgeClasses can only be 'High', 'Medium', 'Low', or 'Holiday'.
 const badgeClasses: Record<BadgeClassKeys, string> = {
   High: 'bg-red-500',
   Medium: 'bg-orange-500',
@@ -17,10 +16,9 @@ const badgeClasses: Record<BadgeClassKeys, string> = {
   Holiday: 'bg-blue-500',
 };
 
-import { ColumnDef } from '@tanstack/react-table'; // The globe SVG icon as a string
+import { ColumnDef } from '@tanstack/react-table';
 const GlobeSvg = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 004 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2 2 2 0 002 2v.488M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`;
 
-// This type is used to define the shape of our data.
 export type Event = {
   title: string;
   country: string;
@@ -45,6 +43,62 @@ function getCountryCode(currencyCode: string): string {
 
   return map[currencyCode] || 'ALL';
 }
+
+const calculateCountdown = (dateString: string, timeString: string) => {
+  const [month, day, year] = dateString.split('-');
+  const [hour, minutePart] = timeString.split(':');
+  const minute = minutePart.slice(0, 2);
+  const period = minutePart.slice(2);
+
+  let hour24 = parseInt(hour);
+  if (period.toLowerCase() === 'pm' && hour24 < 12) {
+    hour24 += 12;
+  } else if (period.toLowerCase() === 'am' && hour24 === 12) {
+    hour24 = 0;
+  }
+
+  const eventDate = new Date(
+    Date.UTC(
+      parseInt(year),
+      parseInt(month) - 1,
+      parseInt(day),
+      hour24,
+      parseInt(minute)
+    )
+  );
+
+  const now = new Date();
+
+  let diffInMilliseconds = eventDate.getTime() - now.getTime();
+
+  if (diffInMilliseconds < 0) {
+    return (
+      <div className="flex flex-row items-center  ">
+        <Badge className="flex ">
+          <X className="mr-2 h-4 w-4" />
+          Passed
+        </Badge>
+      </div>
+    );
+  }
+
+  const hours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
+  diffInMilliseconds %= 1000 * 60 * 60;
+  const minutes = Math.floor(diffInMilliseconds / (1000 * 60));
+  diffInMilliseconds %= 1000 * 60;
+  const seconds = Math.floor(diffInMilliseconds / 1000);
+
+  return (
+    <div className="flex flex-row items-center ">
+      <Badge className="flex ">
+        <Clock className="mr-2 h-4 w-4" />
+        {`${hours.toString().padStart(2, '0')}:${minutes
+          .toString()
+          .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}
+      </Badge>
+    </div>
+  );
+};
 
 export const columns: ColumnDef<Event>[] = [
   {
@@ -174,7 +228,7 @@ export const columns: ColumnDef<Event>[] = [
       const time = row.getValue('time') as string;
       const formattedTime = moment(time as string, ['h:mm A']);
 
-      let tradeSession = 'Tokyo'; // Set Tokyo as the default tradeSession
+      let tradeSession = 'Tokyo';
 
       if (
         formattedTime.isBetween(
@@ -196,8 +250,16 @@ export const columns: ColumnDef<Event>[] = [
     },
   },
 
-  // {
-  //   accessorKey: 'outstanding',
-  //   header: 'Time Remaining',
-  // },
+  {
+    accessorKey: 'outstanding',
+    header: 'Time Remaining',
+    cell: ({ row }) => {
+      const date = row.getValue('date') as string;
+      const time = row.getValue('time') as string;
+
+      const timeRemaining = calculateCountdown(date, time);
+
+      return <div>{timeRemaining}</div>;
+    },
+  },
 ];

@@ -39,7 +39,7 @@ const CountryPieChart: React.FC<CountryPieChartProps> = ({ data }) => {
   }));
 
   return (
-    <Card className="w-full ">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-center text-3xl font-bold py-2">
           Country Event Distribution
@@ -72,7 +72,7 @@ const CountryPieChart: React.FC<CountryPieChartProps> = ({ data }) => {
         </div>
       </CardContent>
       <CardFooter>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           <div>
             <h4 className="scroll-m-20 text-xl font-semibold tracking-tight border-b pb-2 flex justify-center">
               Pie Chart Legend

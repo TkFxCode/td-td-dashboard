@@ -18,6 +18,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/app/components/ui/dropdown-menu';
+import { useUser } from '@/app/appwrite/useUser';
 import { Button } from '@/app/components/ui/button';
 import { Input } from '@/app/components/ui/input';
 
@@ -30,6 +31,8 @@ import {
   TableRow,
 } from '@/app/components/ui/table';
 import { Card } from '@/app/components/ui/card';
+import { createOrUpdateUserNewsDocument } from '@/app/appwrite/services/NewsService';
+import { RefreshNewsContext } from '../RefreshNewsContext';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -40,6 +43,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const { user } = useUser();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [selectedColumn, setSelectedColumn] = React.useState('title');
   const [rowSelection, setRowSelection] = React.useState<
@@ -72,9 +76,15 @@ export function DataTable<TData, TValue>({
     .filter((k) => rowSelection[k])
     .map((id) => data[parseInt(id)]);
 
-  const handleOnSubmit = () => {
+  const refreshNews = React.useContext(RefreshNewsContext);
+  const handleOnSubmit = async () => {
     console.log(selectedRowData);
+
+    // Assuming you have the userId in a variable named user.$id
+    await createOrUpdateUserNewsDocument(user.$id, selectedRowData);
+
     setRowSelection({});
+    refreshNews();
   };
 
   return (

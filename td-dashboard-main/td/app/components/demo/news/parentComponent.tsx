@@ -5,10 +5,13 @@ import LoadingScreen from '../../loading/LoadingScreen';
 import NewsComponent from './NewsComponent';
 import CountryPieChart from './CountryPieChart';
 import { Event, ApiData } from './types';
+import UserNewsComponent from './userNewsComponent';
+import { RefreshNewsContext } from './RefreshNewsContext';
 
 const ParentComponent: React.FC = () => {
   const [data, setData] = useState<Array<Event>>([]);
   const [loading, setLoading] = useState(true);
+  const [refreshTrigger, setRefreshTrigger] = React.useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,15 +33,22 @@ const ParentComponent: React.FC = () => {
   }
 
   return (
-    <div>
-      <div className="flex flex-col gap-3 mb-5  justify-between  lg:grid lg:gap-4  lg:grid-cols-4 ">
-        <DailyHighImpact data={data} />
-        <CountryPieChart data={data} />
-        <DailyHighImpact data={data} />
-        <CountryPieChart data={data} />
+    <RefreshNewsContext.Provider
+      value={() => setRefreshTrigger((old) => old + 1)}
+    >
+      <div>
+        <div className="flex flex-col gap-3 mb-5  justify-between  lg:grid lg:gap-4  lg:grid-cols-4 ">
+          <DailyHighImpact data={data} />
+          <CountryPieChart data={data} />
+          <DailyHighImpact data={data} />
+
+          <div className="max-h-[600px] overflow-auto">
+            <UserNewsComponent />
+          </div>
+        </div>
+        <NewsComponent data={data} />
       </div>
-      <NewsComponent data={data} />
-    </div>
+    </RefreshNewsContext.Provider>
   );
 };
 

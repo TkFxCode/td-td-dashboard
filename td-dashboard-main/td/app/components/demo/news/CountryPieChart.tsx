@@ -39,7 +39,7 @@ const CountryPieChart: React.FC<CountryPieChartProps> = ({ data }) => {
   }));
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full ">
       <CardHeader>
         <CardTitle className="text-center text-3xl font-bold py-2">
           Country Event Distribution

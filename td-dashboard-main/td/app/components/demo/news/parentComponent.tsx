@@ -31,9 +31,10 @@ const ParentComponent: React.FC = () => {
 
   return (
     <div>
-      <div className="flex flex-col  xl:flex-row justify-between ">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <DailyHighImpact data={data} />
         <CountryPieChart data={data} />
+        <DailyHighImpact data={data} />
         <CountryPieChart data={data} />
       </div>
       <NewsComponent data={data} />

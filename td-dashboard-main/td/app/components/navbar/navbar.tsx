@@ -11,13 +11,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/app/components/ui/dropdown-menu';
-import { useUser } from '@/app/appwrite/useUser'; // Import the useUser hook
+import { useUser } from '@/app/appwrite/useUser'; 
 import { UserProfile } from '@/app/dashboard/components/userProfile';
 
 const Navbar = () => {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, logout } = useUser(); // Use the useUser hook to get the user and logout function
+  const { user, logout } = useUser(); 
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);

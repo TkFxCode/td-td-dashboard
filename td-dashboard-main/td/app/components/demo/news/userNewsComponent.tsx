@@ -39,16 +39,20 @@ const UserNewsComponent = () => {
         if (userNewsDocument) {
           const newsEvents = JSON.parse(userNewsDocument.userNews);
           setUserNews(newsEvents);
-          setCountdowns(
-            newsEvents.map((event: NewsEvent) =>
-              calculateCountdown(event.date, event.time)
-            )
-          );
         }
       }
     };
 
     fetchData();
+  }, [user, refreshNews]);
+
+  useEffect(() => {
+    setCountdowns(
+      userNews.map((event: NewsEvent) =>
+        calculateCountdown(event.date, event.time)
+      )
+    );
+
     const intervalId = setInterval(() => {
       setCountdowns(
         userNews.map((event: NewsEvent) =>
@@ -58,22 +62,21 @@ const UserNewsComponent = () => {
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [user, refreshNews, userNews]);
+  }, [userNews]);
+
   const handleRemoveFromWatchlist = async (newsEvent: NewsEvent) => {
     await removeNewsFromUserDocument(user.$id, newsEvent);
-    // Update local state
+
     setUserNews((prevUserNews) =>
       prevUserNews.filter((news) => news.title !== newsEvent.title)
     );
   };
   const calculateCountdown = (dateString: string, timeString: string) => {
-    // Extract the components of the date and time
     const [month, day, year] = dateString.split('-');
     const [hour, minutePart] = timeString.split(':');
     const minute = minutePart.slice(0, 2);
-    const period = minutePart.slice(2); // "am" or "pm"
+    const period = minutePart.slice(2);
 
-    // Convert the 12-hour time to 24-hour time
     let hour24 = parseInt(hour);
     if (period.toLowerCase() === 'pm' && hour24 < 12) {
       hour24 += 12;
@@ -81,7 +84,7 @@ const UserNewsComponent = () => {
       hour24 = 0;
     }
 
-    // Create the date object
+   
     const eventDate = new Date(
       Date.UTC(
         parseInt(year),
@@ -92,12 +95,12 @@ const UserNewsComponent = () => {
       )
     );
 
-    // Get the current date in UTC
+    
     const now = new Date();
 
-    // Calculate the difference in milliseconds
+    
     let diffInMilliseconds = eventDate.getTime() - now.getTime();
-    // Added 4 hours in milliseconds
+    
 
     if (diffInMilliseconds < 0) {
       return 'Event Passed';
@@ -136,7 +139,7 @@ const UserNewsComponent = () => {
           >
             <div className="w-full h-[75px] overflow-hidden ">
               <ReactCountryFlag
-                countryCode={convertToTwoLetterCode(newsEvent.country)} // Assume this function converts three-letter country code to two-letter code.
+                countryCode={convertToTwoLetterCode(newsEvent.country)} 
                 svg
                 style={{
                   width: '100%',

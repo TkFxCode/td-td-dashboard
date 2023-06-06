@@ -1,4 +1,3 @@
-// ToggleSidebar.tsx
 import React from 'react';
 import { Button } from '@/app/components/ui/button';
 import { Mail } from 'lucide-react';

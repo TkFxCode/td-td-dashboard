@@ -43,6 +43,8 @@ import {
 import AccountDetails from './AccountInformation/AccountSummary';
 import AccountCard from './AccountInformation/LiveStatCard';
 import ProfitView from './AccountInformation/ProfitView';
+import DayProfitView from './AccountInformation/dayProfitView';
+import WeekProfitView from './AccountInformation/weekProfitView';
 
 interface SelectedAccountType {
   label: string;
@@ -92,6 +94,10 @@ const AccountInformation = ({
       accountNumber: string;
     };
   }
+  interface DataItem {
+    day: string;
+    profit: number;
+  }
 
   const [tradeHistories, setTradeHistories] = useState<TradeHistory[]>([]);
 
@@ -103,7 +109,6 @@ const AccountInformation = ({
       }
     };
 
-    // Fetching the trade history for each account
     const fetchTradeHistories = async () => {
       if (selectedAccount.accountDetails) {
         const allHistories = await Promise.all(
@@ -131,16 +136,14 @@ const AccountInformation = ({
               console.log(tradingHistoryJson);
             }
 
-            // Here we are combining account details with trade history
             return { apiKey, trades, accountDetails: account };
           })
         );
         setTradeHistories(allHistories);
       }
     };
-    // check if there's already a selected content
+
     if (selectedContent.component !== null) {
-      // update the selected content
       setSelectedContent({
         label: selectedContent.label,
         component: <AccountDetails account={selectedAccount} />,
@@ -215,7 +218,7 @@ const AccountInformation = ({
     const averageProfitPerWinningTrade =
       winningTradesCount > 0
         ? (totalProfitFromWinningTrades / winningTradesCount).toFixed(2)
-        : '0'; // Here is the change
+        : '0';
 
     return averageProfitPerWinningTrade;
   };
@@ -230,7 +233,7 @@ const AccountInformation = ({
       tradeHistory.trades.forEach((trade) => {
         if (trade.profit < 0) {
           losingTradesCount += 1;
-          totalLossFromLosingTrades += Math.abs(trade.profit); // abs to make loss positive for calculation
+          totalLossFromLosingTrades += Math.abs(trade.profit);
         }
       });
     });
@@ -238,7 +241,7 @@ const AccountInformation = ({
     const averageLossPerLosingTrade =
       losingTradesCount > 0
         ? (totalLossFromLosingTrades / losingTradesCount).toFixed(2)
-        : '0'; // Here is the change
+        : '0';
 
     return averageLossPerLosingTrade;
   };
@@ -265,6 +268,65 @@ const AccountInformation = ({
     parseFloat(averageProfitPerWinningTrade),
     parseFloat(averageLossPerLosingTrade)
   );
+  const calculateWeeklyProfit = (tradeHistories: TradeHistory[]) => {
+    const weeklyProfits: { [week: string]: number } = {};
+
+    tradeHistories.forEach((tradeHistory) => {
+      tradeHistory.trades.forEach((trade) => {
+        const exitTime = new Date(trade.exitTime);
+        const weekNumber = getWeekNumber(exitTime);
+
+        if (!weeklyProfits[weekNumber]) {
+          weeklyProfits[weekNumber] = 0;
+        }
+        weeklyProfits[weekNumber] += trade.profit;
+      });
+    });
+
+    const result = Object.keys(weeklyProfits).map((weekNumber) => ({
+      week: `Week ${weekNumber}`,
+      profit: parseFloat(weeklyProfits[weekNumber].toFixed(2)),
+    }));
+
+    return result;
+  };
+
+  const getWeekNumber = (d: Date): number => {
+    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    const weekNo = Math.ceil(((+d - +yearStart) / 86400000 + 1) / 7);
+    return weekNo;
+  };
+
+  const calculateProfitByDay = (tradeHistories: TradeHistory[]): DataItem[] => {
+    const profitByDay: Record<string, number> = {
+      Mon: 0,
+      Tue: 0,
+      Wed: 0,
+      Thu: 0,
+      Fri: 0,
+      Sat: 0,
+      Sun: 0,
+    };
+
+    tradeHistories.forEach((tradeHistory) => {
+      tradeHistory.trades.forEach((trade) => {
+        const exitDate = new Date(trade.exitTime);
+        const dayOfWeek = exitDate.getDay();
+        const dayLabel = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][
+          dayOfWeek
+        ];
+        profitByDay[dayLabel] += trade.profit;
+      });
+    });
+
+    return Object.entries(profitByDay)
+      .map(([day, profit]) => ({
+        day,
+        profit: parseFloat(profit.toFixed(2)),
+      }))
+      .filter((item) => item.profit !== 0);
+  };
 
   return (
     <Card className="flex flex-col  w-full ">
@@ -279,9 +341,6 @@ const AccountInformation = ({
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">$ {totalProfitLoss}</div>
-              <p className="text-xs text-muted-foreground">
-                +20.1% from last month
-              </p>
             </CardContent>
           </Card>
           <Card className="hover:bg-gray-200 dark:hover:bg-slate-700">
@@ -293,9 +352,6 @@ const AccountInformation = ({
               <div className="text-2xl font-bold">
                 {calculateWinRate(tradeHistories)} %
               </div>
-              <p className="text-xs text-muted-foreground">
-                +180.1% from last month
-              </p>
             </CardContent>
           </Card>
           <Card className="hover:bg-gray-200 dark:hover:bg-slate-700">
@@ -309,9 +365,6 @@ const AccountInformation = ({
               <div className="text-2xl font-bold">
                 $ {averageProfitPerWinningTrade}
               </div>
-              <p className="text-xs text-muted-foreground">
-                +19% from last month
-              </p>
             </CardContent>
           </Card>
           <Card className="hover:bg-gray-200 dark:hover:bg-slate-700 ">
@@ -323,27 +376,35 @@ const AccountInformation = ({
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{riskToRewardRatio} RR</div>
-              <p className="text-xs text-muted-foreground">
-                +201 since last hour
-              </p>
             </CardContent>
           </Card>
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-4 xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-5">
-          <div className="lg:col-span-1">
-            <ProfitView />
+        <div className="grid gap-4 xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-5 justify-center">
+          <div className="lg:col-span-1 max-h-[700px] max-w-[428px] mx-auto ">
+            <WeekProfitView
+              weeklyProfits={calculateWeeklyProfit(tradeHistories)}
+            />
           </div>
-          <div className="lg:col-span-1">
-            <ProfitView />
+          <div className="lg:col-span-1 max-h-[700px] max-w-[428px] mx-auto">
+            <DayProfitView
+              dailyProfits={calculateProfitByDay(tradeHistories)}
+            />
           </div>
 
           <div className="sm:col-span-1 md:col-span-2 lg:col-span-2">
-            <Card className="h-full w-auto">
-              <CardTitle className="m-5 text-center">Chart 2</CardTitle>
+            <Card className=" h-full">
+              <CardTitle className="m-5 text-center">
+                All Accounts Summary
+              </CardTitle>
               <CardContent className="h-full max-h-[610px]">
-                <Overview />
+                <ScrollArea className="h-[500px] w-full lg:h-[580px]  rounded-md border ">
+                  {/* Replacement for the PopoverTrigger */}
+
+                  {/* Display content for 'All Accounts Summary' */}
+                  <AccountDetails account={selectedAccount} />
+                </ScrollArea>
               </CardContent>
             </Card>
           </div>
@@ -353,8 +414,8 @@ const AccountInformation = ({
             <CardTitle>Account summaries</CardTitle>
           </CardHeader>
           <CardContent className="m-0 p-0">
-            <div className="flex flex-col 2xl:flex-row">
-              <div className="flex-1 md:flex-1">
+            <div>
+              <div>
                 <Card className="p-3 pt-5 md:min-h-full">
                   <CardTitle>
                     <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-center">
@@ -446,175 +507,12 @@ const AccountInformation = ({
                   </CardContent>
                 </Card>
               </div>
-              <div className="flex-2">
-                <Card className="md:min-h-full lg:min-w-[250px]">
-                  <Popover open={open} onOpenChange={setOpen}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        role="combobox"
-                        aria-expanded={open}
-                        aria-label="Select a content"
-                        className={cn(
-                          'w-full mt-1 mb-1 h-[55px] justify-between '
-                        )}
-                      >
-                        {selectedContent.label}
-                        <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-full lg:w-[200px] p-0">
-                      <Command>
-                        <CommandList>
-                          <CommandItem
-                            onSelect={() => {
-                              setSelectedContent({
-                                label: 'All Accounts Summary',
-                                component: (
-                                  <AccountDetails account={selectedAccount} />
-                                ),
-                              });
-                              setOpen(false);
-                            }}
-                            className="text-sm"
-                          >
-                            All Accounts Summary
-                          </CommandItem>
-                          <CommandItem
-                            onSelect={() => {
-                              setSelectedContent({
-                                label: 'All Archived Accounts',
-                                component: (
-                                  <AccountDetails account={selectedAccount} />
-                                ),
-                              });
-                              setOpen(false);
-                            }}
-                            className="text-sm"
-                          >
-                            All Archived Accounts
-                          </CommandItem>
-                          <CommandItem
-                            onSelect={() => {
-                              setSelectedContent({
-                                label: 'All Recorded Payouts',
-                                component: (
-                                  <AccountDetails account={selectedAccount} />
-                                ),
-                              });
-                              setOpen(false);
-                            }}
-                            className="text-sm"
-                          >
-                            All Recorded Payouts
-                          </CommandItem>
-                        </CommandList>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                  <ScrollArea className="h-[500px] w-full lg:h-[580px] lg:w-[500px] rounded-md border ">
-                    <CardContent className="w-full">
-                      {/* Display content based on selected item */}
-                      {selectedContent.component}
-                    </CardContent>
-                  </ScrollArea>
-                </Card>
-              </div>
             </div>
           </CardContent>
-        </Card>{' '}
-        <h1 className="text-foreground text-center">
-          Welcome to your trading dashboard, {user?.name}!
-        </h1>
-        <h2 className="text-foreground text-center">
-          You have selected account: {selectedAccount.label}
-        </h2>
-        <p className="text-foreground text-center">
-          Your email address is: {user?.email}
-        </p>
-        <h2 className="text-foreground text-center">
-          Only logged in users can view this Dashboard {userData?.username}
-        </h2>
-        <h3 className="text-foreground mt-6 text-center">
-          <HoverCard>
-            <HoverCardTrigger asChild>
-              <Button variant="link">Trading Accounts</Button>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-80">
-              <div className="space-y-1">
-                <h4 className="text-sm font-semibold">Trading Accounts</h4>
-                <p className="text-sm">
-                  {selectedAccount.accountDetails &&
-                    selectedAccount.accountDetails.map((account, index) => (
-                      <Card key={index} className="p-2 m-2">
-                        <p>PropFirm: {account.propFirm}</p>
-                        <p>AccountSize: {account.accountSize}</p>
-                        <p>AccountPhase: {account.accountPhase}</p>
-                        <p>AccountPhase: {account.shareURL}</p>
-                        <p>AccountNumber: {account.accountNumber}</p>
-                      </Card>
-                    ))}
-                </p>
-                <div className="flex items-center pt-2">
-                  <Star className="mr-2 h-4 w-4 opacity-70" />{' '}
-                  <span className="text-xs text-muted-foreground">
-                    TheTradingDashboard
-                  </span>
-                </div>
-              </div>
-            </HoverCardContent>
-          </HoverCard>
-        </h3>
-        <p className="text-foreground text-center">
-          ETH/USD: $3,500 | 0.25 ETH | 12:35:20 PM
-        </p>
-        <p className="text-foreground text-center">
-          ETH/USD: $3,500 | 0.25 ETH | 12:35:20 PM
-        </p>
-        <p className="text-foreground text-center">
-          ETH/USD: $3,500 | 0.25 ETH | 12:35:20 PM
-        </p>
-        <p className="text-foreground text-center"></p>
+        </Card>
       </CardContent>
 
-      <CardFooter>
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle></CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div>
-              <AccountCard />
-            </div>
-          </CardContent>
-          <CardFooter>{/* <ProfitView /> */}</CardFooter>
-        </Card>
-      </CardFooter>
-
-      <Card>
-        <CardHeader>
-          <h2 className="text-3xl font-bold tracking-tight">Chart</h2>
-        </CardHeader>
-        <CardContent className="flex flex-row flex-wrap">
-          <div className="w-full md:w-1/2">
-            <Card>
-              <CardTitle className="m-5 text-center ">Chart 1</CardTitle>
-              <CardContent>
-                <Overview />
-              </CardContent>
-            </Card>
-          </div>
-          <div className="w-full md:w-1/2">
-            <Card>
-              <CardTitle className="m-5 text-center ">Chart 2</CardTitle>
-              <CardContent>
-                <Overview />
-              </CardContent>
-            </Card>
-          </div>
-        </CardContent>
-      </Card>
+      <CardFooter></CardFooter>
     </Card>
   );
 };

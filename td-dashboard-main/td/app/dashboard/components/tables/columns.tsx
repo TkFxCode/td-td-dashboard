@@ -2,7 +2,6 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
-// This type is used to define the shape of our data.
 export type Trade = {
   symbol: string;
   tradeType: string;
@@ -36,7 +35,6 @@ export const columns: ColumnDef<Trade>[] = [
     cell: ({ row }) => {
       const tradeType = row.getValue('tradeType');
 
-      // Check the value of tradeType and return the appropriate formatted value
       const formattedTradeType =
         tradeType === 'DEAL_TYPE_BUY' ? 'Buy Trade' : 'Sell Trade';
 

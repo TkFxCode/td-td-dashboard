@@ -72,39 +72,6 @@ export function UserProfile() {
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </div>
-                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-              </div>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link href="/dashboard/billing" className="w-full">
-              <div className="flex justify-between items-center w-full">
-                <div className="flex items-center">
-                  <CreditCard className="mr-2 h-4 w-4" />
-                  <span>Billing</span>
-                </div>
-                <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-              </div>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link href="/dashboard/settings" className="w-full">
-              <div className="flex justify-between items-center w-full">
-                <div className="flex items-center">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                </div>
-                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-              </div>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link href="/dashboard/new-team" className="w-full">
-              <div className="flex justify-between items-center w-full">
-                <div className="flex items-center">
-                  <PlusCircle className="mr-2 h-4 w-4" />
-                  <span>New Team</span>
-                </div>
               </div>
             </Link>
           </DropdownMenuItem>
@@ -120,7 +87,6 @@ export function UserProfile() {
                 <LogOut className="mr-2 h-4 w-4" />
                 <span className="text-center">Sign Out</span>
               </div>
-              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
             </div>
           </button>
         </DropdownMenuItem>

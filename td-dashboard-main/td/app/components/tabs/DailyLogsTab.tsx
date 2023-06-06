@@ -10,6 +10,8 @@ import {
   CardFooter,
 } from '@/app/components/ui/card';
 import DocumentList from '../demo/Documents';
+import BookmarksTab from '../demo/BookmarkCreate';
+import BookmarkViewer from '../demo/BookmarkViewer';
 
 const DailyLogsTab = () => {
   const { user, logout, getUserDocument } = useUser();
@@ -27,13 +29,18 @@ const DailyLogsTab = () => {
   }, [user, getUserDocument]);
   return (
     <div className="w-full h-full">
-      <Card className="flex flex-col h-screen w-full ">
-        <CardHeader>{user?.name}</CardHeader>
+      <Card className="flex flex-col h-full w-full ">
+        <CardHeader>
+          <CardTitle>
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+              {user?.name} Documents
+            </h1>
+          </CardTitle>
+        </CardHeader>
         <CardContent>
-          DailyLogs
           <DocumentList />
         </CardContent>
-        <CardFooter>DailyLogs</CardFooter>
+        <CardFooter></CardFooter>
       </Card>
     </div>
   );

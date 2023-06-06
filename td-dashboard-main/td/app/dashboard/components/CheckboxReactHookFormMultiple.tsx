@@ -39,7 +39,7 @@ export function CheckboxReactHookFormMultiple({ userId }: { userId: string }) {
       console.log(accounts);
       if (accounts.length) {
         const formattedAccounts = accounts.map((acc, index) => {
-          const parsedAcc = JSON.parse(acc); // Parse each stringified account object
+          const parsedAcc = JSON.parse(acc);
           return {
             id: `acc${index + 1}`,
             label: `${parsedAcc.propFirm} ${parsedAcc.accountSize} Account ${parsedAcc.accountPhase}`,

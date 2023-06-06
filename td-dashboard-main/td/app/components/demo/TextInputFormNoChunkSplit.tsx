@@ -19,8 +19,6 @@ export default function TextInputFormNoChunkSplit() {
     });
     const openAi = new OpenAIApi(configuration);
 
-    // Split the input into chunks of approximately 100 words
-
     const embeddingResponse = await openAi.createEmbedding({
       model: 'text-embedding-ada-002',
       input: text,
@@ -53,7 +51,7 @@ export default function TextInputFormNoChunkSplit() {
           onChange={(e) => setText(e.target.value)}
         />
 
-        {isLoading ? ( // Conditionally render the loading button
+        {isLoading ? (
           <Button disabled>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Please wait

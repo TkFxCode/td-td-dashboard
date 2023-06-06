@@ -83,7 +83,7 @@ export async function GET(
 
         if (trade.entryType === 'DEAL_ENTRY_OUT') {
           groupedTrades[id].exitPrice = trade.price;
-          groupedTrades[id].exitTime = trade.time; // update exitTime
+          groupedTrades[id].exitTime = trade.time; 
         }
 
         groupedTrades[id].commission += trade.commission;

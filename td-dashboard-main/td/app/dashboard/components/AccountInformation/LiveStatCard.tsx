@@ -20,7 +20,6 @@ const AccountCard = () => {
     { name: 'Trade1', profit: -70 },
     { name: 'Trade2', profit: 100 },
     { name: 'Trade3', profit: -20 },
-    // Add more trade data here
   ];
   const accountNumber = '1234213112';
   return (

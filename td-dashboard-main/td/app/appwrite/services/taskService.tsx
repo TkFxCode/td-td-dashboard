@@ -19,6 +19,7 @@ export const createTask = async (
       taskDescription: taskDescription,
       taskPriority: taskPriority,
       taskDate: taskDate,
+      completed: false,
     });
 
     tasks.push(newTask);
@@ -75,5 +76,34 @@ export const editTask = async (
     }
   } catch (error) {
     console.error('Task update failed:', error);
+  }
+};
+export const completeTask = async (userId: string, taskId: string) => {
+  try {
+    const userDoc = await getUserDocument(userId);
+    const tasks = userDoc?.tasks || [];
+
+    const taskIndex = tasks.findIndex(
+      (task: any) => JSON.parse(task).id === taskId
+    );
+    if (taskIndex !== -1) {
+      const task = JSON.parse(tasks[taskIndex]);
+      task.completed = true;
+      tasks[taskIndex] = JSON.stringify(task);
+
+      const response = await databases.updateDocument(
+        '6456b05eb0764a873d05',
+        '6456b066929fbb0247d3',
+        userId,
+        {
+          tasks: tasks,
+        }
+      );
+      console.log('Task marked as complete:', response);
+    } else {
+      console.error('Task not found');
+    }
+  } catch (error) {
+    console.error('Task completion failed:', error);
   }
 };

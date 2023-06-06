@@ -1,23 +1,34 @@
 import he from 'he';
 import axios from 'axios';
 import cheerio from 'cheerio';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-const extractMeta = async (url: string) => {
+interface Params {
+  url: string;
+}
+
+export async function GET(
+  request: NextApiRequest,
+  { params }: { params: Params },
+  response: NextApiResponse
+) {
+  const encodedUrl = params.url;
+  const completeUrl = decodeURIComponent(encodedUrl);
+
   const META: Record<string, string> = {
-    url: url,
+    completeUrl: completeUrl as string,
   };
 
   let html;
-  if (url.startsWith('http')) {
-    try {
-      const response = await axios.get(url);
-      html = response.data;
-    } catch (error) {
-      console.error('Error fetching the URL', error);
-      throw error;
-    }
-  } else {
-    html = url;
+  try {
+    const response = await axios.get(completeUrl as string);
+    html = response.data;
+  } catch (error) {
+    console.error('Error fetching the URL', error);
+    return new Response(
+      JSON.stringify({ status: 'error', message: 'Error fetching the URL' }),
+      { headers: { 'Content-Type': 'application/json' } }
+    );
   }
 
   const $ = cheerio.load(html);
@@ -48,11 +59,12 @@ const extractMeta = async (url: string) => {
     });
   });
 
+  
   if (!META.title) {
     META.title = $('title').text();
   }
 
-  return META;
-};
-
-export default extractMeta;
+  return new Response(JSON.stringify({ status: 'success', data: META }), {
+    headers: { 'Content-Type': 'application/json' },
+  });
+}

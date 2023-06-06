@@ -59,16 +59,16 @@ const TaskCreate: React.FC<TaskCreateProps> = ({ onTaskCreated }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    formData.append('taskDate', date?.toISOString() ?? ''); // Add date to formData in ISO format
+    formData.append('taskDate', date?.toISOString() ?? ''); 
 
-    // Convert formData entries to an object with string values
+    
     const data = Object.fromEntries(
       Array.from(formData.entries()).map(([key, value]) => [key, String(value)])
     );
 
     console.log(data);
 
-    // Check if required fields are present
+    
     if (!data.taskName || !data.taskDescription || !data.taskPriority) {
       alert('Task must have a title, description, and priority');
       return;
@@ -87,7 +87,7 @@ const TaskCreate: React.FC<TaskCreateProps> = ({ onTaskCreated }) => {
           title: 'Heads Up!',
           description: 'Task Added Successfully',
         });
-        onTaskCreated(); // Call the callback function
+        onTaskCreated(); 
       } catch (error) {
         alert('Error adding task');
         console.error('Error adding task:', error);

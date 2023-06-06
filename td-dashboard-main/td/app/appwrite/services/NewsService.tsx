@@ -1,8 +1,6 @@
 import { databases, Permission, Role } from '@/app/appwrite/appwrite';
 
-// Main function to create or update document
 export const createOrUpdateNewsDocument = async () => {
-  // Function to fetch news data
   const fetchNewsData = async () => {
     const response = await fetch('/api/news/');
     const data = await response.json();
@@ -12,7 +10,6 @@ export const createOrUpdateNewsDocument = async () => {
   let result;
   let newsData;
   try {
-    // Check if document exists
     let document;
     try {
       document = await databases.getDocument(
@@ -24,14 +21,12 @@ export const createOrUpdateNewsDocument = async () => {
       console.log('Document does not exist yet:', error);
     }
     const currentDate = new Date();
-    // Create or update the document based on existence
+
     if (document) {
-      // Document exists, check if it's older than 24 hours
-      const lastUpdated = new Date(document.lastUpdated); // Use your manually stored 'lastUpdated' field
+      const lastUpdated = new Date(document.lastUpdated);
       const timeDifference = currentDate.getTime() - lastUpdated.getTime();
       const differenceInHours = Math.floor(timeDifference / 1000 / 60 / 60);
       if (differenceInHours >= 24) {
-        // Data is older than 24 hours, fetch new data and update document
         newsData = await fetchNewsData();
         console.log('News data fetched:', newsData);
         result = await databases.updateDocument(
@@ -40,9 +35,9 @@ export const createOrUpdateNewsDocument = async () => {
           '243n2b45b4n23n4b543n',
           {
             news: JSON.stringify(newsData),
-            lastUpdated: currentDate, // Store as Date object directly
+            lastUpdated: currentDate,
           },
-          [Permission.read(Role.any())] // Anyone can view this document
+          [Permission.read(Role.any())]
         );
         console.log('News data updated:', result);
       } else {
@@ -50,7 +45,6 @@ export const createOrUpdateNewsDocument = async () => {
         newsData = JSON.parse(document.news);
       }
     } else {
-      // Document does not exist, fetch new data and create it
       newsData = await fetchNewsData();
       console.log('News data fetched:', newsData);
       result = await databases.createDocument(
@@ -59,7 +53,7 @@ export const createOrUpdateNewsDocument = async () => {
         '243n2b45b4n23n4b543n',
         {
           news: JSON.stringify(newsData),
-          lastUpdated: currentDate, // Store as Date object directly
+          lastUpdated: currentDate,
         },
         [Permission.read(Role.any())]
       );
@@ -72,10 +66,8 @@ export const createOrUpdateNewsDocument = async () => {
   return newsData;
 };
 
-// Function to fetch a user's news document
 export const getUserNewsDocument = async (userId: string) => {
   try {
-    // Fetch the user's document
     const userDoc = await databases.getDocument(
       '6456b05eb0764a873d05',
       '647de75c02a0dab2c148',
@@ -94,10 +86,8 @@ export const createOrUpdateUserNewsDocument = async (
   newsEvents: any[]
 ) => {
   try {
-    // Fetch the user's document
     let userDoc = await getUserNewsDocument(userId);
 
-    // Document already exists, update it
     if (userDoc) {
       const currentUserNews = userDoc.userNews || [];
       const currentUserNewsParsed = JSON.parse(currentUserNews);
@@ -112,10 +102,7 @@ export const createOrUpdateUserNewsDocument = async (
       );
       console.log('User news document updated:', response);
       return response;
-    }
-
-    // Document doesn't exist, create it
-    else {
+    } else {
       const response = await databases.createDocument(
         '6456b05eb0764a873d05',
         '647de75c02a0dab2c148',
@@ -138,15 +125,12 @@ export const removeNewsFromUserDocument = async (
   newsEvent: { title: string }
 ) => {
   try {
-    // Fetch the user's document
     let userDoc = await getUserNewsDocument(userId);
 
-    // If document exists, update it
     if (userDoc) {
       const currentUserNews = JSON.parse(userDoc.userNews || '[]');
       const updatedUserNews = currentUserNews.filter(
         (news: { title: string }) => {
-          // Assuming each news has a unique title. Use a unique identifier if available.
           return news.title !== newsEvent.title;
         }
       );

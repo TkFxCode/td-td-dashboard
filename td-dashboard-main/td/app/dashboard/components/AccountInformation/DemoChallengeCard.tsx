@@ -23,17 +23,17 @@ import {
 import { Alert, AlertDescription, AlertTitle } from '@/app/components/ui/alert';
 import { IoCheckmarkDoneSharp, IoWarningOutline } from 'react-icons/io5';
 import { Label } from '@/app/components/ui/label';
-import { IoIosClock } from 'react-icons/io'; // import clock icon
+import { IoIosClock } from 'react-icons/io';
 import Moment from 'react-moment';
 import { Archive, MoreVertical } from 'lucide-react';
 
 const DemoChallengeCard = () => {
   const startBalance = 100000;
   const goalBalance = 108000;
-  const violationBalance = 92000; // Assuming this is your violation balance
+  const violationBalance = 92000;
 
   const [currentBalance, setCurrentBalance] = useState(startBalance);
-  const [status, setStatus] = useState(''); // Add a new state to keep track of the status
+  const [status, setStatus] = useState('');
 
   const calculateProgress = (current: number, start: number, end: number) => {
     const total = end - start;
@@ -52,10 +52,10 @@ const DemoChallengeCard = () => {
         setCurrentBalance(newBalance);
         setProgress(calculateProgress(newBalance, startBalance, goalBalance));
       } else if (currentBalance <= violationBalance) {
-        setStatus('Unfortunately you have violated the rules on your account'); // Set status for violation
+        setStatus('Unfortunately you have violated the rules on your account');
         clearInterval(timer);
       } else {
-        setStatus('Congratulations you have passed the challenge objectives'); // Set status for goal achievement
+        setStatus('Congratulations you have passed the challenge objectives');
         clearInterval(timer);
       }
     }, 500);

@@ -23,7 +23,7 @@ import {
 import { Alert, AlertDescription, AlertTitle } from '@/app/components/ui/alert';
 import { IoCheckmarkDoneSharp, IoWarningOutline } from 'react-icons/io5';
 import { Label } from '@/app/components/ui/label';
-import { IoIosClock } from 'react-icons/io'; // import clock icon
+import { IoIosClock } from 'react-icons/io';
 import Moment from 'react-moment';
 import { Archive, MoreVertical } from 'lucide-react';
 
@@ -59,8 +59,6 @@ const dynamicDemoChallengeCard: React.FC<dynamicDemoChallengeCardProps> = ({
       : currentBalance >= goalBalance
       ? 'Congratulations you have passed the challenge objectives'
       : '';
-
-  // Rest of your component...
 
   const renderStatus = () => {
     if (status) {

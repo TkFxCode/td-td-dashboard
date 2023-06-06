@@ -28,7 +28,7 @@ import {
 } from '@/app/components/ui/avatar';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-
+import { completeTask } from '@/app/appwrite/services/taskService';
 interface Task {
   id: string;
   taskName: string;
@@ -37,7 +37,13 @@ interface Task {
   taskDate: string;
 }
 
-const TaskList = ({ tasks }: { tasks: Task[] }) => {
+const TaskList = ({
+  tasks,
+  onTaskUpdated,
+}: {
+  tasks: Task[];
+  onTaskUpdated: () => void;
+}) => {
   const { user } = useUser();
   const [date, setDate] = useState<Date | undefined>(new Date());
   const router = useRouter();
@@ -50,7 +56,7 @@ const TaskList = ({ tasks }: { tasks: Task[] }) => {
     const formData = new FormData(event.currentTarget);
 
     const updatedTask: Task = {
-      id: taskId, // add the id property here
+      id: taskId, 
       taskName: formData.get('taskName') as string,
       taskDescription: formData.get('taskDescription') as string,
       taskPriority: formData.get('taskPriority') as string,
@@ -212,6 +218,18 @@ const TaskList = ({ tasks }: { tasks: Task[] }) => {
                   </form>
                 </PopoverContent>
               </Popover>
+              <Button
+                variant="outline"
+                className="rounded-full p-2 ml-5"
+                onClick={async () => {
+                  if (user) {
+                    await completeTask(user.$id, task.id);
+                    onTaskUpdated();
+                  }
+                }}
+              >
+                <Check className="h-5 w-5" />
+              </Button>
             </div>
           </motion.div>
         ))}

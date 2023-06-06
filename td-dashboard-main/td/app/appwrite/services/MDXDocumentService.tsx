@@ -66,7 +66,7 @@ export const fetchSingleMDXDocument = async (documentId: string) => {
   }
 };
 
-// This function will update the document content in your database
+
 export const updateMDXDocumentContent = async (
   documentId: string,
   content: string
@@ -84,5 +84,17 @@ export const updateMDXDocumentContent = async (
   } catch (error) {
     console.log(documentId);
     console.error('Document update failed:', error);
+  }
+};
+export const deleteMDXDocument = async (documentId: string) => {
+  try {
+    const response = await databases.deleteDocument(
+      '6456b05eb0764a873d05',
+      '645c420225d6302464fe',
+      documentId
+    );
+    console.log('Document deleted:', response);
+  } catch (error) {
+    console.error('Document deletion failed:', error);
   }
 };

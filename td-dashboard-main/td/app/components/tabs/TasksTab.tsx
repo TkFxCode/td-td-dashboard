@@ -19,14 +19,18 @@ interface Task {
   taskDescription: string;
   topic: string;
   date: string;
+  completed: boolean;
 }
 
 const TasksTab = () => {
   const { user, logout, getUserDocument } = useUser();
   const [userData, setUserData] = useState<any>(null);
   const tasks = userData?.tasks
-    ? userData.tasks.map((task: string) => JSON.parse(task) as Task)
+    ? userData.tasks
+        .map((task: string) => JSON.parse(task) as Task)
+        .filter((task: Task) => !task.completed)
     : [];
+
   const [loading, setLoading] = useState<boolean>(true);
 
   const handleTaskCreated = async () => {
@@ -39,20 +43,31 @@ const TasksTab = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
-        setLoading(true); // Set loading to true while fetching data
+        setLoading(true);
         const document = await getUserDocument(user.$id);
         setUserData(document);
-        setLoading(false); // Set loading to false after data has been fetched
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [user, getUserDocument]);
 
+  const handleTaskUpdated = async () => {
+    if (user) {
+      const document = await getUserDocument(user.$id);
+      setUserData(document);
+    }
+  };
+
   return (
     <div className="w-full h-full">
       <Card className="flex flex-col h-auto w-full ">
-        <CardHeader>Tasks and Wellness</CardHeader>
+        <CardHeader>
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+            Tasks
+          </h1>
+        </CardHeader>
         <CardContent>
           <Card>
             <CardTitle>
@@ -60,17 +75,21 @@ const TasksTab = () => {
                 {`All ${user?.name}'s Tasks`}
               </h1>
             </CardTitle>
-            <CardHeader className="grid gap-6 justify-end">
+            <CardHeader className="flex flex-row justify-between">
+              <div>
+                <h2 className="scroll-m-20  text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+                  Your Task List
+                </h2>
+              </div>
               <div>
                 <TaskCreate onTaskCreated={handleTaskCreated} />
               </div>
             </CardHeader>
             <CardContent>
-              {loading ? ( // Display LoadingScreen while loading is true
+              {loading ? (
                 <LoadingScreen />
               ) : (
-                // Display TaskList once loading is false
-                <TaskList tasks={tasks} />
+                <TaskList tasks={tasks} onTaskUpdated={handleTaskUpdated} />
               )}
             </CardContent>
             <CardFooter></CardFooter>

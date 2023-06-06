@@ -37,10 +37,9 @@ const ParentComponent: React.FC = () => {
       value={() => setRefreshTrigger((old) => old + 1)}
     >
       <div>
-        <div className="flex flex-col gap-3 mb-5  justify-between  lg:grid lg:gap-4  lg:grid-cols-4 ">
+        <div className="flex flex-col gap-3 mb-5  justify-between  lg:grid lg:gap-3  lg:grid-cols-3 ">
           <DailyHighImpact data={data} />
           <CountryPieChart data={data} />
-          <DailyHighImpact data={data} />
 
           <div className="max-h-[600px] overflow-auto">
             <UserNewsComponent />

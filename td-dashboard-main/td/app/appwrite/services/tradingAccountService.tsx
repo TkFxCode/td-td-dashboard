@@ -40,7 +40,6 @@ export const getallTradingAccountDocument = async (userId: string) => {
   }
 };
 
-// Add a helper function to fetch the user document by user ID
 export const getTradingAccountDocument = async (userId: string) => {
   try {
     const response = await databases.getDocument(
@@ -159,11 +158,11 @@ export const addTradingAccount = async (
         }
       );
       console.log('Trading account added:', response);
-      // Extract the apiKey from the shareURL
+
       console.log(shareURL);
       const apiKey = shareURL.split('share/')[1];
       console.log(apiKey);
-      // Call /api/trades/[apiKey] endpoint
+
       const apiResponse = await axios.get(`/api/trades/${apiKey}`);
       const tradingHistory = apiResponse.data;
       tradingHistoryString = JSON.stringify(tradingHistory);
@@ -175,10 +174,7 @@ export const addTradingAccount = async (
         { AccountKey: `${apiKey}`, TradingHistory: `${tradingHistoryString}` }
       );
       console.log('New document created:', document);
-    }
-
-    // Create a new document with the response data
-    else if (csvData) {
+    } else if (csvData) {
       const shareURL = '39847232910847';
       const updatedPropFirm = userDoc[propFirm] || [];
       updatedPropFirm.push(
@@ -202,10 +198,9 @@ export const addTradingAccount = async (
       console.log('Trading account added:', response);
       const tradesData = await processCSVData(csvData);
 
-      // Construct the trading history object
       const tradingHistory = {
         status: 'success',
-        startingBalance: 10000, // replace with the actual starting balance if available
+        startingBalance: 10000,
         totalTrades: tradesData.length,
         trades: tradesData,
       };

@@ -9,9 +9,11 @@ import {
   CardTitle,
   CardFooter,
 } from '@/app/components/ui/card';
-import BookmarksTab from '../demo/BookmarksTab';
+import DocumentList from '../demo/Documents';
+import BookmarkCreate from '../demo/BookmarkCreate';
+import BookmarkViewer from '../demo/BookmarkViewer';
 
-const CalendarTab = () => {
+const BookmarksTab = () => {
   const { user, logout, getUserDocument } = useUser();
   const [userData, setUserData] = useState<any>(null);
 
@@ -34,12 +36,14 @@ const CalendarTab = () => {
           </h1>
         </CardHeader>
         <CardContent>
-          <BookmarksTab />
+          <BookmarkCreate />
         </CardContent>
-        <CardFooter>Calendar</CardFooter>
+        <CardFooter className="w-full">
+          <BookmarkViewer userId={user.$id} />
+        </CardFooter>
       </Card>
     </div>
   );
 };
 
-export default CalendarTab;
+export default BookmarksTab;

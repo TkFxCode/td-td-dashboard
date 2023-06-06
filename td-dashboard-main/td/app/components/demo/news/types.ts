@@ -1,5 +1,3 @@
-// types.ts
-
 export type Event = {
   title: string;
   country: string;

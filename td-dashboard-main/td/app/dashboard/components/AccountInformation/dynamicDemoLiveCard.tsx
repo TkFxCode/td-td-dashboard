@@ -125,7 +125,7 @@ const DynamicLiveAccountCard: React.FC<DynamicLiveAccountCardProps> = ({
             </div>
           </div>
         </CardContent>
-        \
+
         <CardFooter className="transition-transform duration-200 ease-in-out transform hover:scale-105">
           <Alert>
             <AiFillAlert className="inline-block mr-2" />

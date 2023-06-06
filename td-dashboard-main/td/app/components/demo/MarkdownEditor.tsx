@@ -3,12 +3,14 @@ import {
   BlockNoteView,
   ToggledStyleButton,
   Toolbar,
-  ToolbarButton,
   BlockTypeDropdown,
   TextAlignButton,
   ColorStyleButton,
   NestBlockButton,
+  UnnestBlockButton,
   CreateLinkButton,
+  ReactSlashMenuItem,
+  defaultReactSlashMenuItems,
   useBlockNote,
 } from '@blocknote/react';
 import '@blocknote/core/style.css';
@@ -37,21 +39,48 @@ interface MDXDocument {
 type Props = {
   initialContents: string | null;
   selectedDocument: MDXDocument | null;
+  clearSelectedDocument: () => void;
+};
+
+const CustomFormattingToolbar: React.FC<ToolbarProps> = ({ editor }) => {
+  return (
+    <Toolbar>
+      <BlockTypeDropdown editor={editor} />
+      <ToggledStyleButton editor={editor} toggledStyle="bold" />
+      <ToggledStyleButton editor={editor} toggledStyle="italic" />
+      <ToggledStyleButton editor={editor} toggledStyle="underline" />
+      <ToggledStyleButton editor={editor} toggledStyle="strike" />
+      <ToggledStyleButton editor={editor} toggledStyle="code" />
+      <TextAlignButton editor={editor} textAlignment="left" />
+      <TextAlignButton editor={editor} textAlignment="center" />
+      <TextAlignButton editor={editor} textAlignment="right" />
+      <ColorStyleButton editor={editor} />
+      <NestBlockButton editor={editor} />
+      <UnnestBlockButton editor={editor} />
+      <CreateLinkButton editor={editor} />
+    </Toolbar>
+  );
 };
 
 const MarkdownEditor: React.FC<Props> = ({
   initialContents,
   selectedDocument,
+  clearSelectedDocument,
 }) => {
+  const newSlashMenuItems: ReactSlashMenuItem[] = defaultReactSlashMenuItems;
   const editor: BlockNoteEditor | null = useBlockNote({
     initialContent: initialContents ? JSON.parse(initialContents) : undefined,
-    onEditorContentChange: (editor) => {
+    slashMenuItems: newSlashMenuItems,
+    customElements: {
+      formattingToolbar: CustomFormattingToolbar,
+    },
+    onEditorContentChange: (editor: BlockNoteEditor) => {
       localStorage.setItem(
         'editorContent',
         JSON.stringify(editor.topLevelBlocks)
       );
     },
-  });
+  } as any);
 
   if (!editor) return null;
 
@@ -60,8 +89,8 @@ const MarkdownEditor: React.FC<Props> = ({
       const contentString = JSON.stringify(editor.topLevelBlocks);
       const DatabaseId = selectedDocument.documentId;
 
-      // console.log(selectedDocument);
       await updateMDXDocumentContent(DatabaseId, contentString);
+      clearSelectedDocument();
     } else {
       console.error('No document selected');
     }
@@ -71,7 +100,7 @@ const MarkdownEditor: React.FC<Props> = ({
     <Card className="flex flex-col h-auto w-full ">
       <CardHeader>
         <CardTitle>Current Document</CardTitle>
-        <CardDescription>Card Description</CardDescription>
+        <CardDescription></CardDescription>
       </CardHeader>
       <CardContent>
         <p>

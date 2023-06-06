@@ -1,27 +1,16 @@
 'use client';
-import React from 'react';
-import { useState, useEffect } from 'react';
+import * as React from 'react';
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
-  VisibilityState,
   useReactTable,
-  getSortedRowModel,
-  getFilteredRowModel,
+  getPaginationRowModel,
+  VisibilityState,
   ColumnFiltersState,
-  SortingState,
+  getFilteredRowModel,
 } from '@tanstack/react-table';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/app/components/ui/dropdown-menu';
-import { useUser } from '@/app/appwrite/useUser';
 import { Button } from '@/app/components/ui/button';
-import { Input } from '@/app/components/ui/input';
-
 import {
   Table,
   TableBody,
@@ -30,10 +19,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/app/components/ui/table';
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/app/components/ui/dropdown-menu';
 import { Card } from '@/app/components/ui/card';
-import { createOrUpdateUserNewsDocument } from '@/app/appwrite/services/NewsService';
-import { RefreshNewsContext } from '../RefreshNewsContext';
-
+import { Input } from '@/app/components/ui/input';
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -43,53 +36,30 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const { user } = useUser();
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [selectedColumn, setSelectedColumn] = React.useState('title');
-  const [rowSelection, setRowSelection] = React.useState<
-    Record<string, boolean>
-  >({});
-
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
+  const [selectedColumn, setSelectedColumn] = React.useState('title');
   const table = useReactTable({
     data,
-    columns: columns,
+    columns,
     getCoreRowModel: getCoreRowModel(),
-    onSortingChange: setSorting,
-    getSortedRowModel: getSortedRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
+    getPaginationRowModel: getPaginationRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
-    onRowSelectionChange: setRowSelection,
+    onColumnVisibilityChange: setColumnVisibility,
     state: {
-      sorting,
       columnFilters,
       columnVisibility,
-      rowSelection,
     },
   });
-  const selectedRowData = Object.keys(rowSelection)
-    .filter((k) => rowSelection[k])
-    .map((id) => data[parseInt(id)]);
-
-  const refreshNews = React.useContext(RefreshNewsContext);
-  const handleOnSubmit = async () => {
-    console.log(selectedRowData);
-
-    await createOrUpdateUserNewsDocument(user.$id, selectedRowData);
-
-    setRowSelection({});
-    refreshNews();
-  };
 
   return (
-    <div className="">
+    <div>
       <div className="flex flex-col lg:flex-row items-center py-4">
-        <Card className="flex  flex-col lg:flex-row w-full">
+        <Card className="flex  flex-col lg:flex-row w-full m-2">
           <Input
             placeholder={`Filter ${selectedColumn}...`}
             value={
@@ -129,7 +99,6 @@ export function DataTable<TData, TValue>({
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-
           <div className="lg:ml-auto">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -162,33 +131,14 @@ export function DataTable<TData, TValue>({
           </div>
         </Card>
       </div>
-      {selectedRowData.length > 0 && (
-        <div className="flex flex-row justify-center ">
-          {/* Displaying number of selections */}
-          <div className="m-2 w-full ">
-            <p className="h-full flex justify-center items-center">
-              Number of selections: {selectedRowData.length}
-            </p>
-          </div>
-
-          {/* Button to submit selections to database */}
-          <Button
-            onClick={handleOnSubmit}
-            className="m-2 w-full flex justify-center"
-          >
-            Submit to Database
-          </Button>
-        </div>
-      )}
-
-      <div className="rounded-md border ">
+      <div className="rounded-md border m-2">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead className="h-[90px] xl:h-auto" key={header.id}>
+                    <TableHead key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -205,7 +155,6 @@ export function DataTable<TData, TValue>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
-                  className="h-full"
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                 >
@@ -231,6 +180,24 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
+      </div>
+      <div className="flex items-center justify-end space-x-2 py-4 m-2">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </Button>
       </div>
     </div>
   );

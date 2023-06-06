@@ -119,7 +119,7 @@ export default function AccountSwitcher() {
 
           let allAccounts: AccountDetail[] = [];
 
-          // Clear existing accounts before adding new ones
+          
           accountGroups[0].accounts = [
             {
               label: 'All Accounts',
@@ -135,15 +135,15 @@ export default function AccountSwitcher() {
             if (document[type].length > 0) {
               totalAccounts += document[type].length;
 
-              // Parse the accounts' data from stringified JSON to JavaScript objects
+              
               const parsedAccounts = document[type].map((account: string) =>
                 JSON.parse(account)
               );
 
-              // Add parsed accounts to allAccounts array
+              
               allAccounts.push(...parsedAccounts);
 
-              // Store parsed accounts' data in the accounts' section for this account type
+              
               accountGroups[0].accounts.push({
                 label: `All ${type} Accounts (${document[type].length})`,
                 value: type.toLowerCase(),
@@ -152,7 +152,7 @@ export default function AccountSwitcher() {
             }
           });
 
-          // Add the total number of accounts in brackets
+          
           accountGroups[0].accounts[0].label += ` (${totalAccounts})`;
 
           setUserData(document);

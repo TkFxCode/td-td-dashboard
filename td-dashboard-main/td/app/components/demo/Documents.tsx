@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import {
   Card,
   CardContent,
@@ -6,14 +6,7 @@ import {
   CardTitle,
 } from '@/app/components/ui/card';
 import { Button } from '@/app/components/ui/button';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/app/components/ui/sheet';
+
 import {
   HoverCard,
   HoverCardContent,
@@ -26,10 +19,11 @@ import {
   fetchSingleMDXDocument,
   getAllMDXDocuments,
   createNewMDXDocument,
+  deleteMDXDocument,
 } from '@/app/appwrite/services/MDXDocumentService';
 import MarkdownEditor from './MarkdownEditor';
 import LoadingScreen from '../loading/LoadingScreen';
-import { Document } from 'cheerio';
+import { Input } from '../ui/input';
 
 interface MDXDocument {
   userId: string;
@@ -47,15 +41,18 @@ export default function DocumentList() {
   const [selectedDocument, setSelectedDocument] = useState<MDXDocument | null>(
     null
   );
+  const [currentDocumentId, setCurrentDocumentId] = useState<string | null>(
+    null
+  );
+  const [newDocumentTitle, setNewDocumentTitle] = useState('');
 
   const [isLoadingDocument, setIsLoadingDocument] = useState(false);
+  const [showMarkdownEditor, setShowMarkdownEditor] = useState(false);
 
   const openDocument = async (doc: MDXDocument) => {
     setIsLoadingDocument(true);
     const fetchedDocuments = await getAllMDXDocuments(user.$id);
-    console.log(doc.content);
     const parsedContent = doc.content;
-    // console.log(doc.content);
     setSelectedDocument({
       ...fetchedDocuments,
       content: parsedContent,
@@ -65,7 +62,9 @@ export default function DocumentList() {
       createdAt: '',
       updatedAt: '',
     });
+    setCurrentDocumentId(doc.documentId);
     setIsLoadingDocument(false);
+    setShowMarkdownEditor(true);
   };
 
   useEffect(() => {
@@ -80,78 +79,139 @@ export default function DocumentList() {
     fetchDocuments();
   }, [user]);
 
-  const handleNewDocumentClick = async () => {
+  const handleNewDocumentSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (newDocumentTitle.trim() === '') {
+      alert("Document title can't be empty!");
+      return;
+    }
+
     const newDocumentId = await createNewMDXDocument(
       user.$id,
-      'Untitled Document',
+      newDocumentTitle,
       ``
     );
+
+    setNewDocumentTitle('');
 
     const fetchedDocuments = await getAllMDXDocuments(user.$id);
     setDocuments(fetchedDocuments);
   };
+  const deleteDocument = async (doc: MDXDocument) => {
+    try {
+      await deleteMDXDocument(doc.documentId);
+
+      const fetchedDocuments = await getAllMDXDocuments(user.$id);
+      setDocuments(fetchedDocuments);
+
+      if (doc.documentId === currentDocumentId) {
+        setSelectedDocument(null);
+        setShowMarkdownEditor(false);
+      }
+    } catch (error) {
+      console.error('Failed to delete document:', error);
+    }
+  };
+  function formatDate(dateString: string): string {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  }
 
   return (
     <div className="p-4">
-      <Button
-        variant="outline"
-        className="mb-4"
-        onClick={handleNewDocumentClick}
-      >
-        New Document
-      </Button>
-
-      {isLoading ? (
-        <SkeletonDemo />
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {documents.map((doc) => (
-            <HoverCard key={doc.documentId}>
-              <HoverCardTrigger>
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{doc.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Last edited: {doc.updatedAt}</p>
-                  </CardContent>
-                </Card>
-              </HoverCardTrigger>
-              <HoverCardContent>
-                <Sheet>
-                  <SheetTrigger asChild>
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            <form
+              onSubmit={handleNewDocumentSubmit}
+              className="flex flex-row gap-3"
+            >
+              <Input
+                className="max-w-[350px]"
+                type="text"
+                value={newDocumentTitle}
+                onChange={(e) => setNewDocumentTitle(e.target.value)}
+                placeholder="Enter document title"
+              />
+              <Button type="submit">Create</Button>
+            </form>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {isLoading ? (
+            <SkeletonDemo />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {documents.map((doc) => (
+                <HoverCard key={doc.documentId}>
+                  <HoverCardTrigger>
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>{doc.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p>Last edited: {formatDate(doc.updatedAt)}</p>
+                      </CardContent>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent>
                     <Button variant="outline" onClick={() => openDocument(doc)}>
                       Open
                     </Button>
-                  </SheetTrigger>
-                  <SheetContent size="full">
-                    <SheetHeader>
-                      <SheetTitle>Your Current Document</SheetTitle>
-                      <SheetDescription>
-                        {isLoadingDocument ? (
-                          <LoadingScreen />
-                        ) : (
-                          <MarkdownEditor
-                            initialContents={selectedDocument?.content ?? null}
-                            selectedDocument={selectedDocument ?? null}
-                          />
-                        )}
-                      </SheetDescription>
-                    </SheetHeader>
-                  </SheetContent>
-                </Sheet>
 
-                <Button variant="outline" onClick={() => openDocument(doc)}>
-                  Share
-                </Button>
-                <Button variant="outline" onClick={() => openDocument(doc)}>
-                  Delete
-                </Button>
-              </HoverCardContent>
-            </HoverCard>
-          ))}
-        </div>
-      )}
+                    <Button variant="outline" onClick={() => openDocument(doc)}>
+                      Share
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => deleteDocument(doc)}
+                    >
+                      Delete
+                    </Button>
+                  </HoverCardContent>
+                </HoverCard>
+              ))}
+            </div>
+          )}
+        </CardContent>
+        <Card className="m-2">
+          <CardHeader>
+            <CardTitle>Edit your Document Here</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {currentDocumentId && showMarkdownEditor ? (
+              isLoadingDocument ? (
+                <LoadingScreen />
+              ) : (
+                <Card className="mt-5 ">
+                  <CardHeader>
+                    <CardTitle>Edit your Selected Document</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <MarkdownEditor
+                      initialContents={selectedDocument?.content ?? null}
+                      selectedDocument={selectedDocument ?? null}
+                      clearSelectedDocument={() => {
+                        setSelectedDocument(null);
+                        setShowMarkdownEditor(false);
+                      }}
+                    />
+                  </CardContent>
+                </Card>
+              )
+            ) : (
+              <>
+                <p>No Document Selected</p>
+              </>
+            )}
+          </CardContent>
+        </Card>
+      </Card>
     </div>
   );
 }

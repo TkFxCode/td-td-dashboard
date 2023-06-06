@@ -19,7 +19,6 @@ export default function VectorDBInputForm() {
     });
     const openAi = new OpenAIApi(configuration);
 
-    // Split the input into chunks of approximately 100 words
     const words = text.split(' ');
     for (let i = 0; i < words.length; i += 100) {
       const chunk = words.slice(i, i + 100).join(' ');
@@ -57,7 +56,7 @@ export default function VectorDBInputForm() {
           onChange={(e) => setText(e.target.value)}
         />
 
-        {isLoading ? ( // Conditionally render the loading button
+        {isLoading ? (
           <Button disabled>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Please wait

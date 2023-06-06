@@ -32,7 +32,7 @@ const NewsTab = () => {
     <div className="w-full ">
       <Card className="flex flex-col  w-full ">
         <CardHeader>
-          <h1 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
             News Dashboard
           </h1>
         </CardHeader>

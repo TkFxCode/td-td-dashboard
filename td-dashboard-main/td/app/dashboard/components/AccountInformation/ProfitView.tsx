@@ -34,7 +34,6 @@ const mockDataMonth = [
   { month: 'February', profit: 6200 },
   { month: 'March', profit: 6400 },
   { month: 'April', profit: 6600 },
-  // Continue for the rest of the months...
 ];
 
 type ViewType = 'day' | 'week' | 'month';
@@ -42,7 +41,7 @@ type ViewType = 'day' | 'week' | 'month';
 const ProfitView = () => {
   const [view, setView] = useState<ViewType>('day');
   const { theme } = useTheme();
-  const isSmallScreen = useMediaQuery({ query: '(max-width: 576px)' }); // for sm screens
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 576px)' });
   const chartWidth = isSmallScreen ? 190 : 380;
 
   const handlePrevClick = () => {
@@ -148,7 +147,7 @@ const ProfitView = () => {
           />
         </BarChart>
       </CardContent>
-      <CardFooter className="flex flex-wrap items-center justify-between  lg:px-4 lg:mb-4">
+      <CardFooter className="flex flex-wrap items-center justify-between  lg:px-4 lg:mb-4 ">
         <Button onClick={handlePrevClick} className="p-2 rounded">
           Prev
         </Button>

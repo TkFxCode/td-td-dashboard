@@ -115,7 +115,7 @@ const Navbar = () => {
               Sign Out
             </DropdownMenuItem>
             <DropdownMenuItem
-              onSelect={() => (window.location.href = '/profile')}
+              onSelect={() => (window.location.href = '/dashboard/profile')}
             >
               Profile
             </DropdownMenuItem>

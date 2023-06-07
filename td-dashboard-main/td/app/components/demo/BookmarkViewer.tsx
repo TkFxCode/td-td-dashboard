@@ -6,9 +6,10 @@ import { Card } from '../ui/card';
 
 interface BookmarkViewerProps {
   userId: string;
+  refresh: boolean;
 }
 
-const BookmarkViewer: React.FC<BookmarkViewerProps> = ({ userId }) => {
+const BookmarkViewer: React.FC<BookmarkViewerProps> = ({ userId, refresh }) => {
   const [bookmarks, setBookmarks] = useState([]);
 
   const parseBookmark = (bookmarkStr: string) => {
@@ -37,7 +38,7 @@ const BookmarkViewer: React.FC<BookmarkViewerProps> = ({ userId }) => {
     };
 
     fetchBookmarks();
-  }, [userId]);
+  }, [userId, refresh]);
 
   return (
     <Card className="w-full mx-auto py-5">

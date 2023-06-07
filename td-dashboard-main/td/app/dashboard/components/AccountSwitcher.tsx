@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+  CalendarIcon,
   Check,
   ChevronsUpDown,
   PlusCircle,
@@ -8,6 +9,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/app/components/ui/button';
+import { addDays, format } from 'date-fns';
 import {
   Command,
   CommandEmpty,
@@ -57,12 +59,15 @@ import {
 } from '@/app/components/ui/hover-card';
 import { Card } from '@/app/components/ui/card';
 import { Switch } from '@/app/components/ui/switch';
+import { Calendar } from '@/app/components/ui/calendar';
 type AccountDetail = {
   propFirm: string;
   shareURL: string;
   accountSize: string;
   accountPhase: string;
   accountNumber: string;
+  startDate: Date;
+  endDate: Date;
 };
 
 type Account = {
@@ -89,6 +94,8 @@ const accountGroups: AccountGroup[] = [
 ];
 
 export default function AccountSwitcher() {
+  const [startDate, setstartDate] = useState<Date | undefined>(new Date());
+  const [endDate, setendDate] = useState<Date | undefined>(new Date());
   const [open, setOpen] = React.useState(false);
   const [showNewAccountDialog, setShowNewAccountDialog] = React.useState(false);
   const [showSearchAccountDialog, setShowSearchAccountDialog] =
@@ -119,7 +126,6 @@ export default function AccountSwitcher() {
 
           let allAccounts: AccountDetail[] = [];
 
-          
           accountGroups[0].accounts = [
             {
               label: 'All Accounts',
@@ -135,15 +141,12 @@ export default function AccountSwitcher() {
             if (document[type].length > 0) {
               totalAccounts += document[type].length;
 
-              
               const parsedAccounts = document[type].map((account: string) =>
                 JSON.parse(account)
               );
 
-              
               allAccounts.push(...parsedAccounts);
 
-              
               accountGroups[0].accounts.push({
                 label: `All ${type} Accounts (${document[type].length})`,
                 value: type.toLowerCase(),
@@ -152,7 +155,6 @@ export default function AccountSwitcher() {
             }
           });
 
-          
           accountGroups[0].accounts[0].label += ` (${totalAccounts})`;
 
           setUserData(document);
@@ -168,6 +170,9 @@ export default function AccountSwitcher() {
   const [shareURL, setShareURL] = useState('');
 
   const handleAddAccount = async () => {
+    if (!startDate || !endDate) {
+      throw new Error('Start date or end date is not defined.');
+    }
     await addTradingAccount(
       user.$id,
       propFirm,
@@ -175,7 +180,9 @@ export default function AccountSwitcher() {
       accountPhase,
       accountNumber,
       useURL ? shareURL : '',
-      !useURL ? csvData : ''
+      !useURL ? csvData : '',
+      startDate,
+      endDate
     );
     setShowNewAccountDialog(false);
   };
@@ -300,26 +307,6 @@ export default function AccountSwitcher() {
                           Add a new account to your trading portfolio.
                         </DialogDescription>
                       </DialogHeader>
-                      <div className="space-y-2">
-                        <Label htmlFor="inputSwitch">
-                          {useURL ? (
-                            <div className="space-y-2">
-                              <Label htmlFor="shareURL">
-                                Account Share URL
-                              </Label>
-                            </div>
-                          ) : (
-                            <div className="space-y-2">
-                              <Label htmlFor="csvUpload">Upload CSV</Label>
-                            </div>
-                          )}
-                        </Label>
-                        <Switch
-                          id="inputSwitch"
-                          checked={useURL}
-                          onCheckedChange={setUseURL}
-                        />
-                      </div>
 
                       <div>
                         <div className="space-y-4 py-2 pb-4">
@@ -403,12 +390,123 @@ export default function AccountSwitcher() {
                               </SelectContent>
                             </Select>
                           </div>
+                          <div className="grid gap-2">
+                            <Label htmlFor="dueDate">Start Date</Label>
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <Button
+                                  variant={'outline'}
+                                  className={cn(
+                                    'w-full justify-start text-left font-normal',
+                                    !startDate && 'text-muted-foreground'
+                                  )}
+                                >
+                                  <CalendarIcon className="mr-2 h-4 w-4" />
+                                  {startDate ? (
+                                    format(startDate, 'PPP')
+                                  ) : (
+                                    <span>Pick a date</span>
+                                  )}
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="flex w-auto flex-col space-y-2 p-2">
+                                <Select
+                                  onValueChange={(value) =>
+                                    setstartDate(
+                                      addDays(new Date(), parseInt(value))
+                                    )
+                                  }
+                                >
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Select" />
+                                  </SelectTrigger>
+                                  <SelectContent position="popper">
+                                    <SelectItem value="0">Today</SelectItem>
+                                    <SelectItem value="1">Tomorrow</SelectItem>
+                                    <SelectItem value="3">In 3 days</SelectItem>
+                                    <SelectItem value="7">In a week</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                                <div className="rounded-md border">
+                                  <Calendar
+                                    mode="single"
+                                    selected={startDate}
+                                    onSelect={setstartDate}
+                                  />
+                                </div>
+                              </PopoverContent>
+                            </Popover>
+                          </div>
+                          <div className="grid gap-2 ">
+                            <Label htmlFor="dueDate">End Date</Label>
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <Button
+                                  variant={'outline'}
+                                  className={cn(
+                                    'w-full justify-start text-left font-normal',
+                                    !endDate && 'text-muted-foreground'
+                                  )}
+                                >
+                                  <CalendarIcon className="mr-2 h-4 w-4" />
+                                  {endDate ? (
+                                    format(endDate, 'PPP')
+                                  ) : (
+                                    <span>Pick a date</span>
+                                  )}
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="flex w-auto flex-col space-y-2 p-2">
+                                <Select
+                                  onValueChange={(value) =>
+                                    setendDate(
+                                      addDays(new Date(), parseInt(value))
+                                    )
+                                  }
+                                >
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Select" />
+                                  </SelectTrigger>
+                                  <SelectContent position="popper">
+                                    <SelectItem value="0">Today</SelectItem>
+                                    <SelectItem value="1">Tomorrow</SelectItem>
+                                    <SelectItem value="3">In 3 days</SelectItem>
+                                    <SelectItem value="7">In a week</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                                <div className="rounded-md border">
+                                  <Calendar
+                                    mode="single"
+                                    selected={endDate}
+                                    onSelect={setendDate}
+                                  />
+                                </div>
+                              </PopoverContent>
+                            </Popover>
+                          </div>
 
+                          <div className="space-y-2">
+                            <Label htmlFor="inputSwitch">
+                              {useURL ? (
+                                <div className="space-y-2">
+                                  <Label htmlFor="shareURL">
+                                    Account Share URL
+                                  </Label>
+                                </div>
+                              ) : (
+                                <div className="space-y-2">
+                                  <Label htmlFor="csvUpload">Upload CSV</Label>
+                                </div>
+                              )}
+                            </Label>
+                            <Switch
+                              id="inputSwitch"
+                              checked={useURL}
+                              onCheckedChange={setUseURL}
+                            />
+                          </div>
                           {useURL ? (
                             <div className="space-y-2">
-                              <Label htmlFor="shareURL">
-                                Account Share URL
-                              </Label>
                               <Input
                                 id="shareURL"
                                 placeholder="https://shareUrl@PropFirm.com"
@@ -417,13 +515,11 @@ export default function AccountSwitcher() {
                             </div>
                           ) : (
                             <div className="space-y-2">
-                              <Label htmlFor="csvUpload">Upload CSV</Label>
                               <Input
                                 type="file"
                                 id="csvUpload"
                                 onChange={(e) => {
                                   if (e.target.files) {
-                                    
                                     const file = e.target.files[0];
                                     const reader = new FileReader();
                                     reader.onload = (evt) => {

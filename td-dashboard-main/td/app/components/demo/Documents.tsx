@@ -159,13 +159,9 @@ export default function DocumentList() {
                       </CardContent>
                     </Card>
                   </HoverCardTrigger>
-                  <HoverCardContent>
+                  <HoverCardContent className="flex flex-col">
                     <Button variant="outline" onClick={() => openDocument(doc)}>
                       Open
-                    </Button>
-
-                    <Button variant="outline" onClick={() => openDocument(doc)}>
-                      Share
                     </Button>
                     <Button
                       variant="outline"

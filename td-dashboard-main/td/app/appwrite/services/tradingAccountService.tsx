@@ -9,7 +9,7 @@ export const listTradeHistory = async (userId: string, apiKey: string) => {
       '646fba38d877c98f969c',
       [Query.equal('AccountKey', apiKey)]
     );
-    console.log(response);
+    // console.log(response);
 
     return response;
   } catch (error) {
@@ -85,7 +85,9 @@ export const addTradingAccount = async (
   accountPhase: string,
   accountNumber: string,
   shareURL: string,
-  csvData: string
+  csvData: string,
+  startDate: Date,
+  endDate: Date
 ) => {
   try {
     const processCSVData = async (csv: string) => {
@@ -146,6 +148,8 @@ export const addTradingAccount = async (
           accountSize,
           accountPhase,
           accountNumber,
+          startDate,
+          endDate,
         })
       );
 
@@ -184,6 +188,8 @@ export const addTradingAccount = async (
           accountSize,
           accountPhase,
           accountNumber,
+          startDate,
+          endDate,
         })
       );
 

@@ -18,6 +18,8 @@ interface SelectedAccountType {
     accountSize: string;
     accountPhase: string;
     accountNumber: string;
+    startDate: Date;
+    endDate: Date;
   }[];
 }
 type AccountDetail = {
@@ -26,6 +28,8 @@ type AccountDetail = {
   accountSize: string;
   accountPhase: string;
   accountNumber: string;
+  startDate: Date;
+  endDate: Date;
 };
 
 const AccountDetails = ({ account }: { account: SelectedAccountType }) => {
@@ -35,14 +39,18 @@ const AccountDetails = ({ account }: { account: SelectedAccountType }) => {
     [propFirm: string]: {
       'Phase 1': Array<AccountDetail>;
       'Phase 2': Array<AccountDetail>;
-      Live: Array<AccountDetail>;
+      'Live Account': Array<AccountDetail>;
     };
   }>((acc, currAccount) => {
     if (!acc[currAccount.propFirm]) {
-      acc[currAccount.propFirm] = { 'Phase 1': [], 'Phase 2': [], Live: [] };
+      acc[currAccount.propFirm] = {
+        'Phase 1': [],
+        'Phase 2': [],
+        'Live Account': [],
+      };
     }
     acc[currAccount.propFirm][
-      currAccount.accountPhase as 'Phase 1' | 'Phase 2' | 'Live'
+      currAccount.accountPhase as 'Phase 1' | 'Phase 2' | 'Live Account'
     ].push(currAccount);
 
     return acc;
@@ -102,17 +110,15 @@ const AccountDetails = ({ account }: { account: SelectedAccountType }) => {
                       startBalance={parseInt(
                         account.accountSize.replace('k', '000')
                       )}
-                      currentBalance={
-                        parseInt(account.accountSize.replace('k', '000')) + 7500
-                      }
+                      apiKey={account.shareURL}
                       goalBalance={
                         parseInt(account.accountSize.replace('k', '000')) * 1.08
                       }
                       violationBalance={
                         parseInt(account.accountSize.replace('k', '000')) * 0.92
                       }
-                      startDate="2023-05-01"
-                      endDate="2023-06-01"
+                      startDate={account.startDate}
+                      endDate={account.endDate}
                     />
                   ))}
                 </TabsContent>
@@ -125,17 +131,15 @@ const AccountDetails = ({ account }: { account: SelectedAccountType }) => {
                       startBalance={parseInt(
                         account.accountSize.replace('k', '000')
                       )}
-                      currentBalance={
-                        parseInt(account.accountSize.replace('k', '000')) + 7500
-                      }
+                      apiKey={account.shareURL}
                       goalBalance={
                         parseInt(account.accountSize.replace('k', '000')) * 1.08
                       }
                       violationBalance={
                         parseInt(account.accountSize.replace('k', '000')) * 0.92
                       }
-                      startDate="2023-05-01"
-                      endDate="2023-06-01"
+                      startDate={account.startDate}
+                      endDate={account.endDate}
                     />
                   ))}
                 </TabsContent>
@@ -147,31 +151,17 @@ const AccountDetails = ({ account }: { account: SelectedAccountType }) => {
 
       <TabsContent value="live">
         {Object.entries(groupedAccounts).map(([propFirm, accounts]) =>
-          accounts['Live'].map((account) => (
-            <DynamicDemoChallengeCard
+          accounts['Live Account'].map((account) => (
+            <DynamicLiveAccountCard
               key={account.accountNumber}
               tradingAccountNumber={account.accountNumber}
               startBalance={parseInt(account.accountSize.replace('k', '000'))}
-              currentBalance={
-                parseInt(account.accountSize.replace('k', '000')) + 7500
-              }
-              goalBalance={
-                parseInt(account.accountSize.replace('k', '000')) * 1.08
-              }
-              violationBalance={
-                parseInt(account.accountSize.replace('k', '000')) * 0.92
-              }
-              startDate="2023-05-01"
-              endDate="2023-06-01"
+              startDate={account.startDate}
+              apiKey={account.shareURL}
+              endDate={account.endDate}
             />
           ))
         )}
-        <DynamicLiveAccountCard
-          tradingAccountNumber="21345241"
-          startBalance={10000}
-          currentBalance={15000}
-          startDate="2023-05-01"
-        />
       </TabsContent>
     </Tabs>
   );

@@ -26,29 +26,75 @@ import { Label } from '@/app/components/ui/label';
 import { IoIosClock } from 'react-icons/io';
 import Moment from 'react-moment';
 import { Archive, MoreVertical } from 'lucide-react';
+import { listTradeHistory } from '@/app/appwrite/services/tradingAccountService';
+import { useUser } from '@/app/appwrite/useUser';
 
-interface dynamicDemoChallengeCardProps {
+interface DynamicDemoChallengeCardProps {
   tradingAccountNumber: string;
   startBalance: number;
-  currentBalance: number;
+  apiKey: string;
   goalBalance: number;
   violationBalance: number;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
 }
-
-const dynamicDemoChallengeCard: React.FC<dynamicDemoChallengeCardProps> = ({
+interface Trade {
+  profit: number;
+}
+const DynamicDemoChallengeCard: React.FC<DynamicDemoChallengeCardProps> = ({
   tradingAccountNumber,
   startBalance,
-  currentBalance,
+  apiKey,
   goalBalance,
   violationBalance,
   startDate,
   endDate,
 }) => {
+  const { user } = useUser();
+  const [currentBalance, setCurrentBalance] = useState(startBalance);
+
+  useEffect(() => {
+    const calculateCurrentBalance = async (
+      apiKey: string,
+      startingBalance: number
+    ) => {
+      let finalApiKey = '';
+      if (apiKey.includes('/')) {
+        let splitUrl = apiKey.split('/');
+        finalApiKey =
+          splitUrl.length > 0 ? (splitUrl.pop() as string) : finalApiKey;
+      } else {
+        finalApiKey = apiKey;
+      }
+
+      const response = await listTradeHistory(user.$id, finalApiKey);
+      let trades = [];
+      if (response?.documents && response.documents.length > 0) {
+        const tradingHistoryJson = JSON.parse(
+          response?.documents[0].TradingHistory
+        );
+        trades = tradingHistoryJson.trades;
+      }
+
+      // Calculate the current balance by summing up the profit of all trades
+      const currentBalance = trades.reduce(
+        (sum: number, trade: Trade) => sum + trade.profit,
+        startingBalance
+      );
+      return currentBalance;
+    };
+
+    const fetchBalance = async () => {
+      const balance = await calculateCurrentBalance(apiKey, startBalance);
+      setCurrentBalance(balance);
+    };
+
+    fetchBalance();
+  }, [apiKey, user.$id, startBalance]);
+
   const calculateProgress = (current: number, start: number, end: number) => {
     const total = end - start;
-    const progress = current - start;
+    const progress = Math.max(0, Math.min(current - start, total));
     return (progress / total) * 100;
   };
 
@@ -93,21 +139,6 @@ const dynamicDemoChallengeCard: React.FC<dynamicDemoChallengeCardProps> = ({
           <CardTitle>
             <div className="flex justify-between items-center">
               <div>Trading Account Number: {tradingAccountNumber}</div>
-              <div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <MoreVertical className="h-5 w-5" />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <Archive className="mr-2 h-4 w-4" />
-                      <span>Archive Account</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
             </div>
           </CardTitle>
         </CardHeader>
@@ -166,4 +197,4 @@ const dynamicDemoChallengeCard: React.FC<dynamicDemoChallengeCardProps> = ({
   );
 };
 
-export default dynamicDemoChallengeCard;
+export default DynamicDemoChallengeCard;

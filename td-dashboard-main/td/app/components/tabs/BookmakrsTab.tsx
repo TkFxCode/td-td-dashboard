@@ -16,6 +16,7 @@ import BookmarkViewer from '../demo/BookmarkViewer';
 const BookmarksTab = () => {
   const { user, logout, getUserDocument } = useUser();
   const [userData, setUserData] = useState<any>(null);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,10 +37,10 @@ const BookmarksTab = () => {
           </h1>
         </CardHeader>
         <CardContent>
-          <BookmarkCreate />
+          <BookmarkCreate setRefresh={setRefresh} />
         </CardContent>
         <CardFooter className="w-full">
-          <BookmarkViewer userId={user.$id} />
+          <BookmarkViewer refresh={refresh} userId={user.$id} />
         </CardFooter>
       </Card>
     </div>

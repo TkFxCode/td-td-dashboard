@@ -30,7 +30,11 @@ import {
   SheetTrigger,
 } from '@/app/components/ui/sheet';
 
-const BookmarkCreate = () => {
+type BookmarkCreateProps = {
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const BookmarkCreate: React.FC<BookmarkCreateProps> = ({ setRefresh }) => {
   const [url, setUrl] = useState('');
   const { user, getUserDocument } = useUser();
   const [metaDataList, setMetaDataList] = useState<
@@ -112,6 +116,7 @@ const BookmarkCreate = () => {
       }
 
       setMetaDataList([]);
+      setRefresh((prev) => !prev);
     } catch (error) {
       console.error(error);
     }
@@ -138,6 +143,7 @@ const BookmarkCreate = () => {
         await addOrUpdateBookmarks(user.$id, [bookmarkInfo]);
 
         setMetaDataList((prevList) => prevList.filter((_, i) => i !== index));
+        setRefresh((prev) => !prev);
       }
     } catch (error) {
       console.error(error);

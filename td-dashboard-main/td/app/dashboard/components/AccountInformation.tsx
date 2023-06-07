@@ -55,6 +55,8 @@ interface SelectedAccountType {
     accountSize: string;
     accountPhase: string;
     accountNumber: string;
+    startDate: Date;
+    endDate: Date;
   }[];
 }
 interface ResponseType {

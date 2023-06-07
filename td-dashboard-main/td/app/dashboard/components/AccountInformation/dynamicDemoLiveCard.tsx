@@ -11,6 +11,7 @@ import {
 import { Alert, AlertDescription, AlertTitle } from '@/app/components/ui/alert';
 import { IoIosClock } from 'react-icons/io';
 import { AiFillAlert } from 'react-icons/ai';
+import { useUser } from '@/app/appwrite/useUser';
 
 import Moment from 'react-moment';
 import { Archive, MoreVertical } from 'lucide-react';
@@ -24,20 +25,25 @@ import {
   DropdownMenuTrigger,
 } from '@/app/components/ui/dropdown-menu';
 import { Label } from '@/app/components/ui/label';
+import { listTradeHistory } from '@/app/appwrite/services/tradingAccountService';
 
 interface DynamicLiveAccountCardProps {
   tradingAccountNumber: string;
   startBalance: number;
-  currentBalance: number;
-  startDate: string;
+  apiKey: string;
+  startDate: Date;
+  endDate: Date;
 }
 
 const DynamicLiveAccountCard: React.FC<DynamicLiveAccountCardProps> = ({
   tradingAccountNumber,
   startBalance,
-  currentBalance,
   startDate,
+  apiKey,
+  endDate,
 }) => {
+  const { user } = useUser();
+  const [currentBalance, setCurrentBalance] = useState(startBalance);
   const [nextPayoutDate, setNextPayoutDate] = useState<string>(''); // Hold the next payout date
   const [nextPayoutAmount, setNextPayoutAmount] = useState<number>(0); // Hold the next payout amount
 
@@ -46,44 +52,54 @@ const DynamicLiveAccountCard: React.FC<DynamicLiveAccountCardProps> = ({
     return profit > 0 ? profit * 0.8 : 0; // 80% of the profit
   };
 
-  const calculateNextPayoutDate = (date: string) => {
-    // calculate 14 days from the start date
-    const startDate = new Date(date);
-    startDate.setDate(startDate.getDate() + 14);
-    return startDate.toISOString();
-  };
-
   useEffect(() => {
-    setNextPayoutAmount(calculatePayout(startBalance, currentBalance));
-    setNextPayoutDate(calculateNextPayoutDate(startDate));
-  }, [startBalance, currentBalance, startDate]);
+    const calculateCurrentBalance = async (
+      apiKey: string,
+      startingBalance: number
+    ) => {
+      let finalApiKey = '';
+      if (apiKey.includes('/')) {
+        let splitUrl = apiKey.split('/');
+        finalApiKey =
+          splitUrl.length > 0 ? (splitUrl.pop() as string) : finalApiKey;
+      } else {
+        finalApiKey = apiKey;
+      }
+
+      const response = await listTradeHistory(user.$id, finalApiKey);
+      let trades = [];
+      if (response?.documents && response.documents.length > 0) {
+        const tradingHistoryJson = JSON.parse(
+          response?.documents[0].TradingHistory
+        );
+        trades = tradingHistoryJson.trades;
+      }
+
+      // Calculate the current balance by summing up the profit of all trades
+      const currentBalance = trades.reduce(
+        (sum: number, trade: { profit: number }) => sum + trade.profit,
+        startingBalance
+      );
+
+      return currentBalance;
+    };
+
+    const fetchBalance = async () => {
+      const balance = await calculateCurrentBalance(apiKey, startBalance);
+      setCurrentBalance(balance);
+      setNextPayoutAmount(calculatePayout(startBalance, balance));
+    };
+
+    fetchBalance();
+  }, [apiKey, user.$id, startBalance, endDate]);
 
   return (
     <>
-      <Card>
+      <Card className="mb-2">
         <CardHeader>
           <CardTitle>
             <div className="flex justify-between items-center">
               <div>Trading Account Number: {tradingAccountNumber}</div>
-              <div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <MoreVertical className="h-5 w-5" />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <Archive className="mr-2 h-4 w-4" />
-                      <span>Archive Account</span>
-                    </DropdownMenuItem>{' '}
-                    <DropdownMenuItem>
-                      <Archive className="mr-2 h-4 w-4" />
-                      <span>Set Notification for Payout</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
             </div>
           </CardTitle>
         </CardHeader>
@@ -99,7 +115,7 @@ const DynamicLiveAccountCard: React.FC<DynamicLiveAccountCardProps> = ({
               <div>
                 Next Payout Date{' '}
                 <Label htmlFor="nextpayoutdate" className="font-medium ">
-                  <Moment format="YYYY-MM-DD" date={nextPayoutDate} />
+                  <Moment fromNow date={nextPayoutDate} />
                 </Label>
               </div>
             </div>

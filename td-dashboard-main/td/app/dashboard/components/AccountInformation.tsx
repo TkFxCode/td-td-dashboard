@@ -45,6 +45,7 @@ import AccountCard from './AccountInformation/LiveStatCard';
 import ProfitView from './AccountInformation/ProfitView';
 import DayProfitView from './AccountInformation/dayProfitView';
 import WeekProfitView from './AccountInformation/weekProfitView';
+import { Badge } from '@/app/components/ui/badge';
 
 interface SelectedAccountType {
   label: string;
@@ -413,12 +414,16 @@ const AccountInformation = ({
         </div>
         <Card className="">
           <CardHeader>
-            <CardTitle>Account summaries</CardTitle>
+            <CardTitle>
+              <h3 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+                Account Summaries
+              </h3>
+            </CardTitle>
           </CardHeader>
           <CardContent className="m-0 p-0">
             <div>
               <div>
-                <Card className="p-3 pt-5 md:min-h-full">
+                <Card className="p-3 pt-5 md:min-h-full m-2">
                   <CardTitle>
                     <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-center">
                       All Trade History
@@ -483,9 +488,15 @@ const AccountInformation = ({
                               ),
                             ].map((accountDetail, aIndex) => (
                               <TabsContent key={aIndex} value={accountDetail}>
-                                <h3 className="text-foreground text-center">
-                                  Trade History for {propFirm} {accountDetail}
-                                </h3>
+                                <div className="flex flex-col justify-center m-5">
+                                  <h3 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 justify-center flex mb-3">
+                                    Trade History For
+                                  </h3>
+                                  <div className="flex gap-3 justify-center">
+                                    <Badge>{propFirm}</Badge>{' '}
+                                    <Badge>{accountDetail}</Badge>
+                                  </div>
+                                </div>
                                 <ScrollArea className="h-[450px] rounded-md border p-4 ">
                                   <DataTable
                                     columns={columns}

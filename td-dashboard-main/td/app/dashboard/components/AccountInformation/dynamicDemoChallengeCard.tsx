@@ -76,7 +76,7 @@ const DynamicDemoChallengeCard: React.FC<DynamicDemoChallengeCardProps> = ({
         trades = tradingHistoryJson.trades;
       }
 
-      // Calculate the current balance by summing up the profit of all trades
+      
       const currentBalance = trades.reduce(
         (sum: number, trade: Trade) => sum + trade.profit,
         startingBalance

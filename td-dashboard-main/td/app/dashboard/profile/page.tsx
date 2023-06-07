@@ -17,39 +17,9 @@ const AccountSettings = () => {
           <TabsTrigger value="myProfile" className="w-full lg:w-auto ">
             My Profile
           </TabsTrigger>
-          <TabsTrigger value="security" className="w-full lg:w-auto ">
-            Security
-          </TabsTrigger>
-          <TabsTrigger value="tradeFloors" className="w-full lg:w-auto ">
-            Trade Floors
-          </TabsTrigger>
-          <TabsTrigger value="notifications" className="w-full lg:w-auto ">
-            Notifications
-          </TabsTrigger>
-          <TabsTrigger value="billing" className="w-full lg:w-auto ">
-            Billing
-          </TabsTrigger>
-          <TabsTrigger value="exportData" className="w-full lg:w-auto ">
-            Export Data
-          </TabsTrigger>
         </TabsList>
         <TabsContent value="myProfile" className="space-y-4 w-full">
           <ProfileForm />
-        </TabsContent>
-        <TabsContent value="security" className="space-y-4 w-full">
-          security
-        </TabsContent>
-        <TabsContent value="tradeFloors" className="space-y-4 w-full">
-          tradeFloors
-        </TabsContent>
-        <TabsContent value="notifications" className="space-y-4 w-full">
-          notifications
-        </TabsContent>
-        <TabsContent value="billing" className="space-y-4 w-full">
-          Billing
-        </TabsContent>
-        <TabsContent value="exportData" className="space-y-4 w-full">
-          ExportData
         </TabsContent>
       </Tabs>
     </div>

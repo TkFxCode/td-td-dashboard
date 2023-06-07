@@ -15,7 +15,7 @@ import { Separator } from '@/app/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from '@/app/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
 import { useUser } from '@/app/appwrite/useUser';
-import LoadingScreen from '@/app/components/loading/LoadingScreen'; 
+import LoadingScreen from '@/app/components/loading/LoadingScreen';
 
 export function SigninCard() {
   const [email, setEmail] = useState('');
@@ -23,32 +23,31 @@ export function SigninCard() {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const router = useRouter();
   const { login } = useUser();
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const handleSignin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setShowErrorAlert(false);
 
-    setLoading(true); 
+    setLoading(true);
 
     login(email, password)
       .then(() => {
         router.push('/dashboard');
       })
       .catch((error) => {
-        setLoading(false); 
+        setLoading(false);
         console.log(error);
         setShowErrorAlert(true);
       });
   };
 
-  
   if (loading) {
     return <LoadingScreen />;
   }
 
   return (
-    <Card className="max-w-lg mx-auto">
+    <Card className="w-full max-w-2xl mx-auto m-5">
       <CardHeader>
         <CardTitle className="">Sign in</CardTitle>
       </CardHeader>
@@ -98,14 +97,6 @@ export function SigninCard() {
           </div>
           <Button type="submit" className="mt-4 w-full">
             Sign in
-          </Button>
-          <CardContent className="text-center mt-4 mb-0">
-            <span className="text-gray-400">──────────</span>
-            <span className="mx-2 text-sm text-gray-600">Or</span>
-            <span className="text-gray-400">──────────</span>
-          </CardContent>
-          <Button className=" w-full">
-            <Mail className="mr-2 w-4" /> Login with Email
           </Button>
         </form>
       </CardContent>

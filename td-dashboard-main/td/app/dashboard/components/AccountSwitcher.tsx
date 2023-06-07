@@ -492,6 +492,7 @@ export default function AccountSwitcher() {
                                   <Label htmlFor="shareURL">
                                     Account Share URL
                                   </Label>
+                                  <p>Api works for TrueForexFunds</p>
                                 </div>
                               ) : (
                                 <div className="space-y-2">

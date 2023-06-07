@@ -44,12 +44,12 @@ const DynamicLiveAccountCard: React.FC<DynamicLiveAccountCardProps> = ({
 }) => {
   const { user } = useUser();
   const [currentBalance, setCurrentBalance] = useState(startBalance);
-  const [nextPayoutDate, setNextPayoutDate] = useState<string>(''); // Hold the next payout date
-  const [nextPayoutAmount, setNextPayoutAmount] = useState<number>(0); // Hold the next payout amount
+  const [nextPayoutDate, setNextPayoutDate] = useState<string>(''); 
+  const [nextPayoutAmount, setNextPayoutAmount] = useState<number>(0); 
 
   const calculatePayout = (start: number, current: number) => {
     const profit = current - start;
-    return profit > 0 ? profit * 0.8 : 0; // 80% of the profit
+    return profit > 0 ? profit * 0.8 : 0; 
   };
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const DynamicLiveAccountCard: React.FC<DynamicLiveAccountCardProps> = ({
         trades = tradingHistoryJson.trades;
       }
 
-      // Calculate the current balance by summing up the profit of all trades
+      
       const currentBalance = trades.reduce(
         (sum: number, trade: { profit: number }) => sum + trade.profit,
         startingBalance

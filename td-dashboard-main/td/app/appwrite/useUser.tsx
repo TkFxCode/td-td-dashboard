@@ -40,6 +40,37 @@ const createUserDocument = async (
     console.error('User document creation failed:', error);
   }
 };
+interface UserDocument {
+  username?: string;
+  email?: string;
+  $id?: string;
+  tasks?: string[];
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  bio?: string;
+  country?: string;
+  cityState?: string;
+  postalCode?: string;
+}
+
+export const updateUserDocument = async (
+  userId: string,
+  data: any
+): Promise<UserDocument | null> => {
+  try {
+    const response = await databases.updateDocument(
+      '6456b05eb0764a873d05',
+      '6456b066929fbb0247d3',
+      userId,
+      data
+    );
+    return response || null;
+  } catch (error) {
+    console.error('Failed to update user document:', error);
+    return null;
+  }
+};
 
 export const getUserDocument = async (userId: string) => {
   try {

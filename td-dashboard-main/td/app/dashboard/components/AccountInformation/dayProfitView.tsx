@@ -21,7 +21,7 @@ const mockDataDay = [
 
 const DayProfitView = ({ dailyProfits }: { dailyProfits: DataItem[] }) => {
   const { theme } = useTheme();
-  const isSmallScreen = useMediaQuery({ query: '(max-width: 576px)' }); // for sm screens
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 576px)' });
   const chartWidth = isSmallScreen ? 250 : 380;
 
   const CustomTooltip = ({

@@ -15,6 +15,7 @@ import {
 } from '@/app/components/ui/popover';
 import countries from './countries.json';
 import { cn } from '@/lib/utils';
+import { ScrollArea } from '../ui/scroll-area';
 
 export const CountryCombobox = ({ setCountry }) => {
   const [open, setOpen] = React.useState(false);
@@ -35,31 +36,33 @@ export const CountryCombobox = ({ setCountry }) => {
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput placeholder="Search country..." />
-          <CommandEmpty>No country found.</CommandEmpty>
-          <CommandGroup>
-            {countries.map((country) => (
-              <CommandItem
-                key={country.value}
-                onSelect={(currentValue) => {
-                  setCountry(currentValue);
-                  setValue(currentValue);
-                  setOpen(false);
-                }}
-              >
-                <Check
-                  className={cn(
-                    'mr-2 h-4 w-4',
-                    value === country.value ? 'opacity-100' : 'opacity-0'
-                  )}
-                />
-                {country.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
+      <PopoverContent className="w-full p-0">
+        <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+          <Command>
+            <CommandInput placeholder="Search country..." />
+            <CommandEmpty>No country found.</CommandEmpty>
+            <CommandGroup>
+              {countries.map((country) => (
+                <CommandItem
+                  key={country.value}
+                  onSelect={() => {
+                    setCountry(country.value);
+                    setValue(country.value);
+                    setOpen(false);
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      'mr-2 h-4 w-4',
+                      value === country.value ? 'opacity-100' : 'opacity-0'
+                    )}
+                  />
+                  {country.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </Command>
+        </ScrollArea>
       </PopoverContent>
     </Popover>
   );

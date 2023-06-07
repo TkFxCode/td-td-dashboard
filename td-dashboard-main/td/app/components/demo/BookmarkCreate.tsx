@@ -235,7 +235,7 @@ const BookmarkCreate: React.FC<BookmarkCreateProps> = ({ setRefresh }) => {
                             <Button
                               variant="outline"
                               className="w-10 rounded-full p-0"
-                              onClick={() => setEditMetaData({ ...metaData })} // Set the initial value of editMetaData when the button is clicked
+                              onClick={() => setEditMetaData({ ...metaData })} 
                             >
                               <Settings2 className="h-4 w-4" />
                               <span className="sr-only">Open popover</span>

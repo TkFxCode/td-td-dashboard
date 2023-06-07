@@ -26,22 +26,4 @@ export const features = [
       'Organize and customize your trading notes, ideas, and strategies with flexible, powerful tools.',
     icon: CheckSquare,
   },
-  {
-    title: 'Real-time Updates',
-    description:
-      'Stay connected with live updates from your MetaTrader account, directly on your dashboard.',
-    icon: TrendingUp,
-  },
-  {
-    title: 'Habit & Goal Tracker',
-    description:
-      'Monitor your progress and achieve your trading goals with a built-in habit and goal tracker.',
-    icon: Zap,
-  },
-  {
-    title: 'ChatGPT Integration',
-    description:
-      'Enhance your trading experience with AI-powered insights and suggestions from ChatGPT.',
-    icon: MessageCircle,
-  },
 ];

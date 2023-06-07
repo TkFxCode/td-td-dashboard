@@ -64,56 +64,7 @@ const About = () => {
             ))}
           </div>
           <h2 className="text-2xl font-bold mt-8 mb-4">Additional Benefits</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="flex items-start space-x-4 group">
-              <Clock className="text-primary w-12 h-12 group-hover:scale-110 transition duration-200 ease-in-out" />
-              <div>
-                <h3 className="text-xl font-semibold group-hover:text-gray-400  transition duration-200 ease-in-out">
-                  Time Zone Compatibility
-                </h3>
-                <p className="mt-2 group-hover:text-gray-400  transition duration-200 ease-in-out">
-                  Trade seamlessly across different time zones with our built-in
-                  time zone converter.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-4 group">
-              <Globe className="text-primary w-12 h-12 group-hover:scale-110 transition duration-200 ease-in-out" />
-              <div>
-                <h3 className="text-xl font-semibold group-hover:text-gray-400  transition duration-200 ease-in-out">
-                  Global Markets
-                </h3>
-                <p className="mt-2 group-hover:text-gray-400  transition duration-200 ease-in-out">
-                  Get access to global markets and a diverse range of trading
-                  instruments to maximize your potential.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-4 group">
-              <Star className="text-primary w-12 h-12 group-hover:scale-110 transition duration-200 ease-in-out" />
-              <div>
-                <h3 className="text-xl font-semibold group-hover:text-gray-400  transition duration-200 ease-in-out">
-                  Expert Insights
-                </h3>
-                <p className="mt-2 group-hover:text-gray-400 transition duration-200 ease-in-out">
-                  Gain valuable insights and trading ideas from industry experts
-                  to enhance your trading strategy.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-4 group">
-              <Contact className="text-primary w-12 h-12 group-hover:scale-110 transition duration-200 ease-in-out" />
-              <div>
-                <h3 className="text-xl font-semibold group-hover:text-gray-400 transition duration-200 ease-in-out">
-                  Community Support
-                </h3>
-                <p className="mt-2 group-hover:text-gray-400 transition duration-200 ease-in-out">
-                  Join a thriving community of traders and exchange knowledge,
-                  tips, and strategies to grow together.
-                </p>
-              </div>
-            </div>
-          </div>
+
           <p className="text-lg mt-6">
             We strive to provide an all-encompassing platform that enables you
             to make the most of your trading journey. Our trading dashboard is

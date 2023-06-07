@@ -11,7 +11,7 @@ import { Input } from '@/app/components/ui/input';
 import { Button } from '@/app/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/app/appwrite/useUser';
-import LoadingScreen from '@/app/components/loading/LoadingScreen'; 
+import LoadingScreen from '@/app/components/loading/LoadingScreen';
 import { CountryCombobox } from './test';
 
 export function SignupCard() {
@@ -20,9 +20,9 @@ export function SignupCard() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { signup } = useUser(); 
+  const { signup } = useUser();
   const avatarUrl = 'https://i.ibb.co/rxFMRry/profile-1.png';
   const [phoneNumber, setPhoneNumber] = useState('');
   const [bio, setBio] = useState('');
@@ -51,7 +51,7 @@ export function SignupCard() {
       return;
     }
 
-    setLoading(true); 
+    setLoading(true);
 
     try {
       await signup(
@@ -79,7 +79,7 @@ export function SignupCard() {
   }
 
   return (
-    <Card className="max-w-lg mx-auto">
+    <Card className="w-full max-w-2xl mx-auto m-5">
       <CardHeader>
         <CardTitle>Sign up</CardTitle>
       </CardHeader>

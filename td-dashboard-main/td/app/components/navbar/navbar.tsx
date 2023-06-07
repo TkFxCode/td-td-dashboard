@@ -11,13 +11,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/app/components/ui/dropdown-menu';
-import { useUser } from '@/app/appwrite/useUser'; 
+import { useUser } from '@/app/appwrite/useUser';
 import { UserProfile } from '@/app/dashboard/components/userProfile';
 
 const Navbar = () => {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, logout } = useUser(); 
+  const { user, logout } = useUser();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -76,11 +76,7 @@ const Navbar = () => {
           Updates
         </a>
       </li>
-      <li>
-        <a href="/pricing" className={buttonVariants({ variant: 'ghost' })}>
-          Pricing
-        </a>
-      </li>
+
       <li>
         <a
           href="/dashboard"

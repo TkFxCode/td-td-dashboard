@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import {
   Card,
@@ -10,6 +10,8 @@ import {
 } from '@/app/components/ui/card';
 import { Badge } from '@/app/components/ui/badge';
 import { Event, ApiData } from './types';
+import { Label } from '@/app/components/ui/label';
+import { Switch } from '@/app/components/ui/switch';
 
 interface CountryPieChartProps {
   data: ApiData;
@@ -18,13 +20,17 @@ interface CountryPieChartProps {
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const CountryPieChart: React.FC<CountryPieChartProps> = ({ data }) => {
+  const [filterToday, setFilterToday] = useState(false);
+
+  const toggleFilterToday = () => setFilterToday(!filterToday);
+
   const newsCountByCountry = data.reduce<{ [key: string]: number }>(
     (count, event) => {
       const date = new Date(event.date);
       const today = new Date();
       if (
-        date >= today &&
-        date <= new Date(today.setDate(today.getDate() + 7))
+        !filterToday ||
+        (date >= today && date <= new Date(today.setDate(today.getDate() + 7)))
       ) {
         count[event.country] = (count[event.country] || 0) + 1;
       }
@@ -44,6 +50,14 @@ const CountryPieChart: React.FC<CountryPieChartProps> = ({ data }) => {
         <CardTitle className="text-center text-3xl font-bold py-2">
           Country Event Distribution
         </CardTitle>
+        <div className="flex justify-center items-center space-x-2">
+          <Switch
+            id="date-filter"
+            checked={filterToday}
+            onCheckedChange={toggleFilterToday}
+          />
+          <Label htmlFor="date-filter">Filter by Todays Date</Label>
+        </div>
       </CardHeader>
 
       <CardContent className="flex flex-col items-center">

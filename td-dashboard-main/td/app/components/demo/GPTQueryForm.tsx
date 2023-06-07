@@ -42,14 +42,14 @@ export default function GPTQueryForm() {
     let tokenCount = 0;
     let contextText = '';
 
-    // Concat matched documents
+    
     for (let i = 0; i < documents.length; i++) {
       const document = documents[i];
       const content = document.content;
       const encoded = tokenizer.encode(content);
       tokenCount += encoded.text.length;
 
-      // Limit context to max 1500 tokens (configurable)
+      
       if (tokenCount > 4000) {
         break;
       }
@@ -93,7 +93,7 @@ export default function GPTQueryForm() {
           placeholder="Type your message here."
         />
 
-        {isLoading ? ( // Conditionally render the loading button
+        {isLoading ? ( 
           <Button disabled>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Please wait

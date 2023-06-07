@@ -431,7 +431,7 @@ const AccountInformation = ({
                   </CardTitle>
                   <CardContent className="m-2 p-2">
                     <Tabs className="w-full">
-                      <TabsList>
+                      <TabsList className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2  h-auto max-h-[250px] lg:min-h-0">
                         {[
                           ...new Set(
                             tradeHistories.map(
@@ -453,7 +453,7 @@ const AccountInformation = ({
                       ].map((propFirm, index) => (
                         <TabsContent key={index} value={propFirm}>
                           <Tabs className="w-full">
-                            <TabsList>
+                            <TabsList className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2 h-auto max-h-[250px] lg:min-h-0">
                               {[
                                 ...new Set(
                                   tradeHistories
@@ -497,7 +497,8 @@ const AccountInformation = ({
                                     <Badge>{accountDetail}</Badge>
                                   </div>
                                 </div>
-                                <ScrollArea className="h-[450px] rounded-md border p-4 ">
+                                {/* <ScrollArea className="h-[450px] rounded-md border p-4 "> */}
+                                <div className="overflow-y-auto h-[450px]">
                                   <DataTable
                                     columns={columns}
                                     data={
@@ -510,7 +511,8 @@ const AccountInformation = ({
                                       )[0].trades
                                     }
                                   />
-                                </ScrollArea>
+                                </div>
+                                {/* </ScrollArea> */}
                               </TabsContent>
                             ))}
                           </Tabs>

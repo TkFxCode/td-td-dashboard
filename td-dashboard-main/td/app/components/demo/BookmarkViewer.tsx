@@ -23,7 +23,7 @@ const BookmarkViewer: React.FC<BookmarkViewerProps> = ({ userId, refresh }) => {
     return {
       title,
       description,
-      tags: tags.split(','),
+      tags: tags.replace(/\s*,\s*/g, ', '), // replaces multiple spaces with a single space
       url,
       image,
     };

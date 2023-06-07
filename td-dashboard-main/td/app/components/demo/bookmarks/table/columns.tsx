@@ -28,8 +28,8 @@ export const columns: ColumnDef<Data>[] = [
     accessorKey: 'tags',
     header: 'Tags',
     cell: ({ row }) => {
-      const tags = row.getValue('tags') as string[];
-      return <div>{tags.join(', ')}</div>;
+      const tags = row.getValue('tags') as string;
+      return <div>{tags}</div>;
     },
   },
   {

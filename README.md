@@ -5,6 +5,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`appwrite`](
 The images below give you a small glimpse at what TheTradingDashboard offers:
 
 ![Screenshot](dashboard.png)
+![Screenshot](tasks.png)
+![Screenshot](dailLogs.png)
+![Screenshot](news1.png)
+![Screenshot](news2.png)
+![Screenshot](bookmars.png)
 
 ## Getting Started
 

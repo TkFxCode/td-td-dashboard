@@ -1,4 +1,20 @@
+### TheTradingDashboard
+
 This is a [Next.js](https://nextjs.org/) project with the new Nextjs 13 App Directory. Auth, and Database managed with [`appwrite`](https://appwrite.io/).
+
+This is my entry to the 2023 [Appwrite Hackathon](https://hashnode.com/hackathons/appwrite).
+Be sure to check out my [HashNode](https://hashnode.com/hackathons/appwrite) article for more details.
+You can find a video demo below of the application.
+
+# Desktop View
+
+Link
+
+# Mobile View
+
+Link
+
+# Recommended Mentions
 
 For the best UI Library check out [shadcn/ui](https://ui.shadcn.com/)
 

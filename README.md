@@ -1,4 +1,4 @@
-### TheTradingDashboard
+# TheTradingDashboard
 
 This is a [Next.js](https://nextjs.org/) project with the new Nextjs 13 App Directory. Auth, and Database managed with [`appwrite`](https://appwrite.io/).
 
@@ -6,15 +6,15 @@ This is my entry to the 2023 [Appwrite Hackathon](https://hashnode.com/hackathon
 Be sure to check out my [HashNode](https://hashnode.com/hackathons/appwrite) article for more details.
 You can find a video demo below of the application.
 
-# Desktop View
+### Desktop View
 
 Link
 
-# Mobile View
+### Mobile View
 
 Link
 
-# Recommended Mentions
+### Recommended Mentions
 
 For the best UI Library check out [shadcn/ui](https://ui.shadcn.com/)
 
@@ -22,24 +22,24 @@ For the best UI Library check out [shadcn/ui](https://ui.shadcn.com/)
 
 The images below give you a small glimpse at what TheTradingDashboard offers:
 
-# Trading Statistics (Select through all or specific accounts to summarise data)
+### Trading Statistics (Select through all or specific accounts to summarise data)
 
 ![Screenshot](dashboard.png)
 
-# Task Manager
+### Task Manager
 
 ![Screenshot](tasks.png)
 
-# Daily Trade Journal
+### Daily Trade Journal
 
 ![Screenshot](dailLogs.png)
 
-# Beautiful News Dashboard
+### Beautiful News Dashboard
 
 ![Screenshot](news1.png)
 ![Screenshot](news2.png)
 
-# Bookmark Manager to help you manage your learning materials(Search and filter functionality for ease of use).
+### Bookmark Manager to help you manage your learning materials(Search and filter functionality for ease of use).
 
 ![Screenshot](bookmars.png)
 

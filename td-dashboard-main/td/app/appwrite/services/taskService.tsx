@@ -23,10 +23,15 @@ export const createTask = async (
     });
 
     tasks.push(newTask);
-
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID is not defined');
+    }
     const response = await databases.updateDocument(
-      '6456b05eb0764a873d05',
-      '6456b066929fbb0247d3',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID,
       userId,
       {
         tasks: tasks,
@@ -61,10 +66,17 @@ export const editTask = async (
         userId: userId,
         ...updatedTask,
       });
-
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID is not defined'
+        );
+      }
       const response = await databases.updateDocument(
-        '6456b05eb0764a873d05',
-        '6456b066929fbb0247d3',
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID,
         userId,
         {
           tasks: tasks,
@@ -90,10 +102,17 @@ export const completeTask = async (userId: string, taskId: string) => {
       const task = JSON.parse(tasks[taskIndex]);
       task.completed = true;
       tasks[taskIndex] = JSON.stringify(task);
-
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID is not defined'
+        );
+      }
       const response = await databases.updateDocument(
-        '6456b05eb0764a873d05',
-        '6456b066929fbb0247d3',
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID,
         userId,
         {
           tasks: tasks,

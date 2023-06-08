@@ -1,12 +1,22 @@
 import axios from 'axios';
-import { account, databases, Query } from '@/app/appwrite/appwrite';
+import { databases, Query } from '@/app/appwrite/appwrite';
 import csvtojson from 'csvtojson';
 
 export const listTradeHistory = async (userId: string, apiKey: string) => {
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (
+      !process.env.NEXT_PUBLIC_APPWRITE_USER_TRADING_ACCOUNT_DATA_COLLECTION_ID
+    ) {
+      throw new Error(
+        'NEXT_PUBLIC_APPWRITE_USER_TRADING_ACCOUNT_DATA_COLLECTION_ID is not defined'
+      );
+    }
     const response = await databases.listDocuments(
-      '6456b05eb0764a873d05',
-      '646fba38d877c98f969c',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_TRADING_ACCOUNT_DATA_COLLECTION_ID,
       [Query.equal('AccountKey', apiKey)]
     );
     // console.log(response);
@@ -20,9 +30,17 @@ export const listTradeHistory = async (userId: string, apiKey: string) => {
 
 export const getallTradingAccountDocument = async (userId: string) => {
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID) {
+      throw new Error(
+        'NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID is not defined'
+      );
+    }
     const response = await databases.getDocument(
-      '6456b05eb0764a873d05',
-      '646f2225aa07cd89f076',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID,
       userId
     );
     const accounts = [
@@ -42,9 +60,17 @@ export const getallTradingAccountDocument = async (userId: string) => {
 
 export const getTradingAccountDocument = async (userId: string) => {
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID) {
+      throw new Error(
+        'NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID is not defined'
+      );
+    }
     const response = await databases.getDocument(
-      '6456b05eb0764a873d05',
-      '646f2225aa07cd89f076',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID,
       userId
     );
     return response;
@@ -56,9 +82,17 @@ export const getTradingAccountDocument = async (userId: string) => {
 
 export const createTradingAccountDocument = async (userId: string) => {
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID) {
+      throw new Error(
+        'NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID is not defined'
+      );
+    }
     const response = await databases.createDocument(
-      '6456b05eb0764a873d05',
-      '646f2225aa07cd89f076',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID,
       `${userId}`,
       {
         UserId: userId,
@@ -180,10 +214,17 @@ export const addTradingAccount = async (
           endDate,
         })
       );
-
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID is not defined'
+        );
+      }
       const response = await databases.updateDocument(
-        '6456b05eb0764a873d05',
-        '646f2225aa07cd89f076',
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID,
         userId,
         {
           [propFirm]: updatedPropFirm,
@@ -198,10 +239,21 @@ export const addTradingAccount = async (
       const apiResponse = await axios.get(`/api/trades/${apiKey}`);
       const tradingHistory = apiResponse.data;
       tradingHistoryString = JSON.stringify(tradingHistory);
-
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (
+        !process.env
+          .NEXT_PUBLIC_APPWRITE_USER_TRADING_ACCOUNT_DATA_COLLECTION_ID
+      ) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_USER_TRADING_ACCOUNT_DATA_COLLECTION_ID is not defined'
+        );
+      }
       const document = await databases.createDocument(
-        '6456b05eb0764a873d05',
-        '646fba38d877c98f969c',
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env
+          .NEXT_PUBLIC_APPWRITE_USER_TRADING_ACCOUNT_DATA_COLLECTION_ID,
         'unique()',
         { AccountKey: `${apiKey}`, TradingHistory: `${tradingHistoryString}` }
       );
@@ -220,10 +272,17 @@ export const addTradingAccount = async (
           endDate,
         })
       );
-
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID is not defined'
+        );
+      }
       const response = await databases.updateDocument(
-        '6456b05eb0764a873d05',
-        '646f2225aa07cd89f076',
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID,
         userId,
         {
           [propFirm]: updatedPropFirm,
@@ -245,10 +304,21 @@ export const addTradingAccount = async (
       };
 
       tradingHistoryString = JSON.stringify(tradingHistory);
-
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (
+        !process.env
+          .NEXT_PUBLIC_APPWRITE_USER_TRADING_ACCOUNT_DATA_COLLECTION_ID
+      ) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_USER_TRADING_ACCOUNT_DATA_COLLECTION_ID is not defined'
+        );
+      }
       const document = await databases.createDocument(
-        '6456b05eb0764a873d05',
-        '646fba38d877c98f969c',
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env
+          .NEXT_PUBLIC_APPWRITE_USER_TRADING_ACCOUNT_DATA_COLLECTION_ID,
         'unique()',
         { AccountKey: `${shareURL}`, TradingHistory: `${tradingHistoryString}` }
       );

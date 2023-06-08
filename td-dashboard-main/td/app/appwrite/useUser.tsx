@@ -17,9 +17,15 @@ const createUserDocument = async (
   postalCode: string
 ) => {
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID is not defined');
+    }
     const response = await databases.createDocument(
-      '6456b05eb0764a873d05',
-      '6456b066929fbb0247d3',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID,
       `${userId}`,
       {
         userId: userId,
@@ -59,9 +65,15 @@ export const updateUserDocument = async (
   data: any
 ): Promise<UserDocument | null> => {
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID is not defined');
+    }
     const response = await databases.updateDocument(
-      '6456b05eb0764a873d05',
-      '6456b066929fbb0247d3',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID,
       userId,
       data
     );
@@ -74,9 +86,15 @@ export const updateUserDocument = async (
 
 export const getUserDocument = async (userId: string) => {
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID is not defined');
+    }
     const response = await databases.getDocument(
-      '6456b05eb0764a873d05',
-      '6456b066929fbb0247d3',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID,
       userId
     );
     return response;

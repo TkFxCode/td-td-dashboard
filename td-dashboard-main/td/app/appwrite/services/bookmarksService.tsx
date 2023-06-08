@@ -6,23 +6,37 @@ export const addOrUpdateBookmarks = async (
 ) => {
   let userDocument;
 
-  
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID) {
+      throw new Error(
+        'NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID is not defined'
+      );
+    }
     userDocument = await databases.getDocument(
-      '6456b05eb0764a873d05',
-      '647f42fe0a78123c732e',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID,
       userId
     );
   } catch (error) {
     console.log('User document does not exist:', error);
   }
 
-  
   if (userDocument) {
     try {
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID is not defined'
+        );
+      }
       await databases.updateDocument(
-        '6456b05eb0764a873d05',
-        '647f42fe0a78123c732e',
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID,
         userId,
 
         {
@@ -34,9 +48,17 @@ export const addOrUpdateBookmarks = async (
     }
   } else {
     try {
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID is not defined'
+        );
+      }
       await databases.createDocument(
-        '6456b05eb0764a873d05',
-        '647f42fe0a78123c732e',
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID,
         `${userId}`,
         {
           bookmarks: bookmarks,
@@ -50,9 +72,17 @@ export const addOrUpdateBookmarks = async (
 export const getUserBookmarks = async (userId: string) => {
   let userDocument;
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID) {
+      throw new Error(
+        'NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID is not defined'
+      );
+    }
     userDocument = await databases.getDocument(
-      '6456b05eb0764a873d05',
-      '647f42fe0a78123c732e',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID,
       userId
     );
     return userDocument?.bookmarks || [];

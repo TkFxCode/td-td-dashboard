@@ -12,10 +12,23 @@ export const createOrUpdateNewsDocument = async () => {
   try {
     let document;
     try {
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_NEWS_COLLECTION_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_NEWS_COLLECTION_ID is not defined'
+        );
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_PUBLIC_NEWS_DOCUMENT_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_PUBLIC_NEWS_DOCUMENT_ID is not defined'
+        );
+      }
       document = await databases.getDocument(
-        '6456b05eb0764a873d05',
-        '647c8d2c22ed38ed07b0',
-        '243n2b45b4n23n4b543n'
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_NEWS_COLLECTION_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_PUBLIC_NEWS_DOCUMENT_ID
       );
     } catch (error) {
       console.log('Document does not exist yet:', error);
@@ -29,10 +42,23 @@ export const createOrUpdateNewsDocument = async () => {
       if (differenceInHours >= 24) {
         newsData = await fetchNewsData();
         console.log('News data fetched:', newsData);
+        if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+          throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+        }
+        if (!process.env.NEXT_PUBLIC_APPWRITE_NEWS_COLLECTION_ID) {
+          throw new Error(
+            'NEXT_PUBLIC_APPWRITE_NEWS_COLLECTION_ID is not defined'
+          );
+        }
+        if (!process.env.NEXT_PUBLIC_APPWRITE_PUBLIC_NEWS_DOCUMENT_ID) {
+          throw new Error(
+            'NEXT_PUBLIC_APPWRITE_PUBLIC_NEWS_DOCUMENT_ID is not defined'
+          );
+        }
         result = await databases.updateDocument(
-          '6456b05eb0764a873d05',
-          '647c8d2c22ed38ed07b0',
-          '243n2b45b4n23n4b543n',
+          process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+          process.env.NEXT_PUBLIC_APPWRITE_NEWS_COLLECTION_ID,
+          process.env.NEXT_PUBLIC_APPWRITE_PUBLIC_NEWS_DOCUMENT_ID,
           {
             news: JSON.stringify(newsData),
             lastUpdated: currentDate,
@@ -45,12 +71,25 @@ export const createOrUpdateNewsDocument = async () => {
         newsData = JSON.parse(document.news);
       }
     } else {
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_NEWS_COLLECTION_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_NEWS_COLLECTION_ID is not defined'
+        );
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_PUBLIC_NEWS_DOCUMENT_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_PUBLIC_NEWS_DOCUMENT_ID is not defined'
+        );
+      }
       newsData = await fetchNewsData();
       console.log('News data fetched:', newsData);
       result = await databases.createDocument(
-        '6456b05eb0764a873d05',
-        '647c8d2c22ed38ed07b0',
-        '243n2b45b4n23n4b543n',
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_NEWS_COLLECTION_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_PUBLIC_NEWS_DOCUMENT_ID,
         {
           news: JSON.stringify(newsData),
           lastUpdated: currentDate,
@@ -68,9 +107,17 @@ export const createOrUpdateNewsDocument = async () => {
 
 export const getUserNewsDocument = async (userId: string) => {
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID) {
+      throw new Error(
+        'NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID is not defined'
+      );
+    }
     const userDoc = await databases.getDocument(
-      '6456b05eb0764a873d05',
-      '647de75c02a0dab2c148',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID,
       userId
     );
     console.log('User news document fetched:', userDoc);
@@ -92,9 +139,17 @@ export const createOrUpdateUserNewsDocument = async (
       const currentUserNews = userDoc.userNews || [];
       const currentUserNewsParsed = JSON.parse(currentUserNews);
       const updatedUserNews = [...currentUserNewsParsed, ...newsEvents];
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID is not defined'
+        );
+      }
       const response = await databases.updateDocument(
-        '6456b05eb0764a873d05',
-        '647de75c02a0dab2c148',
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID,
         userId,
         {
           userNews: JSON.stringify(updatedUserNews),
@@ -103,9 +158,17 @@ export const createOrUpdateUserNewsDocument = async (
       console.log('User news document updated:', response);
       return response;
     } else {
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID is not defined'
+        );
+      }
       const response = await databases.createDocument(
-        '6456b05eb0764a873d05',
-        '647de75c02a0dab2c148',
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID,
         userId,
         {
           userId: userId,
@@ -134,10 +197,17 @@ export const removeNewsFromUserDocument = async (
           return news.title !== newsEvent.title;
         }
       );
-
+      if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+        throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+      }
+      if (!process.env.NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID) {
+        throw new Error(
+          'NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID is not defined'
+        );
+      }
       const response = await databases.updateDocument(
-        '6456b05eb0764a873d05',
-        '647de75c02a0dab2c148',
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID,
         userId,
         {
           userNews: JSON.stringify(updatedUserNews),

@@ -14,9 +14,17 @@ export const createNewMDXDocument = async (
   };
 
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID) {
+      throw new Error(
+        'NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID is not defined'
+      );
+    }
     const response = await databases.createDocument(
-      '6456b05eb0764a873d05',
-      '645c420225d6302464fe',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID,
       'unique()',
       documentData
     );
@@ -29,9 +37,17 @@ export const createNewMDXDocument = async (
 
 export const getAllMDXDocuments = async (userId: string) => {
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID) {
+      throw new Error(
+        'NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID is not defined'
+      );
+    }
     const response = await databases.listDocuments(
-      '6456b05eb0764a873d05',
-      '645c420225d6302464fe'
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID
     );
 
     const documents = response.documents.map((doc) => ({
@@ -53,9 +69,17 @@ export const getAllMDXDocuments = async (userId: string) => {
 
 export const fetchSingleMDXDocument = async (documentId: string) => {
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID) {
+      throw new Error(
+        'NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID is not defined'
+      );
+    }
     const response = await databases.getDocument(
-      '6456b05eb0764a873d05',
-      '645c420225d6302464fe',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID,
       documentId
     );
 
@@ -66,15 +90,22 @@ export const fetchSingleMDXDocument = async (documentId: string) => {
   }
 };
 
-
 export const updateMDXDocumentContent = async (
   documentId: string,
   content: string
 ) => {
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID) {
+      throw new Error(
+        'NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID is not defined'
+      );
+    }
     const response = await databases.updateDocument(
-      '6456b05eb0764a873d05',
-      '645c420225d6302464fe',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID,
       documentId,
       {
         content: content,
@@ -88,9 +119,17 @@ export const updateMDXDocumentContent = async (
 };
 export const deleteMDXDocument = async (documentId: string) => {
   try {
+    if (!process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID) {
+      throw new Error('NEXT_PUBLIC_APPWRITE_DATABASE_ID is not defined');
+    }
+    if (!process.env.NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID) {
+      throw new Error(
+        'NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID is not defined'
+      );
+    }
     const response = await databases.deleteDocument(
-      '6456b05eb0764a873d05',
-      '645c420225d6302464fe',
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID,
       documentId
     );
     console.log('Document deleted:', response);

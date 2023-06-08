@@ -11,14 +11,6 @@ import { useTheme } from 'next-themes';
 
 type DataItem = { day?: string; profit: number };
 
-const mockDataDay = [
-  { day: 'Mon', profit: 100 },
-  { day: 'Tue', profit: 200 },
-  { day: 'Wed', profit: 150 },
-  { day: 'Thu', profit: 220 },
-  { day: 'Fri', profit: 230 },
-];
-
 const DayProfitView = ({ dailyProfits }: { dailyProfits: DataItem[] }) => {
   const { theme } = useTheme();
   const isSmallScreen = useMediaQuery({ query: '(max-width: 576px)' });

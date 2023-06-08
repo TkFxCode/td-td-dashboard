@@ -77,6 +77,34 @@ export const createTradingAccountDocument = async (userId: string) => {
     return null;
   }
 };
+const processMetaTraderCSVData = async (csv: string) => {
+  const jsonArray = await csvtojson({ delimiter: ';' }).fromString(csv);
+  return jsonArray
+    .filter(({ TYPE }) => TYPE === 'SELL' || TYPE === 'BUY')
+    .map(
+      ({
+        ASSET: Symbol,
+        VOLUME: Volume,
+        TYPE: Type,
+        PROFIT: Profit,
+        'OPEN DATE': Open,
+        'CLOSE DATE': Close,
+      }) => ({
+        symbol: Symbol,
+        tradeType:
+          Type.toLowerCase() === 'buy' ? 'DEAL_TYPE_BUY' : 'DEAL_TYPE_SELL',
+        volume: parseFloat(Volume.replace(',', '.')),
+        entryPrice: 'null',
+        exitPrice: 'null',
+        commission: 'null',
+        swap: 'null',
+        profit: parseFloat(Profit.replace(',', '.')),
+        partials: 'null',
+        entryTime: Open,
+        exitTime: Close,
+      })
+    );
+};
 
 export const addTradingAccount = async (
   userId: string,
@@ -87,7 +115,8 @@ export const addTradingAccount = async (
   shareURL: string,
   csvData: string,
   startDate: Date,
-  endDate: Date
+  endDate: Date,
+  csvProcessor: string
 ) => {
   try {
     const processCSVData = async (csv: string) => {
@@ -126,7 +155,6 @@ export const addTradingAccount = async (
         })
       );
     };
-
     let userDoc = await getTradingAccountDocument(userId);
 
     if (!userDoc) {
@@ -179,7 +207,7 @@ export const addTradingAccount = async (
       );
       console.log('New document created:', document);
     } else if (csvData) {
-      const shareURL = '39847232910847';
+      const shareURL = accountNumber;
       const updatedPropFirm = userDoc[propFirm] || [];
       updatedPropFirm.push(
         JSON.stringify({
@@ -202,11 +230,16 @@ export const addTradingAccount = async (
         }
       );
       console.log('Trading account added:', response);
-      const tradesData = await processCSVData(csvData);
+      let tradesData;
+      if (csvProcessor === 'processMetaTraderCSVData') {
+        tradesData = await processMetaTraderCSVData(csvData);
+      } else {
+        tradesData = await processCSVData(csvData);
+      }
 
       const tradingHistory = {
         status: 'success',
-        startingBalance: 10000,
+        startingBalance: accountSize,
         totalTrades: tradesData.length,
         trades: tradesData,
       };

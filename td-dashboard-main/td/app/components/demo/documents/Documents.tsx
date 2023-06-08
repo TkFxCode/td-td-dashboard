@@ -2,6 +2,7 @@ import { useState, useEffect, FormEvent } from 'react';
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/app/components/ui/card';
@@ -22,8 +23,17 @@ import {
   deleteMDXDocument,
 } from '@/app/appwrite/services/MDXDocumentService';
 import MarkdownEditor from './MarkdownEditor';
-import LoadingScreen from '../loading/LoadingScreen';
-import { Input } from '../ui/input';
+import LoadingScreen from '../../loading/LoadingScreen';
+import { Input } from '../../ui/input';
+import { MoreVertical } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/app/components/ui/dropdown-menu';
 
 interface MDXDocument {
   userId: string;
@@ -148,29 +158,31 @@ export default function DocumentList() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {documents.map((doc) => (
-                <HoverCard key={doc.documentId}>
-                  <HoverCardTrigger>
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>{doc.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p>Last edited: {formatDate(doc.updatedAt)}</p>
-                      </CardContent>
-                    </Card>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="flex flex-col">
-                    <Button variant="outline" onClick={() => openDocument(doc)}>
-                      Open
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => deleteDocument(doc)}
-                    >
-                      Delete
-                    </Button>
-                  </HoverCardContent>
-                </HoverCard>
+                <Card key={doc.documentId}>
+                  <CardHeader>
+                    <CardTitle>{doc.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-row flex justify-between">
+                    <div>
+                      <p>Last edited: {formatDate(doc.updatedAt)}</p>
+                    </div>
+                    <div>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <MoreVertical className="h-5 w-5 " />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem onClick={() => openDocument(doc)}>
+                            Open
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => deleteDocument(doc)}>
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           )}

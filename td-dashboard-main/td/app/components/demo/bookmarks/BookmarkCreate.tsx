@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import extractMeta from './extractMeta';
 import {
   Card,
   CardContent,
@@ -13,7 +12,7 @@ import { Textarea } from '@/app/components/ui/textarea';
 import { Loader2, Settings2 } from 'lucide-react';
 import { Label } from '@/app/components/ui/label';
 import { useUser } from '@/app/appwrite/useUser';
-import { Input } from '../ui/input';
+import { Input } from '../../ui/input';
 import {
   Popover,
   PopoverContent,
@@ -235,7 +234,7 @@ const BookmarkCreate: React.FC<BookmarkCreateProps> = ({ setRefresh }) => {
                             <Button
                               variant="outline"
                               className="w-10 rounded-full p-0"
-                              onClick={() => setEditMetaData({ ...metaData })} 
+                              onClick={() => setEditMetaData({ ...metaData })}
                             >
                               <Settings2 className="h-4 w-4" />
                               <span className="sr-only">Open popover</span>

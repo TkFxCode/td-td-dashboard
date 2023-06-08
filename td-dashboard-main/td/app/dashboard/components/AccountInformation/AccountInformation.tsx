@@ -23,9 +23,9 @@ import {
   LineChart,
   ChevronsUpDown,
 } from 'lucide-react';
-import { Overview } from '@/app/components/demo/overviewChart';
-import { Trade, columns } from './tables/columns';
-import { DataTable } from './tables/data-table';
+import { Overview } from '@/app/dashboard/components/AccountInformation/overviewChart';
+import { Trade, columns } from '../tables/columns';
+import { DataTable } from '../tables/data-table';
 import { listTradeHistory } from '@/app/appwrite/services/tradingAccountService';
 import {
   HoverCard,
@@ -40,11 +40,9 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/app/components/ui/tabs';
-import AccountDetails from './AccountInformation/AccountSummary';
-import AccountCard from './AccountInformation/LiveStatCard';
-import ProfitView from './AccountInformation/ProfitView';
-import DayProfitView from './AccountInformation/dayProfitView';
-import WeekProfitView from './AccountInformation/weekProfitView';
+import AccountDetails from './AccountSummary';
+import DayProfitView from './dayProfitView';
+import WeekProfitView from './weekProfitView';
 import { Badge } from '@/app/components/ui/badge';
 
 interface SelectedAccountType {

@@ -1,5 +1,10 @@
 import React from 'react';
-import { Card, CardHeader, CardTitle } from '@/app/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/app/components/ui/card';
 import {
   Tabs,
   TabsContent,
@@ -133,7 +138,7 @@ const AccountDetails = ({ account }: { account: SelectedAccountType }) => {
                       )}
                       apiKey={account.shareURL}
                       goalBalance={
-                        parseInt(account.accountSize.replace('k', '000')) * 1.08
+                        parseInt(account.accountSize.replace('k', '000')) * 1.05
                       }
                       violationBalance={
                         parseInt(account.accountSize.replace('k', '000')) * 0.92
@@ -150,18 +155,29 @@ const AccountDetails = ({ account }: { account: SelectedAccountType }) => {
       </TabsContent>
 
       <TabsContent value="live">
-        {Object.entries(groupedAccounts).map(([propFirm, accounts]) =>
-          accounts['Live Account'].map((account) => (
-            <DynamicLiveAccountCard
-              key={account.accountNumber}
-              tradingAccountNumber={account.accountNumber}
-              startBalance={parseInt(account.accountSize.replace('k', '000'))}
-              startDate={account.startDate}
-              apiKey={account.shareURL}
-              endDate={account.endDate}
-            />
-          ))
-        )}
+        {Object.entries(groupedAccounts).map(([propFirm, accounts]) => (
+          <Card key={propFirm} className="m-2 ">
+            <CardHeader className="flex justify-between items-center px-5 py-3 border-b">
+              <CardTitle className="text-lg font-semibold">
+                {propFirm}
+              </CardTitle>
+              <CardContent className="w-full">
+                {accounts['Live Account'].map((account) => (
+                  <DynamicLiveAccountCard
+                    key={account.accountNumber}
+                    tradingAccountNumber={account.accountNumber}
+                    startBalance={parseInt(
+                      account.accountSize.replace('k', '000')
+                    )}
+                    startDate={account.startDate}
+                    apiKey={account.shareURL}
+                    endDate={account.endDate}
+                  />
+                ))}
+              </CardContent>
+            </CardHeader>
+          </Card>
+        ))}
       </TabsContent>
     </Tabs>
   );

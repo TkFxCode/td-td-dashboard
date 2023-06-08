@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { DataTable } from './bookmarks/table/date-table';
-import { columns } from './bookmarks/table/columns';
+import { DataTable } from './table/date-table';
+import { columns } from './table/columns';
 import { getUserBookmarks } from '@/app/appwrite/services/bookmarksService';
-import { Card } from '../ui/card';
+import { Card } from '../../ui/card';
 
 interface BookmarkViewerProps {
   userId: string;

@@ -9,9 +9,9 @@ import {
   CardTitle,
   CardFooter,
 } from '@/app/components/ui/card';
-import DocumentList from '../demo/Documents';
-import BookmarkCreate from '../demo/BookmarkCreate';
-import BookmarkViewer from '../demo/BookmarkViewer';
+import DocumentList from '../demo/documents/Documents';
+import BookmarkCreate from '../demo/bookmarks/BookmarkCreate';
+import BookmarkViewer from '../demo/bookmarks/BookmarkViewer';
 
 const BookmarksTab = () => {
   const { user, logout, getUserDocument } = useUser();

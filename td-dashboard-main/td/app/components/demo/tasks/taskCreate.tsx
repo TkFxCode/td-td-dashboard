@@ -45,7 +45,7 @@ import { Terminal, Waves } from 'lucide-react';
 import { useUser } from '@/app/appwrite/useUser';
 import { createTask } from '@/app/appwrite/services/taskService';
 import { Alert, AlertDescription, AlertTitle } from '@/app/components/ui/alert';
-import { useToast } from '../ui/use-toast';
+import { useToast } from '../../ui/use-toast';
 
 interface TaskCreateProps {
   onTaskCreated: () => void;
@@ -59,16 +59,14 @@ const TaskCreate: React.FC<TaskCreateProps> = ({ onTaskCreated }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    formData.append('taskDate', date?.toISOString() ?? ''); 
+    formData.append('taskDate', date?.toISOString() ?? '');
 
-    
     const data = Object.fromEntries(
       Array.from(formData.entries()).map(([key, value]) => [key, String(value)])
     );
 
     console.log(data);
 
-    
     if (!data.taskName || !data.taskDescription || !data.taskPriority) {
       alert('Task must have a title, description, and priority');
       return;
@@ -87,7 +85,7 @@ const TaskCreate: React.FC<TaskCreateProps> = ({ onTaskCreated }) => {
           title: 'Heads Up!',
           description: 'Task Added Successfully',
         });
-        onTaskCreated(); 
+        onTaskCreated();
       } catch (error) {
         alert('Error adding task');
         console.error('Error adding task:', error);

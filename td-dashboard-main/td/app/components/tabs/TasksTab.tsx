@@ -2,8 +2,8 @@ import React from 'react';
 import { useUser } from '@/app/appwrite/useUser';
 import { getAllMDXDocuments } from '@/app/appwrite/services/MDXDocumentService';
 import { useState, useEffect } from 'react';
-import TaskCreate from '../demo/taskCreate';
-import TaskList from '@/app/components/reusable/TaskList/TaskList';
+import TaskCreate from '../demo/tasks/taskCreate';
+import TaskList from '@/app/components/demo/tasks/TaskList';
 import {
   Card,
   CardContent,

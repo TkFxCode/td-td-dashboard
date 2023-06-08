@@ -51,7 +51,7 @@ import {
   getTradingAccountDocument,
 } from '@/app/appwrite/services/tradingAccountService';
 import { useState, useEffect } from 'react';
-import AccountInformation from './AccountInformation';
+import AccountInformation from './AccountInformation/AccountInformation';
 import {
   HoverCard,
   HoverCardContent,
@@ -60,6 +60,12 @@ import {
 import { Card } from '@/app/components/ui/card';
 import { Switch } from '@/app/components/ui/switch';
 import { Calendar } from '@/app/components/ui/calendar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/app/components/ui/dropdown-menu';
 type AccountDetail = {
   propFirm: string;
   shareURL: string;
@@ -110,6 +116,8 @@ export default function AccountSwitcher() {
   const [useURL, setUseURL] = useState(true);
   const [csvData, setCsvData] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
+  const [selectedCSVProcessor, setSelectedCSVProcessor] =
+    useState('processCSVData');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -122,6 +130,7 @@ export default function AccountSwitcher() {
             'MyFundedFx',
             'BespokeFunding',
             'TrueForexFunds',
+            'personal-accounts',
           ];
 
           let allAccounts: AccountDetail[] = [];
@@ -182,7 +191,8 @@ export default function AccountSwitcher() {
       useURL ? shareURL : '',
       !useURL ? csvData : '',
       startDate,
-      endDate
+      endDate,
+      selectedCSVProcessor
     );
     setShowNewAccountDialog(false);
   };
@@ -311,13 +321,19 @@ export default function AccountSwitcher() {
                       <div>
                         <div className="space-y-4 py-2 pb-4">
                           <div className="space-y-2">
-                            <Label htmlFor="propFirm">Prop Firm</Label>
+                            <Label htmlFor="propFirm">
+                              Prop Firm / Peronal Account
+                            </Label>
                             <Select onValueChange={handlePropFirmChange}>
                               <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Select a Prop Firm" />
+                                <SelectValue placeholder="Select a Prop Firm or Personal Account" />
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectGroup>
+                                  <SelectLabel>Personal Account</SelectLabel>
+                                  <SelectItem value="PersonalAccounts">
+                                    Personal Account
+                                  </SelectItem>
                                   <SelectLabel>Prop Firms</SelectLabel>
                                   <SelectItem value="FTMO">FTMO</SelectItem>
                                   <SelectItem value="MyForexFunds">
@@ -516,6 +532,62 @@ export default function AccountSwitcher() {
                             </div>
                           ) : (
                             <div className="space-y-2">
+                              <div>
+                                <Label>
+                                  <p>
+                                    Choose between FTMO CSV or Metatrader CSV.
+                                    You can find the script to create a
+                                    MetaTrader csv at{' '}
+                                    <a
+                                      href="https://www.mql5.com/en/market/product/61601?source=Site+Market+MT5+Free+Search+Rating006%3acsv"
+                                      style={{
+                                        fontWeight: 'bold',
+                                        textDecoration: 'underline',
+                                      }}
+                                    >
+                                      MetaTrader MQL5 Script
+                                    </a>
+                                  </p>
+                                </Label>
+                              </div>
+                              <div className="space-y-2 flex flex-col ">
+                                <Label htmlFor="csvProcessor">
+                                  Select CSV Processor
+                                </Label>
+                                <Card>
+                                  <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                      <Button
+                                        variant="outline"
+                                        className="w-full"
+                                      >
+                                        {selectedCSVProcessor}
+                                      </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                      <DropdownMenuItem
+                                        onSelect={() =>
+                                          setSelectedCSVProcessor(
+                                            'processCSVData'
+                                          )
+                                        }
+                                      >
+                                        Process FTMO CSV File
+                                      </DropdownMenuItem>
+                                      <DropdownMenuItem
+                                        onSelect={() =>
+                                          setSelectedCSVProcessor(
+                                            'processMetaTraderCSVData'
+                                          )
+                                        }
+                                      >
+                                        Process MetaTrader CSV File
+                                      </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                  </DropdownMenu>
+                                </Card>
+                              </div>
+
                               <Input
                                 type="file"
                                 id="csvUpload"

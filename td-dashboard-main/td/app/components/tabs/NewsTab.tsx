@@ -2,16 +2,7 @@
 import React from 'react';
 import { useUser } from '@/app/appwrite/useUser';
 import { useState, useEffect } from 'react';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from '@/app/components/ui/card';
-import GPTQueryForm from '../demo/GPTQueryForm';
-import NewsComponent from '../demo/news/NewsComponent';
-import DaysOfWeekNewsComponent from '../demo/news/DailyHighImpact';
+import { Card, CardContent, CardHeader } from '@/app/components/ui/card';
 import ParentComponent from '../demo/news/parentComponent';
 
 const NewsTab = () => {
@@ -37,9 +28,6 @@ const NewsTab = () => {
           </h1>
         </CardHeader>
         <CardContent>
-          {/* <GPTQueryForm /> */}
-          {/* <NewsComponent />
-          <DaysOfWeekNewsComponent /> */}
           <ParentComponent />
         </CardContent>
       </Card>

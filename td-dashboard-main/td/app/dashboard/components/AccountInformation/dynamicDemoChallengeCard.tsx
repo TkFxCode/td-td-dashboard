@@ -10,22 +10,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/app/components/ui/card';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from '@/app/components/ui/dropdown-menu';
 
 import { Alert, AlertDescription, AlertTitle } from '@/app/components/ui/alert';
 import { IoCheckmarkDoneSharp, IoWarningOutline } from 'react-icons/io5';
 import { Label } from '@/app/components/ui/label';
 import { IoIosClock } from 'react-icons/io';
 import Moment from 'react-moment';
-import { Archive, MoreVertical } from 'lucide-react';
 import { listTradeHistory } from '@/app/appwrite/services/tradingAccountService';
 import { useUser } from '@/app/appwrite/useUser';
 
@@ -76,7 +66,6 @@ const DynamicDemoChallengeCard: React.FC<DynamicDemoChallengeCardProps> = ({
         trades = tradingHistoryJson.trades;
       }
 
-      
       const currentBalance = trades.reduce(
         (sum: number, trade: Trade) => sum + trade.profit,
         startingBalance
@@ -99,7 +88,11 @@ const DynamicDemoChallengeCard: React.FC<DynamicDemoChallengeCardProps> = ({
   };
 
   const progress = calculateProgress(currentBalance, startBalance, goalBalance);
+
+  const isEndDatePast = new Date() > new Date(endDate);
+
   const status =
+    (isEndDatePast && currentBalance < goalBalance) ||
     currentBalance <= violationBalance
       ? 'Unfortunately you have violated the rules on your account'
       : currentBalance >= goalBalance
@@ -134,7 +127,7 @@ const DynamicDemoChallengeCard: React.FC<DynamicDemoChallengeCardProps> = ({
   };
   return (
     <>
-      <Card>
+      <Card className="mb-2">
         <CardHeader>
           <CardTitle>
             <div className="flex justify-between items-center">

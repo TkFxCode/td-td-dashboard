@@ -17,7 +17,7 @@ import {
   Users,
 } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Overview } from '@/app/components/demo/overviewChart';
+import { Overview } from '@/app/dashboard/components/AccountInformation/overviewChart';
 import Image from 'next/image';
 import { AspectRatio } from '../ui/aspect-ratio';
 import AccountSwitcher from '@/app/dashboard/components/AccountSwitcher';

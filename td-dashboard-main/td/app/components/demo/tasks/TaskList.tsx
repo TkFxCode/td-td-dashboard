@@ -56,7 +56,7 @@ const TaskList = ({
     const formData = new FormData(event.currentTarget);
 
     const updatedTask: Task = {
-      id: taskId, 
+      id: taskId,
       taskName: formData.get('taskName') as string,
       taskDescription: formData.get('taskDescription') as string,
       taskPriority: formData.get('taskPriority') as string,
@@ -220,7 +220,7 @@ const TaskList = ({
               </Popover>
               <Button
                 variant="outline"
-                className="rounded-full p-2 ml-5"
+                className=" rounded-full p-2 ml-5"
                 onClick={async () => {
                   if (user) {
                     await completeTask(user.$id, task.id);

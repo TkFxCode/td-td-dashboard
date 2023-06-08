@@ -71,7 +71,6 @@
     "framer-motion": "^10.12.10",
     "gpt3-tokenizer": "^1.1.5",
     "he": "^1.2.0",
-    "jsdom": "^22.1.0",
     "langchain": "^0.0.75",
     "lucide-react": "^0.206.0",
     "marked": "^5.0.1",
@@ -108,6 +107,7 @@
     "@editorjs/raw": "^2.4.0",
     "@editorjs/simple-image": "^1.5.1",
     "@types/he": "^1.2.0",
+    "@types/jsdom": "^21.1.1",
     "@types/papaparse": "^5.3.7",
     "@types/xml2js": "^0.4.11"
   }

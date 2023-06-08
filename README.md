@@ -4,11 +4,25 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`appwrite`](
 
 The images below give you a small glimpse at what TheTradingDashboard offers:
 
+# Trading Statistics (Select through all or specific accounts to summarise data)
+
 ![Screenshot](dashboard.png)
+
+# Task Manager
+
 ![Screenshot](tasks.png)
+
+# Daily Trade Journal
+
 ![Screenshot](dailLogs.png)
+
+# Beautiful News Dashboard
+
 ![Screenshot](news1.png)
 ![Screenshot](news2.png)
+
+# Bookmark Manager to help you manage your learning materials(Search and filter functionality for ease of use).
+
 ![Screenshot](bookmars.png)
 
 ## Getting Started

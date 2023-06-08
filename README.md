@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`appwrite`](https://appwrite.io/).
 
+##Features
+
+The images below give you a small glimpse at what TheTradingDashboard offers:
+
+![Screenshot](dashboard.png)
+
 ## Getting Started
 
 Before you are able to run the development server, you will need to update the .env.local

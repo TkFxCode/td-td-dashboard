@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`appwrite`](https://appwrite.io/).
 
-##Features
+## Features
 
 The images below give you a small glimpse at what TheTradingDashboard offers:
 

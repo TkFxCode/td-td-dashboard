@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`appwrite`](https://appwrite.io/).
+This is a [Next.js](https://nextjs.org/) project with the new Nextjs 13 App Directory. Auth, and Database managed with [`appwrite`](https://appwrite.io/).
+
+For the best UI Library check out [shadcn/ui](https://ui.shadcn.com/)
 
 ## Features
 

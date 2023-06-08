@@ -20,7 +20,67 @@ NEXT_PUBLIC_APPWRITE_PUBLIC_NEWS_DOCUMENT_ID=
 ```
 
 You will also need to create a Web App in Appwrite aswell as a database, and the correct collections.
-Foolow the steps below to setup your Appwrite Cloud Database correctly.
+Follow the steps below to setup your Appwrite Cloud Database correctly.
+
+1. Navigate to your [Appwrite Console](https://cloud.appwrite.io/console) and create a Project.
+2. Copy your Project ID into you .env.local as NEXT_PUBLIC_APPWRITE_PROJECT_ID
+3. In your project create a Database. Copy your Database ID into you .env.local as NEXT_PUBLIC_APPWRITE_DATABASE_ID
+4. In your Database create a new collection calles 'Users'. Copy your Collection ID into you .env.local as NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID
+5. Within this Collection create the following attributes;
+   1. KEY:'email' TYPE:'string' SIZE:'256'
+   2. KEY:'username' TYPE:'string' SIZE:'256'
+   3. KEY:'userId' TYPE:'string' SIZE:'256'
+   4. KEY:'tasks' TYPE:'string_ARRAY' SIZE:'256'
+   5. KEY:'firstName' TYPE:'string' SIZE:'256'
+   6. KEY:'latName' TYPE:'string' SIZE:'256'
+   7. KEY:'avatarUrl' TYPE:'string' SIZE:'256'
+   8. KEY:'phoneNumber' TYPE:'string' SIZE:'256'
+   9. KEY:'bio' TYPE:'string' SIZE:'256'
+   10. KEY:'country' TYPE:'string' SIZE:'256'
+   11. KEY:'cityState' TYPE:'string' SIZE:'256'
+   12. KEY:'postalCode' TYPE:'string' SIZE:'256'
+6. Within the settings of this collection, Update Permissions to All Users with Create, Read, Update, Delete.
+7. In your Database create a new collection calles 'Markdown Documents'. Copy your Collection ID into you .env.local as NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID.
+8. Within this Collection create the following attributes;
+   1. KEY:'userId' TYPE:'string' SIZE:'256'
+   2. KEY:'documentId' TYPE:'string' SIZE:'256'
+   3. KEY:'title' TYPE:'string' SIZE:'256'
+   4. KEY:'content' TYPE:'string' SIZE:'1073741824'
+   5. KEY:'createdAt' TYPE:'string' SIZE:'256'
+   6. KEY:'updatedAt' TYPE:'string' SIZE:'256'
+9. Within the settings of this collection, Update Permissions to All Users with Create, Read, Update, Delete.
+10. In your Database create a new collection calles 'Prop Firm Groups'. Copy your Collection ID into you .env.local as NEXT_PUBLIC_APPWRITE_USER_PROPFIRMGROUPS_COLLECTION_ID.
+11. Within this Collection create the following attributes;
+    1. KEY:'personal-accounts' TYPE:'string_ARRAY' SIZE:'1000000'
+    2. KEY:'FTMO' TYPE:'string_ARRAY' SIZE:'1000000'
+    3. KEY:'MyForexFunds' TYPE:'string_ARRAY' SIZE:'1000000'
+    4. KEY:'MyFundedFx' TYPE:'string_ARRAY' SIZE:'1000000'
+    5. KEY:'BespokeFunding' TYPE:'string_ARRAY' SIZE:'1000000'
+    6. KEY:'TrueForexFunds' TYPE:'string_ARRAY' SIZE:'1000000'
+    7. KEY:'UserId' TYPE:'string' SIZE:'256'
+12. Within the settings of this collection, Update Permissions to All Users with Create, Read, Update, Delete.
+13. In your Database create a new collection calles 'Trading Account Data'. Copy your Collection ID into you .env.local as NEXT_PUBLIC_APPWRITE_USER_TRADING_ACCOUNT_DATA_COLLECTION_ID.
+14. Within this Collection create the following attributes;
+    1. KEY:'AccountKey' TYPE:'string' SIZE:'1000'
+    2. KEY:'TradingHistory' TYPE:'string' SIZE:'1073741824'
+15. Within the settings of this collection, Update Permissions to All Users with Create, Read, Update, Delete.
+16. In your Database create a new collection calles 'News'. Copy your Collection ID into you .env.local as NEXT_PUBLIC_APPWRITE_NEWS_COLLECTION_ID.
+17. Within this Collection create the following attributes;
+    1. KEY:'lastUpdated' TYPE:'datetime'
+    2. KEY:'news' TYPE:'string' SIZE:'1073741824'
+18. Within the settings of this collection, Update Permissions to All Users with Create, Read, Update, Delete.
+19. In your Database create a new collection calles 'User News'. Copy your Collection ID into you .env.local as NEXT_PUBLIC_APPWRITE_USER_NEWS_COLLECTION_ID.
+20. Within this Collection create the following attributes;
+    1. KEY:'userId' TYPE:'string' SIZE:'256'
+    2. KEY:'userNews' TYPE:'string' SIZE:'1073741824'
+21. Within the settings of this collection, Update Permissions to All Users with Create, Read, Update, Delete.
+22. In your Database create a new collection calles 'User Bookmarks'. Copy your Collection ID into you .env.local as NEXT_PUBLIC_APPWRITE_USER_BOOKMARKS_COLLECTION_ID.
+23. Within this Collection create the following attributes;
+    1. KEY:'bookmarks' TYPE:'string' SIZE:'1073741824'
+24. Within the settings of this collection, Update Permissions to All Users with Create, Read, Update, Delete.
+
+This should complete your Appwrite Cloud setup.
+
 Navigate into the main app directory. Then run the install dependencies and run the development server:
 
 ```bash

@@ -91,3 +91,11 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+If you plan to publish to vercel you need to upload your environmental variables ontop vercel.
+You will also need to get your base url from vercel and update it in your appwrite project.
+
+1. Navigate to your project in the appwrite console and scroll down to integrations where you will see your web app.
+2. Click it and update your hostname to the base url of your vercel app.
+
+For example if your url is 'http://localhost:3000' only use 'localhost:3000' as your hostname.

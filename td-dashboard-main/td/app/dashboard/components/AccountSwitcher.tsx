@@ -333,7 +333,7 @@ export default function AccountSwitcher() {
                               <SelectContent>
                                 <SelectGroup>
                                   <SelectLabel>Personal Account</SelectLabel>
-                                  <SelectItem value="PersonalAccounts">
+                                  <SelectItem value="personal-accounts">
                                     Personal Account
                                   </SelectItem>
                                   <SelectLabel>Prop Firms</SelectLabel>

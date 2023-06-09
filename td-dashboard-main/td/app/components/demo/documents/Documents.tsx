@@ -81,7 +81,7 @@ export default function DocumentList() {
     const fetchDocuments = async () => {
       setIsLoading(true);
       const fetchedDocuments = await getAllMDXDocuments(user.$id);
-      console.log(fetchedDocuments);
+      //console.log(fetchedDocuments);
       setDocuments(fetchedDocuments);
       setIsLoading(false);
     };

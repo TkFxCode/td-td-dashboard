@@ -65,7 +65,7 @@ const TaskCreate: React.FC<TaskCreateProps> = ({ onTaskCreated }) => {
       Array.from(formData.entries()).map(([key, value]) => [key, String(value)])
     );
 
-    console.log(data);
+    //console.log(data);
 
     if (!data.taskName || !data.taskDescription || !data.taskPriority) {
       alert('Task must have a title, description, and priority');

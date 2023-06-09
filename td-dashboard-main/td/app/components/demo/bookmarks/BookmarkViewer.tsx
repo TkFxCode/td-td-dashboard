@@ -33,7 +33,7 @@ const BookmarkViewer: React.FC<BookmarkViewerProps> = ({ userId, refresh }) => {
     const fetchBookmarks = async () => {
       const userBookmarks = await getUserBookmarks(userId);
       const parsedBookmarks = userBookmarks.map(parseBookmark);
-      console.log(parsedBookmarks);
+      //console.log(parsedBookmarks);
       setBookmarks(parsedBookmarks);
     };
 

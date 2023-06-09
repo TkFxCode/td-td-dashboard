@@ -36,7 +36,7 @@ export function CheckboxReactHookFormMultiple({ userId }: { userId: string }) {
   useEffect(() => {
     const fetchItems = async () => {
       const accounts = await getallTradingAccountDocument(userId);
-      console.log(accounts);
+      //console.log(accounts);
       if (accounts.length) {
         const formattedAccounts = accounts.map((acc, index) => {
           const parsedAcc = JSON.parse(acc);

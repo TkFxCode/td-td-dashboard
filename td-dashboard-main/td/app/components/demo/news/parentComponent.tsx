@@ -16,7 +16,7 @@ const ParentComponent: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       let responseData = await createOrUpdateNewsDocument();
-      console.log('component response', responseData);
+      //console.log('component response', responseData);
       if (responseData.length > 0) {
         setData(responseData);
         setLoading(false);

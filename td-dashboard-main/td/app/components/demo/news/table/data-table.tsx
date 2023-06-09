@@ -78,7 +78,7 @@ export function DataTable<TData, TValue>({
 
   const refreshNews = React.useContext(RefreshNewsContext);
   const handleOnSubmit = async () => {
-    console.log(selectedRowData);
+    //console.log(selectedRowData);
 
     await createOrUpdateUserNewsDocument(user.$id, selectedRowData);
 

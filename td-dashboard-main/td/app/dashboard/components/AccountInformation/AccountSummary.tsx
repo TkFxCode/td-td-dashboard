@@ -38,7 +38,7 @@ type AccountDetail = {
 };
 
 const AccountDetails = ({ account }: { account: SelectedAccountType }) => {
-  console.log('Account Details sum:', account);
+  //console.log('Account Details sum:', account);
 
   const groupedAccounts = account.accountDetails.reduce<{
     [propFirm: string]: {

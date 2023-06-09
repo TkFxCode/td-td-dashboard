@@ -143,7 +143,7 @@ export default function AccountSwitcher() {
             },
           ];
 
-          console.log(document);
+          //console.log(document);
 
           let totalAccounts = 0;
           accountTypes.forEach((type) => {

@@ -1,4 +1,4 @@
-import { databases } from '@/app/appwrite/appwrite';
+import { databases, Query } from '@/app/appwrite/appwrite';
 
 export const createNewMDXDocument = async (
   userId: string,
@@ -47,7 +47,8 @@ export const getAllMDXDocuments = async (userId: string) => {
     }
     const response = await databases.listDocuments(
       process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
-      process.env.NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID
+      process.env.NEXT_PUBLIC_APPWRITE_USER_MDXDOCS_COLLECTION_ID,
+      [Query.equal('userId', userId)]
     );
 
     const documents = response.documents.map((doc) => ({

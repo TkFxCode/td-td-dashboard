@@ -118,6 +118,7 @@ export default function AccountSwitcher() {
   const [accountNumber, setAccountNumber] = useState('');
   const [selectedCSVProcessor, setSelectedCSVProcessor] =
     useState('processCSVData');
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -173,7 +174,7 @@ export default function AccountSwitcher() {
     };
 
     fetchData();
-  }, [user]);
+  }, [user, refreshKey]);
 
   const [propFirm, setPropFirm] = useState('');
   const [shareURL, setShareURL] = useState('');
@@ -195,6 +196,7 @@ export default function AccountSwitcher() {
       selectedCSVProcessor
     );
     setShowNewAccountDialog(false);
+    setRefreshKey(refreshKey + 1);
   };
   const handleAccountNumberChange = (value: string) => {
     setAccountNumber(value);

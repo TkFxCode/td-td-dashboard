@@ -40,6 +40,7 @@ type Props = {
   initialContents: string | null;
   selectedDocument: MDXDocument | null;
   clearSelectedDocument: () => void;
+  updateDocumentList: () => void;
 };
 
 const CustomFormattingToolbar: React.FC<ToolbarProps> = ({ editor }) => {
@@ -66,6 +67,7 @@ const MarkdownEditor: React.FC<Props> = ({
   initialContents,
   selectedDocument,
   clearSelectedDocument,
+  updateDocumentList,
 }) => {
   const newSlashMenuItems: ReactSlashMenuItem[] = defaultReactSlashMenuItems;
   const editor: BlockNoteEditor | null = useBlockNote({
@@ -90,6 +92,7 @@ const MarkdownEditor: React.FC<Props> = ({
       const DatabaseId = selectedDocument.documentId;
 
       await updateMDXDocumentContent(DatabaseId, contentString);
+      updateDocumentList();
       clearSelectedDocument();
     } else {
       console.error('No document selected');

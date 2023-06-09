@@ -131,7 +131,10 @@ export default function DocumentList() {
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   }
-
+  const updateDocumentList = async () => {
+    const fetchedDocuments = await getAllMDXDocuments(user.$id);
+    setDocuments(fetchedDocuments);
+  };
   return (
     <div className="p-4">
       <Card>
@@ -208,6 +211,7 @@ export default function DocumentList() {
                         setSelectedDocument(null);
                         setShowMarkdownEditor(false);
                       }}
+                      updateDocumentList={updateDocumentList}
                     />
                   </CardContent>
                 </Card>

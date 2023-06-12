@@ -66,6 +66,7 @@ const TaskList = ({
     if (user) {
       try {
         await editTask(user.$id, taskId, updatedTask);
+        onTaskUpdated();
       } catch (error) {
         console.error('Error editing task:', error);
       }

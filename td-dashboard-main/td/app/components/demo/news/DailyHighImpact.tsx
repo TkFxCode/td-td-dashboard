@@ -77,7 +77,7 @@ const DailyHighImpact: React.FC<DailyHighImpactProps> = ({ data }) => {
                       {highImpactEventsByDay(day)}
                     </Badge>
                   </HoverCardTrigger>
-                  <HoverCardContent className="w-auto">
+                  <HoverCardContent className="w-auto h-[300px] overflow-y-scroll">
                     <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight flex justify-center ">
                       More Information
                     </h3>

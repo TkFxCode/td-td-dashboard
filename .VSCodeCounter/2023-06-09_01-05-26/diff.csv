@@ -1,0 +1,12 @@
+"filename", "language", "JavaScript", "JSON", "JSON with Comments", "TypeScript", "XML", "Markdown", "comment", "blank", "total"
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\.eslintrc.json", "JSON with Comments", 0, 0, -3, 0, 0, 0, 0, -1, -4
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\README.md", "Markdown", 0, 0, 0, 0, 0, -21, 0, -14, -35
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\lib\utils.ts", "TypeScript", 0, 0, 0, -5, 0, 0, 0, -2, -7
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\next.config.js", "JavaScript", -7, 0, 0, 0, 0, 0, -1, -2, -10
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\package-lock.json", "JSON", 0, -24679, 0, 0, 0, 0, 0, -1, -24680
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\package.json", "JSON", 0, -114, 0, 0, 0, 0, 0, -1, -115
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\postcss.config.js", "JavaScript", -6, 0, 0, 0, 0, 0, 0, -1, -7
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\public\trading-icon.svg", "XML", 0, 0, 0, 0, -1, 0, 0, 0, -1
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\tailwind.config.js", "JavaScript", -78, 0, 0, 0, 0, 0, -1, -2, -81
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\tsconfig.json", "JSON with Comments", 0, 0, -33, 0, 0, 0, -4, -1, -38
+"Total", "-", -91, -24793, -36, -5, -1, -21, -6, -25, -24978

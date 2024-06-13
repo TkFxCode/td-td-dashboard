@@ -1,0 +1,43 @@
+Date : 2023-06-09 01:05:26
+Directory : c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app
+Total : 10 files,  -24947 codes, -6 comments, -25 blanks, all -24978 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| XML                |          1 |         -1 |          0 |          0 |         -1 |
+| TypeScript         |          1 |         -5 |          0 |         -2 |         -7 |
+| Markdown           |          1 |        -21 |          0 |        -14 |        -35 |
+| JSON with Comments |          2 |        -36 |         -4 |         -2 |        -42 |
+| JavaScript         |          3 |        -91 |         -2 |         -5 |        -98 |
+| JSON               |          2 |    -24,793 |          0 |         -2 |    -24,795 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                  | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                     |         10 |    -24,947 |         -6 |        -25 |    -24,978 |
+| ..                                                                                                    |         10 |    -24,947 |         -6 |        -25 |    -24,978 |
+| .. (Files)                                                                                            |          8 |    -24,941 |         -6 |        -23 |    -24,970 |
+| ..\lib                                                                                                |          1 |         -5 |          0 |         -2 |         -7 |
+| ..\public                                                                                             |          1 |         -1 |          0 |          0 |         -1 |
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                              | language           | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\.eslintrc.json          | JSON with Comments |         -3 |          0 |         -1 |         -4 |
+| c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\README.md               | Markdown           |        -21 |          0 |        -14 |        -35 |
+| c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\lib\utils.ts            | TypeScript         |         -5 |          0 |         -2 |         -7 |
+| c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\next.config.js          | JavaScript         |         -7 |         -1 |         -2 |        -10 |
+| c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\package-lock.json       | JSON               |    -24,679 |          0 |         -1 |    -24,680 |
+| c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\package.json            | JSON               |       -114 |          0 |         -1 |       -115 |
+| c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\postcss.config.js       | JavaScript         |         -6 |          0 |         -1 |         -7 |
+| c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\public\trading-icon.svg | XML                |         -1 |          0 |          0 |         -1 |
+| c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\tailwind.config.js      | JavaScript         |        -78 |         -1 |         -2 |        -81 |
+| c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\tsconfig.json           | JSON with Comments |        -33 |         -4 |         -1 |        -38 |
+| Total                                                                                                 |                    |    -24,947 |         -6 |        -25 |    -24,978 |
++-------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

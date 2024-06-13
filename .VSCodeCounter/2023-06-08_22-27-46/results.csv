@@ -1,0 +1,117 @@
+"filename", "language", "JavaScript", "JSON", "JSON with Comments", "TypeScript JSX", "TypeScript", "XML", "Markdown", "CSS", "comment", "blank", "total"
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\.eslintrc.json", "JSON with Comments", 0, 0, 3, 0, 0, 0, 0, 0, 0, 1, 4
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\README.md", "Markdown", 0, 0, 0, 0, 0, 0, 21, 0, 0, 14, 35
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\about\page.tsx", "TypeScript JSX", 0, 0, 0, 77, 0, 0, 0, 0, 0, 5, 82
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\api\bookmarks\[url]\route.ts", "TypeScript", 0, 0, 0, 0, 61, 0, 0, 0, 0, 10, 71
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\api\news\route.ts", "TypeScript", 0, 0, 0, 0, 50, 0, 0, 0, 0, 6, 56
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\api\trades\[apiKey]\route.ts", "TypeScript", 0, 0, 0, 0, 104, 0, 0, 0, 0, 14, 118
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\appwrite\appwrite.tsx", "TypeScript JSX", 0, 0, 0, 11, 0, 0, 0, 0, 0, 6, 17
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\appwrite\services\MDXDocumentService.tsx", "TypeScript JSX", 0, 0, 0, 131, 0, 0, 0, 0, 0, 9, 140
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\appwrite\services\NewsService.tsx", "TypeScript JSX", 0, 0, 0, 216, 0, 0, 0, 0, 0, 9, 225
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\appwrite\services\bookmarksService.tsx", "TypeScript JSX", 0, 0, 0, 89, 0, 0, 0, 0, 0, 5, 94
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\appwrite\services\taskService.tsx", "TypeScript JSX", 0, 0, 0, 122, 0, 0, 0, 0, 0, 7, 129
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\appwrite\services\tradingAccountService.tsx", "TypeScript JSX", 0, 0, 0, 316, 0, 0, 0, 0, 1, 14, 331
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\appwrite\useUser.tsx", "TypeScript JSX", 0, 0, 0, 232, 0, 0, 0, 0, 0, 15, 247
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\Auth\SignInCard.tsx", "TypeScript JSX", 0, 0, 0, 108, 0, 0, 0, 0, 0, 7, 115
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\Auth\SignUpCard.tsx", "TypeScript JSX", 0, 0, 0, 168, 0, 0, 0, 0, 0, 9, 177
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\Auth\countries.json", "JSON", 0, 962, 0, 0, 0, 0, 0, 0, 0, 1, 963
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\Auth\test.tsx", "TypeScript JSX", 0, 0, 0, 67, 0, 0, 0, 0, 0, 3, 70
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\Auth\utils.ts", "TypeScript", 0, 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\bookmarks\BookmarkCreate.tsx", "TypeScript JSX", 0, 0, 0, 356, 0, 0, 0, 0, 0, 16, 372
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\bookmarks\BookmarkViewer.tsx", "TypeScript JSX", 0, 0, 0, 42, 0, 0, 0, 0, 0, 9, 51
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\bookmarks\table\columns.tsx", "TypeScript JSX", 0, 0, 0, 68, 0, 0, 0, 0, 0, 3, 71
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\bookmarks\table\date-table.tsx", "TypeScript JSX", 0, 0, 0, 202, 0, 0, 0, 0, 0, 3, 205
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\documents\Documents.tsx", "TypeScript JSX", 0, 0, 0, 222, 0, 0, 0, 0, 0, 18, 240
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\documents\MarkdownEditor.tsx", "TypeScript JSX", 0, 0, 0, 114, 0, 0, 0, 0, 0, 8, 122
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\documents\editor.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 54, 0, 8, 62
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\news\CountryPieChart.tsx", "TypeScript JSX", 0, 0, 0, 108, 0, 0, 0, 0, 0, 10, 118
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\news\DailyHighImpact.tsx", "TypeScript JSX", 0, 0, 0, 106, 0, 0, 0, 0, 0, 9, 115
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\news\NewsComponent.tsx", "TypeScript JSX", 0, 0, 0, 141, 0, 0, 0, 0, 17, 8, 166
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\news\RefreshNewsContext.tsx", "TypeScript JSX", 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 4
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\news\parentComponent.tsx", "TypeScript JSX", 0, 0, 0, 47, 0, 0, 0, 0, 0, 8, 55
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\news\table\columns.tsx", "TypeScript JSX", 0, 0, 0, 240, 0, 0, 0, 0, 0, 26, 266
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\news\table\data-table.tsx", "TypeScript JSX", 0, 0, 0, 224, 0, 0, 0, 0, 2, 12, 238
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\news\types.ts", "TypeScript", 0, 0, 0, 0, 10, 0, 0, 0, 0, 2, 12
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\news\userNewsComponent.module.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 6, 0, 1, 7
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\news\userNewsComponent.tsx", "TypeScript JSX", 0, 0, 0, 204, 0, 0, 0, 0, 0, 28, 232
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\tasks\TaskList.module.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\tasks\TaskList.tsx", "TypeScript JSX", 0, 0, 0, 232, 0, 0, 0, 0, 1, 9, 242
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\demo\tasks\taskCreate.tsx", "TypeScript JSX", 0, 0, 0, 201, 0, 0, 0, 0, 0, 10, 211
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\loading\LoadingScreen.tsx", "TypeScript JSX", 0, 0, 0, 30, 0, 0, 0, 0, 0, 2, 32
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\navbar\navbar.module.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 14, 1, 3, 18
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\navbar\navbar.tsx", "TypeScript JSX", 0, 0, 0, 181, 0, 0, 0, 0, 11, 9, 201
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\tabs\BookmakrsTab.tsx", "TypeScript JSX", 0, 0, 0, 46, 0, 0, 0, 0, 0, 5, 51
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\tabs\DailyLogsTab.tsx", "TypeScript JSX", 0, 0, 0, 45, 0, 0, 0, 0, 0, 5, 50
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\tabs\HomeTab.tsx", "TypeScript JSX", 0, 0, 0, 49, 0, 0, 0, 0, 0, 7, 56
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\tabs\NewsTab.tsx", "TypeScript JSX", 0, 0, 0, 34, 0, 0, 0, 0, 0, 5, 39
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\tabs\TasksTab.tsx", "TypeScript JSX", 0, 0, 0, 95, 0, 0, 0, 0, 0, 10, 105
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\theme-provider.tsx", "TypeScript JSX", 0, 0, 0, 7, 0, 0, 0, 0, 0, 3, 10
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\themeToggle.tsx", "TypeScript JSX", 0, 0, 0, 27, 0, 0, 0, 0, 0, 5, 32
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\accordion.tsx", "TypeScript JSX", 0, 0, 0, 53, 0, 0, 0, 0, 0, 8, 61
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\alert-dialog.tsx", "TypeScript JSX", 0, 0, 0, 136, 0, 0, 0, 0, 0, 15, 151
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\alert.tsx", "TypeScript JSX", 0, 0, 0, 53, 0, 0, 0, 0, 0, 7, 60
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\aspect-ratio.tsx", "TypeScript JSX", 0, 0, 0, 4, 0, 0, 0, 0, 0, 4, 8
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\avatar.tsx", "TypeScript JSX", 0, 0, 0, 44, 0, 0, 0, 0, 0, 7, 51
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\badge.tsx", "TypeScript JSX", 0, 0, 0, 31, 0, 0, 0, 0, 0, 6, 37
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\button.tsx", "TypeScript JSX", 0, 0, 0, 50, 0, 0, 0, 0, 0, 6, 56
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\calendar.tsx", "TypeScript JSX", 0, 0, 0, 59, 0, 0, 0, 0, 0, 6, 65
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\card.tsx", "TypeScript JSX", 0, 0, 0, 71, 0, 0, 0, 0, 0, 9, 80
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\checkbox.tsx", "TypeScript JSX", 0, 0, 0, 26, 0, 0, 0, 0, 0, 5, 31
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\command.tsx", "TypeScript JSX", 0, 0, 0, 137, 0, 0, 0, 0, 0, 19, 156
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\dialog.tsx", "TypeScript JSX", 0, 0, 0, 116, 0, 0, 0, 0, 0, 13, 129
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\dropdown-menu.tsx", "TypeScript JSX", 0, 0, 0, 182, 0, 0, 0, 0, 0, 19, 201
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\hover-card.tsx", "TypeScript JSX", 0, 0, 0, 23, 0, 0, 0, 0, 0, 7, 30
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\input.tsx", "TypeScript JSX", 0, 0, 0, 21, 0, 0, 0, 0, 0, 5, 26
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\label.tsx", "TypeScript JSX", 0, 0, 0, 21, 0, 0, 0, 0, 0, 6, 27
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\navigation-menu.tsx", "TypeScript JSX", 0, 0, 0, 117, 0, 0, 0, 0, 0, 12, 129
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\popover.tsx", "TypeScript JSX", 0, 0, 0, 25, 0, 0, 0, 0, 0, 7, 32
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\progress.tsx", "TypeScript JSX", 0, 0, 0, 24, 0, 0, 0, 0, 0, 5, 29
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\radio-group.tsx", "TypeScript JSX", 0, 0, 0, 39, 0, 0, 0, 0, 0, 6, 45
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\scroll-area.tsx", "TypeScript JSX", 0, 0, 0, 43, 0, 0, 0, 0, 0, 6, 49
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\select.tsx", "TypeScript JSX", 0, 0, 0, 108, 0, 0, 0, 0, 0, 13, 121
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\separator.tsx", "TypeScript JSX", 0, 0, 0, 27, 0, 0, 0, 0, 0, 5, 32
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\sheet.tsx", "TypeScript JSX", 0, 0, 0, 214, 0, 0, 0, 0, 0, 17, 231
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\skeleton.tsx", "TypeScript JSX", 0, 0, 0, 13, 0, 0, 0, 0, 0, 3, 16
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\switch.tsx", "TypeScript JSX", 0, 0, 0, 25, 0, 0, 0, 0, 0, 5, 30
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\table.tsx", "TypeScript JSX", 0, 0, 0, 104, 0, 0, 0, 0, 0, 11, 115
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\tabs.tsx", "TypeScript JSX", 0, 0, 0, 48, 0, 0, 0, 0, 0, 8, 56
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\textarea.tsx", "TypeScript JSX", 0, 0, 0, 20, 0, 0, 0, 0, 0, 5, 25
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\toast.tsx", "TypeScript JSX", 0, 0, 0, 115, 0, 0, 0, 0, 0, 13, 128
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\toaster.tsx", "TypeScript JSX", 0, 0, 0, 32, 0, 0, 0, 0, 0, 4, 36
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\tooltip.tsx", "TypeScript JSX", 0, 0, 0, 23, 0, 0, 0, 0, 0, 8, 31
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\components\ui\use-toast.ts", "TypeScript", 0, 0, 0, 0, 156, 0, 0, 0, 0, 33, 189
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\AccountInformation.module.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 31, 0, 5, 36
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\AccountInformation.tsx", "TypeScript JSX", 0, 0, 0, 480, 0, 0, 0, 0, 6, 48, 534
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\AccountSummary.tsx", "TypeScript JSX", 0, 0, 0, 176, 0, 0, 0, 0, 0, 11, 187
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\NegativeProgress.tsx", "TypeScript JSX", 0, 0, 0, 24, 0, 0, 0, 0, 0, 5, 29
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\dayProfitView.tsx", "TypeScript JSX", 0, 0, 0, 67, 0, 0, 0, 0, 0, 7, 74
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\dynamicDemoChallengeCard.tsx", "TypeScript JSX", 0, 0, 0, 178, 0, 0, 0, 0, 0, 16, 194
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\dynamicDemoLiveCard.tsx", "TypeScript JSX", 0, 0, 0, 147, 0, 0, 0, 0, 0, 16, 163
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\overviewChart.tsx", "TypeScript JSX", 0, 0, 0, 116, 0, 0, 0, 0, 0, 4, 120
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountInformation\weekProfitView.tsx", "TypeScript JSX", 0, 0, 0, 71, 0, 0, 0, 0, 0, 8, 79
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\AccountSwitcher.tsx", "TypeScript JSX", 0, 0, 0, 638, 0, 0, 0, 0, 0, 23, 661
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\CheckboxReactHookFormMultiple.tsx", "TypeScript JSX", 0, 0, 0, 119, 0, 0, 0, 0, 0, 8, 127
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\tables\columns.tsx", "TypeScript JSX", 0, 0, 0, 99, 0, 0, 0, 0, 0, 12, 111
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\tables\data-table.tsx", "TypeScript JSX", 0, 0, 0, 75, 0, 0, 0, 0, 0, 6, 81
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\components\userProfile.tsx", "TypeScript JSX", 0, 0, 0, 92, 0, 0, 0, 0, 0, 5, 97
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\page.tsx", "TypeScript JSX", 0, 0, 0, 112, 0, 0, 0, 0, 0, 9, 121
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\profile\components\form-test.tsx", "TypeScript JSX", 0, 0, 0, 294, 0, 0, 0, 0, 0, 13, 307
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\profile\components\form.tsx", "TypeScript JSX", 0, 0, 0, 153, 0, 0, 0, 0, 0, 25, 178
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\dashboard\profile\page.tsx", "TypeScript JSX", 0, 0, 0, 27, 0, 0, 0, 0, 0, 3, 30
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\data\features.ts", "TypeScript", 0, 0, 0, 0, 28, 0, 0, 0, 0, 2, 30
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\globals.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 73, 1, 28, 102
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\layout.tsx", "TypeScript JSX", 0, 0, 0, 32, 0, 0, 0, 0, 0, 4, 36
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\login\page.tsx", "TypeScript JSX", 0, 0, 0, 15, 0, 0, 0, 0, 0, 3, 18
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\middleware\withAuth.tsx", "TypeScript JSX", 0, 0, 0, 21, 0, 0, 0, 0, 0, 6, 27
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\page.tsx", "TypeScript JSX", 0, 0, 0, 59, 0, 0, 0, 0, 0, 5, 64
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\signup\page.tsx", "TypeScript JSX", 0, 0, 0, 15, 0, 0, 0, 0, 0, 3, 18
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\app\updates\page.tsx", "TypeScript JSX", 0, 0, 0, 69, 0, 0, 0, 0, 1, 3, 73
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\lib\utils.ts", "TypeScript", 0, 0, 0, 0, 5, 0, 0, 0, 0, 2, 7
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\next.config.js", "JavaScript", 7, 0, 0, 0, 0, 0, 0, 0, 1, 2, 10
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\package-lock.json", "JSON", 0, 24679, 0, 0, 0, 0, 0, 0, 0, 1, 24680
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\package.json", "JSON", 0, 114, 0, 0, 0, 0, 0, 0, 0, 1, 115
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\postcss.config.js", "JavaScript", 6, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\public\trading-icon.svg", "XML", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\tailwind.config.js", "JavaScript", 78, 0, 0, 0, 0, 0, 0, 0, 1, 2, 81
+"c:\Users\tarik\OneDrive\Documents\GitHub\td-td-dashboard\td-dashboard-main\td\tsconfig.json", "JSON with Comments", 0, 0, 33, 0, 0, 0, 0, 0, 4, 1, 38
+"Total", "-", 91, 25755, 36, 9643, 417, 1, 21, 178, 47, 972, 37161
